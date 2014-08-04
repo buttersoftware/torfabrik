@@ -1,0 +1,238 @@
+<?php
+
+namespace pspiess\ContentBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Project
+ *
+ * @ORM\Table()
+ * @ORM\Entity(repositoryClass="pspiess\ContentBundle\Entity\ProjectRepository")
+ */
+class Project {
+     /**
+     * @ORM\OneToMany(targetEntity="Pictures", mappedBy="project")
+     */
+    protected $pictures;
+    
+    public function __construct() {
+        $this->pictures = new ArrayCollection();
+        $this->created = new \DateTime();
+    }
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="title", type="string", length=255)
+     */
+    private $title;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="short", type="text")
+     */
+    private $short;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="content", type="text")
+     */
+    private $content;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="category", type="string", length=255)
+     */
+    private $category;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="picture", type="blob")
+     */
+    private $picture;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="active", type="smallint")
+     */
+    private $active;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created", type="datetime")
+     */
+    private $created;
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId() {
+        return $this->id;
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     * @return Project
+     */
+    public function setTitle($title) {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string 
+     */
+    public function getTitle() {
+        return $this->title;
+    }
+
+    /**
+     * Set short
+     *
+     * @param string $short
+     * @return Project
+     */
+    public function setShort($short) {
+        $this->short = $short;
+
+        return $this;
+    }
+
+    /**
+     * Get short
+     *
+     * @return string 
+     */
+    public function getShort() {
+        return $this->short;
+    }
+
+    /**
+     * Set content
+     *
+     * @param string $content
+     * @return Project
+     */
+    public function setContent($content) {
+        $this->content = $content;
+
+        return $this;
+    }
+
+    /**
+     * Get content
+     *
+     * @return string 
+     */
+    public function getContent() {
+        return $this->content;
+    }
+
+    /**
+     * Set category
+     *
+     * @param string $category
+     * @return Project
+     */
+    public function setCategory($category) {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Get category
+     *
+     * @return string 
+     */
+    public function getCategory() {
+        return $this->category;
+    }
+
+    /**
+     * Set picture
+     *
+     * @param string $picture
+     * @return Project
+     */
+    public function setPicture($picture) {
+        $this->picture = $picture;
+
+        return $this;
+    }
+
+    /**
+     * Get picture
+     *
+     * @return string 
+     */
+    public function getPicture() {
+        return $this->picture;
+    }
+
+    /**
+     * Set active
+     *
+     * @param integer $active
+     * @return Project
+     */
+    public function setActive($active) {
+        $this->active = $active;
+
+        return $this;
+    }
+
+    /**
+     * Get active
+     *
+     * @return integer 
+     */
+    public function getActive() {
+        return $this->active;
+    }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     * @return Project
+     */
+    public function setCreated($created) {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime 
+     */
+    public function getCreated() {
+        return $this->created;
+    }
+
+}

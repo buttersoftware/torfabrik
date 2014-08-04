@@ -1,0 +1,56 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+<h1>Price</h1>
+
+<table class="record_properties">
+    <tbody>
+        <tr>
+            <th>Preis</th>
+            <td>{{ entity.price }}</td>
+        </tr>
+        <tr>
+            <th>Weekdayfrom</th>
+            <td>{{ entity.weekdayfrom }}</td>
+        </tr>
+        <tr>
+            <th>Weekdayto</th>
+            <td>{{ entity.weekdayto }}</td>
+        </tr>
+        <tr>
+            <th>Indentifier</th>
+            <td>{{ entity.indentifier }}</td>
+        </tr>
+        <tr>
+            <th>Timefrom</th>
+            <td>{{ entity.timefrom|date('H:i:s') }}</td>
+        </tr>
+        <tr>
+            <th>Timeto</th>
+            <td>{{ entity.timeto|date('H:i:s') }}</td>
+        </tr>
+        <tr>
+            <th>Note</th>
+            <td>{{ entity.note }}</td>
+        </tr>
+        <tr>
+            <th>Id</th>
+            <td>{{ entity.id }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<ul class="record_actions">
+    <li>
+        <a href="{{ path('price') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('price_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

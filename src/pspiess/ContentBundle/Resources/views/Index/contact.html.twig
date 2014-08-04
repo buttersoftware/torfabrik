@@ -1,0 +1,113 @@
+{% extends 'pspiessContentBundle::layout.html.twig' %}
+{% set menu = 'contact' %}
+
+{% block title %}Willkommen{% endblock %}
+
+{% block stylesheets %}
+<link href="{{ asset('resources/css/prettyPhoto.css')}}" rel="stylesheet">
+<link href="{{ asset('resources/css/flexslider.css')}}" rel="stylesheet">
+
+    {{ parent() }} <!-- import to override the standard css -->
+<link href="{{ asset('resources/css/style.css')}}" rel="stylesheet"><!-- !important THIS STYLE CSS ON BOTTOM OF STYLEs LIST-->    
+{% endblock %}
+
+{% block header %}
+    {{ parent() }}
+    {% render controller('pspiessContentBundle:Navigation:header', {'header': 'Kontakt'}) %}
+<div class="container">
+    <!-- CONTENT CONTAINER -->
+    <div class="container">
+        <div class="row">
+
+            <div class="span12">
+                <div class="color-bottom-line center">
+                    <h2 class="line center"><span><i class="fa-icon-map-marker main-color"></i> Besuchen Sie uns noch heute</span></h2>
+                </div>
+                <!-- MAP DIV // !Don't remove this !Important -->
+                <!-- MAP DIV // !Don't remove this !Important -->
+                <div id="map"></div>
+                <!-- MAP DIV // !Don't remove this !Important -->
+                <hr class="half">
+            </div>
+            <!-- MAP DIV // !Don't remove this !Important -->
+
+            <div class="span4">
+                <div class="color-bottom-line">
+                    <h3 class="standart-h3title"><i class="fa-icon-pushpin main-color"></i> Unsere Werkstatt</h3>
+                </div>
+                <div class="">
+                    <div class="well">
+                        <address>
+                            <p class="">
+                                <strong>GP-Fahrzeugtechnik</strong><br>
+                                <i class="fa-icon-map-marker"></i> Roosenstraße 2<br>
+                                Neukirchen-Vluyn 47506<br>
+                                <i class="fa-icon-phone-sign"></i> 02845 - 309 85 75<br>
+                                <i class="fa-icon-print"></i> 02845 - 309 71 62
+                            </p>
+                            <div class="foot-line"></div>
+                        </address>
+                    </div>	
+                    <h3 class="standart-h3title"><i class="fa-icon-share main-color"></i> Folgen Sie uns</h3>
+
+                    <div class="well">
+                        <div class="widget_nav_menu"> 
+                            <ul class="socialIcons">
+                                <li class="facebook"><a href="https://www.facebook.com/GpFahrzeugtechnik">facebook </a></li>
+                                <li class="googleplus"><a href="#">googleplus</a></li>
+                                <li class="youtube"><a href="#">youtube</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>								
+            </div>
+            <div class="span8">
+
+                <h3 class="standart-h3title"><i class="fa-icon-envelope-alt main-color"></i> Kontaktieren Sie uns noch heute</h3>
+                <!-- CONTACT FORM -->
+                {{ form(form) }}
+                <!-- END CONTACT FORM -->				
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block main %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript" src="{{ asset('resources/js/jquery.gmap.js')}}"></script>
+<script type="text/javascript">
+                jQuery(document).ready(function() {
+                    jQuery('#map').gMap({address: 'Roosenstraße 2, Neukirchen-Vluyn, Germany',
+                        panControl: true,
+                        zoomControl: true,
+                        zoomControlOptions: {
+                            style: google.maps.ZoomControlStyle.SMALL
+                        },
+                        mapTypeControl: true,
+                        scaleControl: true,
+                        streetViewControl: false,
+                        overviewMapControl: true,
+                        scrollwheel: true,
+                        icon: {
+                            image: "http://www.google.com/mapfiles/marker.png",
+                            shadow: "http://www.google.com/mapfiles/shadow50.png",
+                            iconsize: [20, 34],
+                            shadowsize: [37, 34],
+                            iconanchor: [9, 34],
+                            shadowanchor: [19, 34]
+                        },
+                        zoom: 15,
+                        markers: [
+                            {'address': 'Roosenstraße 2, Neukirchen-Vluyn, Germany'}
+                        ]
+
+
+                    });
+                });
+            </script>
+{% endblock %}

@@ -1,0 +1,442 @@
+{% extends 'pspiessContentBundle::layout.html.twig' %}
+{% set menu = 'offer' %}
+
+{% block title %}Willkommen{% endblock %}
+
+{% block stylesheets %}
+<link href="{{ asset('resources/css/prettyPhoto.css')}}" rel="stylesheet" type="text/css">
+<link href="{{ asset('resources/css/flexslider.css')}}" rel="stylesheet">
+
+    {{ parent() }} <!-- import to override the standard css -->
+<link href="{{ asset('resources/css/style.css')}}" rel="stylesheet"><!-- !important THIS STYLE CSS ON BOTTOM OF STYLEs LIST-->    
+{% endblock %}
+
+{% block header %}
+    {{ parent() }}
+    {% render controller('pspiessContentBundle:Navigation:header', {'header': 'Unser Angebot an Sie!'}) %}
+{% endblock %}
+
+{% block main %}
+<div class="container">
+    <div class="tabbable tabs-left"> <!-- Only required for left/right tabs -->
+        <ul class="nav nav-tabs responsive" id="myTab">
+            <li class="active"><a href="#tab1" data-toggle="tab"><i class="icon-autogas pull-left"></i><span class="main-color left"> Autogas/LPG</span><br><span class="second-word left"> Einbau &#8226; Wartung</span></a></li>
+            <li><a href="#tab2" data-toggle="tab"><i class="icon-cardipping pull-left"></i><span class="main-color left">Cardipping</span><br><span class="second-word left"> Fl&uuml;ssigfolierungen</span></a></li>
+            <li><a href="#tab3" data-toggle="tab"><i class="icon-autoglas pull-left"></i><span class="main-color left">Autoglas</span><br><span class="second-word left">Einbau Reparatur</span></a></li>
+            <li><a href="#tab4" data-toggle="tab"><i class="icon-tuning pull-left"></i><span class="main-color left">Tuning</span><br><span class="second-word left">Leistungssteigerungen &#8226; Chiptuning</span></a></li>
+            <li><a href="#tab5" data-toggle="tab"><i class="icon-reifen pull-left"></i><span class="main-color left">Reifenservice</span><br><span class="second-word left">Montage Einlagerung</span></a></li>
+            <li><a href="#tab6" data-toggle="tab"><i class="icon-unfall pull-left"></i><span class="main-color left">Unfallinstandsetzung</span><br><span class="second-word left">Karosserie &amp; Lackierarbeiten</span></a></li>
+            <li><a href="#tab7" data-toggle="tab"><i class="icon-motor pull-left"></i><span class="main-color left">Motordiagnose</span><br><span class="second-word left">Analyse &#8226; Instandsetzung</span></a></li>
+            <li><a href="#tab8" data-toggle="tab"><i class="icon-auspuff pull-left"></i><span class="main-color left">Auspuff</span><br><span class="second-word left">Einbau &#8226; Reparatur &#8226; individuelles</span></a></li>
+            <li><a href="#tab9" data-toggle="tab"><i class="icon-reparatur pull-left"></i><span class="main-color left">Reparaturen</span><br><span class="second-word left">aller Art</span></a></li>
+            <li><a href="#tab10" data-toggle="tab"><i class="icon-inspektion pull-left"></i><span class="main-color left">Inspektionen/&Ouml;lwechsel &nbsp&nbsp&nbsp&nbsp&nbsp</span><br><span class="second-word left">nach Wartungsplan</span></a></li>
+            <li><a href="#tab11" data-toggle="tab"><i class="icon-fahrwerk pull-left"></i><span class="main-color left">Fahrwerksbau</span><br><span class="second-word left">Tieferlegung nach Ma&szlig;</span></a></li>
+            <li><a href="#tab12" data-toggle="tab"><i class="icon-aufbereitung pull-left"></i><span class="main-color left">Aufbereitung</span><br><span class="second-word left">Innen &amp; Au&szlig;en</span></a></li>
+        </ul>
+        <div class="tab-content responsive">
+            <div class="tab-pane active" id="tab1">
+                <div class="row-fluid">
+                    <div class="span8">
+                        <ul class="slides">
+                            <li class="slide thumbnail">
+                                <img src="{{ asset('resources/images/offer/autogas.jpg')}}" alt="" />
+                            </li>
+                        </ul>
+                        <div class="well">
+                            <p>Hier bekommen Sie Information wann Sich Ihre Anschaffung amortisiert hat.</p>
+                            <a href="http://www.lpgrechner.de/">LPG Rechner</a>
+                        </div>
+                    </div>
+                    <div class="span4">
+                        <h2 class="folio-title">Autogas / LPG</h2>
+                        <p>
+                            <strong>Autogas</strong> (im internationalen Sprachgebrauch kurz <strong>LPG</strong>, aus dem Englischen Liquefied Petroleum Gas oder <strong>GPL</strong>, aus dem französischen Gaz de pétrole liquéfié) bezeichnet zum Einsatz in Fahrzeug-Verbrennungsmotoren vorgesehenes Flüssiggas, ein variables Gemisch aus Butan und Propan.
+                        </p>
+                        <p>
+                            Eine Umrüstung der PKW auf Flüssiggas <strong>LPG</strong> ist relativ unkompliziert. <strong>Fast jedes</strong> Fahrzeug mit Ottomotor kann für etwa <strong>1150 bis 3500 Euro</strong>, je nach Zylinderzahl, Leistung und der zu erreichenden Abgasnorm, umgebaut werden. Das <strong>Leergewicht</strong> einer LPG-Anlage beträgt etwa <strong>40 kg</strong>.
+                        </p>
+                        <p>
+                            Für weitere technische Informationen besuchen Sie uns oder rufen Sie einfach an, wir werden Sie unverbindlich und kompetent beraten.
+                        </p>
+                        <div class="no-color-line-no-border3"></div>
+                        <hr class="half2"/>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="tab2">
+                <div class="row-fluid">
+                    <div class="span8">
+                        <ul class="slides">
+                            <li class="slide thumbnail">
+                                <img src="{{ asset('resources/images/offer/cardip.jpg')}}" alt="" />
+                            </li>
+                        </ul>
+                        <div class="well">
+                            Motorhaube ab 149,- &euro;uro
+                        </div>
+                    </div>
+                    <div class="span4">
+                        <h2 class="folio-title">Cardipping</h2>
+                        <p>
+                            <strong>Cardipping</strong> ist ähnlich dem <strong>Carwrapping</strong> (Fahrzeugfolierung), allerdings unterscheidet es sich in der Anwendung.
+                        </p>
+                        <p>
+                            Statt die mit Folie auf das Auto zu verkleben, wird beim <strong>Cardipping</strong> das Fahrzeug mit <strong>Flüssig-Folie</strong> lackiert die sich optisch nicht mehr von einer <strong>Lackierung oder Folierung</strong> unterscheidet.
+                        </p>
+                        <p>
+                            Die Folie legt sich um jede <strong>Ecke und Ritze</strong>. Das ist ein Ergebnis, welches sich mit einem herkömmlichen <strong>Carwrapping</strong> nicht erreichen lässt.
+                        </p>
+                        <p>
+                            Bei Bedarf lässt sich die <strong>Folie</strong> einfach wieder <strong>abziehen</strong>.
+                            Unsere Folien sehen nicht nur <strong>schick</strong> aus, sie <strong>schützen und konservieren</strong> den original Lack.
+                        </p>
+
+                        <div class="no-color-line-no-border3"></div>
+                        <hr class="half2"/>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="tab3">
+                <div class="row-fluid">
+                    <div class="span8">
+                        <ul class="slides">
+                            <li class="slide thumbnail">
+                                <img src="{{ asset('resources/images/offer/1_c.jpg')}}" alt="" />
+                            </li>
+                        </ul>
+                        <div class="well">
+                            Einbau ab 49,- &euro;uro
+                        </div>
+                    </div>
+                    <div class="span4">
+                        <h2 class="folio-title">Autoglas</h2>
+                        <p>
+                            Die <strong>Windschutzscheibe</strong> ist heutzutage nicht nur eine nützliche Ergänzung am Auto, 
+                            sondern ist zu einem <strong>bedeutenden Designelement</strong> geworden. Eine andere wichtige Rolle der <strong>verklebten Windschutzscheibe</strong> ist, 
+                            dass die Windschutzscheibe zur <strong>Steifigkeit</strong> der Karosserie beiträgt.
+                        </p>
+                        <div class="no-color-line-no-border3"></div>
+                        <hr class="half2"/>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="tab4">
+                <div class="row-fluid">
+                    <div class="span8">
+                        <ul class="slides">
+                            <li class="slide thumbnail">
+                                <img src="{{ asset('resources/images/offer/1_c.jpg')}}" alt="" />
+                            </li>
+                        </ul>
+                        <div class="well">
+                            Preis auf Anfrage
+                        </div>
+                    </div>
+                    <div class="span4">
+                        <h2 class="folio-title">Tuning</h2>
+                        <p>
+                            Lassen auch Sie sich begeistern, vom zusätzlichen <strong>Leistungspotential</strong>, 
+                            welches wir dem Motor Ihres Fahrzeugs durch unser <strong>Chiptuning</strong> entlocken können. 
+                            Viele Tests und ausgiebige Erfahrungen mit unterschiedlichsten <strong>Fahrzeugmodellen</strong> machen es uns möglich, 
+                            Ihnen für ein breit gefächertes Spektrum an Fahrzeugmodellen <strong>professionelle</strong> Leistungssteigerungen durch 
+                            <strong>Kennfeldoptimierungen</strong> anbieten zu können.
+
+                        </p>
+                        <p>
+                            Wir bieten Ihnen Chiptuning und OBD- <strong>"On Board Diagnose"</strong> Tuning in Neukirchen-Vluyn, Krefeld, Moers und Umgebung.
+                            Egal ob <strong>Sport</strong> - oder <strong>ECO</strong> - <strong>Tuning</strong>, bei uns sind Sie an der richtigen Adresse.
+                            Dabei unterstützen wir <strong>alle</strong> gängigen Automarken, wie z.B.: BMW, Mercedes, Ford, Audi, Fiat, Porsche, Peugeot, Toyota und VW.
+                        </p>
+                        <div class="no-color-line-no-border3"></div>
+                        <hr class="half2"/>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="tab5">
+                <div class="row-fluid">
+                    <div class="span8">
+                        <ul class="slides">
+                            <li class="slide thumbnail">
+                                <img src="{{ asset('resources/images/offer/1_c.jpg')}}" alt="" />
+                            </li>
+                        </ul>
+                        <div class="well">
+                            Preis auf Anfrage
+                        </div>
+                    </div>
+                    <div class="span4">
+                        <h2 class="folio-title">Reifenservice</h2>
+                        <p>
+                            Versuchen Sie lieber nicht, Ihre Reifen selbst zu montieren. Vertrauen Sie diese Arbeit einem <strong>Spezialisten</strong> oder Ihrem Autohändler an. 
+                            Diese werden bei der <strong>Montage</strong> auch gleich die Reifen <strong>durchwechseln</strong>, sie <strong>auswuchten</strong> 
+                            und die Geometrie der Räder <strong>überprüfen</strong>.
+                        </p>
+                        <p>
+                            <strong>Reifeneinlagerung</strong> ist nicht gleich Reifeneinlagerung.
+                            Zur richtigen Lagerung der Räder ist ein <strong>trockener, dunkler und kühler Raum</strong> notwendig. 
+                            Denn durch Licht und Wärme verliert die Gummimischung an <strong>Festigkeit</strong> und <strong>Elastizität</strong>, altert schneller und wird rissig.
+                            Diese optimalen Bedingungen <strong>garantieren</strong> wir Ihnen mit einer fachgerechten Reifeneinlagerung bei <strong>GP</strong> 
+                            So <strong>sparen</strong> Sie Platz und verlängern die <strong>Lebensdauer</strong> Ihrer Räder.
+                        </p>
+                        <div class="no-color-line-no-border3"></div>
+                        <hr class="half2"/>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="tab6">
+                <div class="row-fluid">
+                    <div class="span8">
+                        <ul class="slides">
+                            <li class="slide thumbnail">
+                                <img src="{{ asset('resources/images/offer/1_c.jpg')}}" alt="" />
+                            </li>
+                        </ul>
+                        <div class="well">
+                            Preis auf Anfrage
+                        </div>
+                    </div>
+                    <div class="span4">
+                        <h2 class="folio-title">Unfallinstandsetzung </h2>
+                        <p>
+                            Ihr Fahrzeug ist nach einem Unfall keineswegs ein typischer Unfallwagen.
+                            Ob größere <strong>Schäden</strong> oder kleine <strong>Schrammen</strong>, bei uns sind Sie in <strong>guten Händen</strong>.
+                        </p>
+                        <p>
+                            Unser <strong>fachkompetentes</strong> Team <strong>repariert</strong> Fahrzeuge aller Hersteller schnell, 
+                            <strong>professionell und zuverlässig</strong>. 
+                            Im Schadensfall bieten wir Ihnen alles aus einer Hand: Von präzisen <strong>Reparaturausführungen</strong> bis hin 
+                            zu <strong>professionell</strong> durchgeführten <strong>Lackierarbeiten</strong>. Dabei achten wir sehr darauf, dass stark beschädigte 
+                            Teile gemäß den Herstellerrichtlinien und lediglich durch <strong>Originalersatzteile</strong> ersetzt werden. 
+                        </p>
+                        <p>
+                            Besonders wichtig ist die <strong>Instandsetzung</strong> der Karosserie. Wir stehen Ihnen hier mit umfassendem 
+                            <strong>Wissen und Können</strong> zur Verfügung.
+                        </p>
+                        <div class="no-color-line-no-border3"></div>
+                        <hr class="half2"/>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="tab7">
+                <div class="row-fluid">
+                    <div class="span8">
+                        <ul class="slides">
+                            <li class="slide thumbnail">
+                                <img src="{{ asset('resources/images/offer/1_c.jpg')}}" alt="" />
+                            </li>
+                        </ul>
+                        <div class="well">
+                            Preis auf Anfrage
+                        </div>
+                    </div>
+                    <div class="span4">
+                        <h2 class="folio-title">Motordiagnosse </h2>
+                        <p>
+                            Moderne Fahrzeuge besitzen immer <strong>komplexere</strong> elektronische Systeme mit einer großen Anzahl an <strong>Steuergeräten</strong>. 
+                            Tritt ein <strong>Fehler</strong> im System auf, zum Beispiel durch einen abgefallenen oder korrodierten Stecker, 
+                            so wird dieser Fehler im <strong>Fehlerspeicher</strong> abgespeichert. 
+                            Mittels spezieller <strong>Diagnosegeräte</strong> können die Fehler <strong>ausgelesen, diagnostiziert</strong> und behoben werden.
+                        </p>
+                        <p>
+                            Mit Hilfe der <strong>Motordiagnose</strong> werden Abläufe wie <strong>Zündzeitpunkt, Einspritzmenge des Kraftstoffs</strong> und 
+                            Luftzufuhr elektronisch so <strong>optimiert</strong>, wie es rein mechanisch nicht möglich wäre. Herstellerunabhängig
+                            <strong>prüfen</strong> wir mit modernster Technologie alle Steuerungsgeräte und Motoren.
+                        </p>
+                        <p>
+                            Unser Team besucht laufend <strong>Seminare und Schulungen</strong> und somit sind selbst neue Fahrzeug-Typen kein Problem für uns.
+                        </p>
+                        <div class="no-color-line-no-border3"></div>
+                        <hr class="half2"/>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="tab8">
+                <div class="row-fluid">
+                    <div class="span8">
+                        <ul class="slides">
+                            <li class="slide thumbnail">
+                                <img src="{{ asset('resources/images/offer/1_c.jpg')}}" alt="" />
+                            </li>
+                        </ul>
+                        <div class="well">
+                            Preis auf Anfrage
+                        </div>
+                    </div>
+                    <div class="span4">
+                        <h2 class="folio-title">Auspuff </h2>
+                        <p>
+                            Ihr Auspuff ist defekt? Ihr Schalldämpfer wird zum <strong>"Schallverstärker"</strong>? 
+                            Sie merken es spätestens dann, wenn der Auspuff immer <strong>lauter</strong> wird.
+                        </p>
+                        <p>
+                            Für den Austausch muss die <strong>Auspuffanlage</strong> in der Regel <strong>nicht komplett demontiert</strong> werden. 
+                            Die Rohre sind über <strong>Gummilagerungen</strong> mit der <strong>Karosserie</strong> verbunden und selbsttragend. 
+                            Es kann jedoch passieren, dass ein <strong>Bauteil</strong> nicht ganz <strong>passt</strong> und erst in die gewünschte Form geschnitten werden muss. 
+                        </p>
+                        <p>
+                            Mit unserem <strong>Fachpersonal</strong> erkennen wir schnell Probleme an Ihrem Auspuff und beseitigen diese <strong>kostengünstig und zuverlässig</strong>.
+                        </p>
+                        <div class="no-color-line-no-border3"></div>
+                        <hr class="half2"/>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="tab9">
+                <div class="row-fluid">
+                    <div class="span8">
+                        <ul class="slides">
+                            <li class="slide thumbnail">
+                                <img src="{{ asset('resources/images/offer/1_c.jpg')}}" alt="" />
+                            </li>
+                        </ul>
+                        <div class="well">
+                            Preis auf Anfrage
+                        </div>
+                    </div>
+                    <div class="span4">
+                        <h2 class="folio-title">Reparaturen </h2>
+                        <p>
+                            Reparatur und Wartung gehören zum <strong>Autoalltag</strong>. Wir führen <strong>professionelle Reparaturen</strong> aller Art durch.
+                            Unabhängig von Marke, Modell und Baujahr warten und <strong>reparieren</strong> wir jedes Fahrzeug.
+                        </p>
+                        <div class="no-color-line-no-border3"></div>
+                        <hr class="half2"/>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="tab10">
+                <div class="row-fluid">
+                    <div class="span8">
+                        <ul class="slides">
+                            <li class="slide thumbnail">
+                                <img src="{{ asset('resources/images/offer/1_c.jpg')}}" alt="" />
+                            </li>
+                        </ul>
+                        <div class="well">
+                            Preis auf Anfrage
+                        </div>
+                    </div>
+                    <div class="span4">
+                        <h2 class="folio-title">Inspektionen/Ölwechsel</h2>
+                        <p>
+                            Motoröl verbraucht sich im Laufe der Zeit <strong>von selbst</strong>! 
+                            Das <strong>Lebenselixier</strong> lhres Motors schwindet durch die Verdünnung mit <strong>Wasser und Kraftstoff</strong>, 
+                            durch <strong>Oxydation</strong>, durch den Verlust wichtiger Additive und durch eine <strong>mechanische Zerstörung</strong> der Moleküle. 
+                        </p>
+                        <p>
+                            Hinzu kommt die Ablagerung von <strong>Schmutzpartikeln</strong> im Motor. 
+                            Ein rechtzeitiger Wechsel <strong>säubert</strong> nicht nur das Innere lhres Motors, sondern stellt auch die volle 
+                            <strong>Leistungsfähigkeit</strong> lhres Antriebs wieder her.
+                        </p>
+                        <p>
+                            Die <strong>regelmäßige</strong> Inspektion gewährleistet den <strong>einwandfreien</strong> Betriebszustand 
+                            Ihres Fahrzeugs und damit die <strong>Sicherheit</strong> der Insassen und anderer Verkehrsteilnehmer. 
+                        </p>
+                        <div class="no-color-line-no-border3"></div>
+                        <hr class="half2"/>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="tab11">
+                <div class="row-fluid">
+                    <div class="span8">
+                        <ul class="slides">
+                            <li class="slide thumbnail">
+                                <img src="{{ asset('resources/images/offer/1_c.jpg')}}" alt="" />
+                            </li>
+                        </ul>
+                        <div class="well">
+                            Preis auf Anfrage
+                        </div>
+                    </div>
+                    <div class="span4">
+                        <h2 class="folio-title">Fahrwerksbau</h2>
+                        <p>
+                            Die <strong>Leistung</strong> des Fahrzeugs, insbesondere seine <strong>Fahreigenschaften</strong> zu verbessern ist der Zweck des 
+                            <strong>Fahrwerkstunings</strong> bei Automobilen. 
+                            Hierzu werden hauptsächlich Federn und Stoßdämpfer eines Fahrzeuges ausgetauscht oder verändert.
+                        </p>
+                        <p>
+                            Durch kürzere <strong>Federn</strong> und stärkere <strong>Stoßdämpfer</strong> wird die Karosserieneigung bei <strong>Kurvenfahrten</strong> modifiziert. 
+                            Der Einbau solcher <strong>Federn und Stoßdämpfer</strong> ist Grundvoraussetzung um das <strong>"das Auto tiefer legen"</strong> zu können 
+                            und damit für eine <strong>Optimierung</strong> der Fahrleistung zu erreichen.
+                        </p>
+                        <p>
+                            Bei uns bekommen Sie eine <strong>professione</strong> Beratung und eine <strong>perfekt</strong> auf Sie abgestimmte <strong>Optimierung</strong> ihres Fahrwerkes.
+                        </p>
+                        <div class="no-color-line-no-border3"></div>
+                        <hr class="half2"/>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="tab12">
+                <div class="row-fluid">
+                    <div class="span8">
+                        <ul class="slides">
+                            <li class="slide thumbnail">
+                                <img src="{{ asset('resources/images/offer/1_c.jpg')}}" alt="" />
+                            </li>
+                        </ul>
+                        <div class="well">
+                            Preis auf Anfrage
+                        </div>
+                    </div>
+                    <div class="span4">
+                        <h2 class="folio-title">Aufbereitung</h2>
+                        <p>
+                            Ob <strong>Zigarettenrauch, Tiergerüche</strong>, ... – gerade im Auto halten sich unangenehme Gerüche besonders hartnäckig 
+                            und machen jede <strong>Spritztour</strong> zur Tortur.﻿
+                            Wir beseitigen diese <strong>lästigen Gerüche</strong>. Freie Fahrt mit frischer Luft.
+                        </p>
+                        <p>
+                            <strong>Professionelle Fahrzeugaufbereitung</strong> auf höchstem Niveau.
+                            <strong>Saubere Arbeit</strong> und die Liebe zum <strong>Detail</strong> in Verbindung mit qualitativ <strong>hochwertigen</strong> Pflegemitteln
+                            und mit den neuesten, <strong>professionellen</strong> Maschinen verarbeitet werden, zeichnen uns aus. 
+                        </p>
+                        <div class="no-color-line-no-border3"></div>
+                        <hr class="half2"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+<script type="text/javascript" src="{{ asset('resources/js/hoverIntent.js')}}"></script>
+<script type="text/javascript" src="{{ asset('resources/js/responsive-tabs-2.3.2.js')}}"></script>
+<script>
+    // Can also be used with $(document).ready()
+
+    jQuery('.large-sl').flexslider({
+        animation: 'slide',
+        animationLoop: false,
+        useCSS: false,
+        controlNav: false,
+        controlsContainer: '.sl1',
+        initDelay: 0,
+        animationSpeed: '500',
+        startAt: 0,
+        touch: true,
+        minItems: 1,
+        maxItems: 30,
+        mousewheel: true,
+        pauseOnHover: true,
+        move: 1,
+        itemWidth: 770,
+        itemMargin: 0,
+    });
+    var $select = $('<select></select>');
+
+    $('.nav-tabs li a').each(function() {
+        $select.append('<option>' + $(this).text() + '</option>');
+    });
+</script>
+<script type="text/javascript">
+    (function($) {
+        fakewaffle.responsiveTabs(['phone', 'tablet']);
+    })(jQuery);
+</script>
+{% endblock %}

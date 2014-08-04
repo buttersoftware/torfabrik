@@ -1,0 +1,61 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Field list</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Fieldnr</th>
+                <th>Type</th>
+                <th>Slots</th>
+                <th>Ground</th>
+                <th>Care</th>
+                <th>Lenght</th>
+                <th>Width</th>
+                <th>Note</th>
+                <th>Created</th>
+                <th>Changed</th>
+                <th>Activation</th>
+                <th>Id</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('field_show', { 'id': entity.id }) }}">{{ entity.fieldnr }}</a></td>
+                <td>{{ entity.type }}</td>
+                <td>{{ entity.slots }}</td>
+                <td>{{ entity.ground }}</td>
+                <td>{% if entity.care %}{{ entity.care|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ entity.lenght }}</td>
+                <td>{{ entity.width }}</td>
+                <td>{{ entity.note }}</td>
+                <td>{% if entity.created %}{{ entity.created|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if entity.changed %}{{ entity.changed|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if entity.activation %}{{ entity.activation|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ entity.id }}</td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('field_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('field_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('field_new') }}">
+                Create a new entry
+            </a>
+        </li>
+    </ul>
+    {% endblock %}

@@ -1,0 +1,24 @@
+<div class="banner-rotator">
+    <div id="da-slider" class="da-slider">
+        {% for slides in slider %}
+               
+            <div class="da-slide">
+                <h2 class="fp-20280">{{ slides.title }}</h2>
+                <p>{{ slides.content }}</p>
+                <span class="da-link">
+                    <a href="{{ slides.link | raw}}" target="blank">
+                        <span class="main-link"> {{ slides.linktext }}</span> 
+                        <span class="arrow"> &rarr;</span>
+                    </a>
+                </span>
+                <div class="da-img visible-desktop"><img src="{{ asset('resources/images/slider/' ~ slides.id ~ '/' ~ slides.path)}}" alt="image01" /></div>
+            </div>
+        {% else %}
+        <li>Keine Daten erfasst</li>
+        {% endfor %}
+        <nav class="da-arrows">
+            <span class="da-arrows-prev"></span>
+            <span class="da-arrows-next"></span>
+        </nav>
+    </div>
+</div>

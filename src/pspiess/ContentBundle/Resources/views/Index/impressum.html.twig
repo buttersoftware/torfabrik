@@ -1,0 +1,73 @@
+{% extends 'pspiessContentBundle::layout.html.twig' %}
+{% set menu = 'contact' %}
+
+{% block title %}Willkommen{% endblock %}
+
+{% block stylesheets %}
+<link href="{{ asset('resources/css/prettyPhoto.css')}}" rel="stylesheet">
+<link href="{{ asset('resources/css/flexslider.css')}}" rel="stylesheet">
+
+    {{ parent() }} <!-- import to override the standard css -->
+<link href="{{ asset('resources/css/style.css')}}" rel="stylesheet"><!-- !important THIS STYLE CSS ON BOTTOM OF STYLEs LIST-->    
+{% endblock %}
+
+{% block header %}
+    {{ parent() }}
+    {% render controller('pspiessContentBundle:Navigation:header', {'header': 'Impressum'}) %}
+<div class="container">
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+                <div class="">
+                    <div class="well">
+                        <p>gp-fahrzeugtechnik<br />
+                            Roosenstraße 2<br />47506 Neukirchen-Vluyn</p>
+                        <p>Telefon: 02845 - 309 85 75<br />
+                            Telefax: 02845 - 309 71 62<br />
+                            E-Mail: <a href="mailto:info@fahrzeugtechnik.de">guer@fahrzeugtechnik.de</a><br />
+                        </p>
+                        <hr>
+                        <p><strong>Vertreten durch:</strong><br />Yasin Gür</p>
+                        <p>USt.-ID: DEXXXXXXXXXXXX <br></p>
+                        <hr>
+                        <p>
+                            Nutzungsbedingungen
+
+                            Site-Inhalt
+                            Sämtliche Daten, Texte, Bilder und Designs sind Eigentum der Firma gp-fahrzeugtechnik, soweit nicht anders vermerkt. Die Site als Ganzes und in ihren einzelnen Teilen ist durch ein Copyright geschützt. 
+                            Diese Site und ihr ganzer Inhalt ist nur für den persönlichen, nicht für den gewerblichen Gebrauch bestimmt. 
+                            Sie können den Inhalt und andere downloadbare Materialien für Ihren persönlichen Gebrauch downloaden oder kopieren. 
+                            Durch diesen Vorgang erwerben Sie keinerlei Rechte an den kopierten oder downgeloadeten Materialien. 
+                            Das Reproduzieren, Veröffentlichen, zur Anzeige bringen, Modifizieren und Verkaufen ganzer oder teilweiser Inhalte der Site ist nicht gestattet.
+                        </p>
+                        <p>
+                            Links zu anderen Websites und Dienstleistungen
+                            Mit Urteil vom 12. Mai 1998 - 312 O 85/98 - "Haftung für Links" hat das Landgericht (LG) Hamburg entschieden, dass man durch die Ausbringung eines Links die Inhalte der gelinkten Seite ggf. mit zu verantworten hat. 
+                            Dies kann - so das LG - nur dadurch verhindert werden, dass man sich ausdrücklich von diesen Inhalten distanziert. 
+                            Da wir unseren Besuchern Links zur Verfügung stellen, ein Gästebuch und Forum unterhalten, in die sich die Besucher selbst eintragen können 
+                            und wir dadurch keinerlei Einfluss auf die Gestaltung und die Inhalte der gelinkten Seiten haben, distanzieren wir uns hiermit ausdrücklich 
+                            von allen Inhalten aller gelinkten Seiten auf den Internetseiten der gp-fahrzeugtechnik und machen uns diese Inhalte nicht zu eigen. 
+                            Diese Erklärung gilt für alle auf unseren Seiten ausgebrachten Links. 
+                        </p>
+                        <p>
+                            Haftungshinweis
+                            Trotz sorgfältiger inhaltlicher Kontrolle übernehmen
+                            wir keine Haftung für die Inhalte externer Links.
+                            Für den Inhalt der verlinkten Seiten sind ausschließlich
+                            deren Betreiber verantwortlich.
+
+                        </p>
+                    </div>	
+                </div>								
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block main %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

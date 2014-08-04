@@ -1,0 +1,39 @@
+<div class="nav-reaction fp-20280">
+    <div class="navbar navbar-static-top"> 
+        <!-- navbar-fixed-top -->
+        <div class="navbar-inner">
+            <div class="container"> 
+                <a class="brand" href="{{ path('_index') }}">
+                    <img src="{{ asset('resources/images/logo.png')}}">
+                </a>
+                <div id="main-nav">
+                    <div class="nav-collapse collapse">
+                        <ul class="nav">
+                            {#{{ path('index') }}#}
+                            <li class="{{ index }} dropdown"><a href="{{ path('_index') }}"> Startseite  {% if app.user %}<b class="caret"></b>{% endif %}</a>
+                            {% if app.user %}
+                                <ul class="dropdown-menu">
+                                    <li><a href="{{ path('slider') }}">Alle Folien</a></li>
+                                </ul>
+                            {% endif %}
+                            </li>
+                            <li class="{{ offer }}"><a href="{{ path('_offer') }}"> Leistung</a></li>
+                            <li class="{{ projects }} dropdown"><a href="{{ path('_projects') }}"> Projekte {% if app.user %}<b class="caret"></b>{% endif %}</a>
+                            {% if app.user %}
+                                <ul class="dropdown-menu">
+                                    <li><a href="{{ path('project') }}">Alle Projekte</a></li>
+                                    <li><a href="{{ path('pictures') }}">Alle Bilder</a></li>
+                                </ul>
+                            {% endif %}
+                            </li>
+                            <li class="{{ contact }}"><a href="{{ path('_contact') }}"> Kontakt</a></li>
+                            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                            <li class="Logout"><a href="{{ path('logout') }}"> Logout</a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

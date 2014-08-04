@@ -1,0 +1,29 @@
+{% extends 'pspiessContentBundle::layout.html.twig' %}
+{% set menu = 'index' %}
+
+{% block title %}Folien bearbeiten Admin{% endblock %}
+
+{% form_theme form _self %}
+
+{% block submit_widget %}
+    <div class="btn-group pull-left">
+    <a class="btn btn-danger" href="{{ path('slider') }}"> zurück</a>
+    {% spaceless %}
+        {% set type = type|default('submit') %}
+        {{ block('button_widget') }}
+    {% endspaceless %}
+    </div>
+{% endblock submit_widget %}
+
+{% block header %}
+    {{ parent() }}
+    {% render controller('pspiessContentBundle:Navigation:header', {'header': 'Folie anlegen'}) %}
+
+<div class="container">
+    <div class="span12">
+        <div class="row">
+            {{ form(form) }}
+        </div>
+    </div>
+</div>
+{% endblock %}

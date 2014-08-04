@@ -1,0 +1,37 @@
+{% extends 'pspiessContentBundle::layout.html.twig' %}
+{% set menu = 'project' %}
+
+{% block title %}Bilder bearbeiten Admin{% endblock %}
+
+{% block header %}
+    {{ parent() }}
+    {% render controller('pspiessContentBundle:Navigation:header', {'header': 'Ansicht erstellte Bilder'}) %}
+
+<div class="container">
+    <div class="span12">
+        <div class="row">
+            <div class="span8">
+                <div class="thumbnail">
+                    <img class="img-rounded" src="{{ asset('resources/images/project/' ~ entity.id ~ '/' ~ entity.picture) }}" alt="{{ entity.title }}" />
+                </div>
+            </div>
+            <div class="span4">
+                <h1>{{entity.title}}</h1>
+                <h1>{{entity.project}}</h1>
+            </div>
+        </div>
+
+        <div class="btn-toolbar">
+            <div class="btn-group pull-right">
+                <a class="btn btn-info" href="{{ path('pictures') }}">Zurück zur Übersicht</a>
+                <a class="btn btn-warning"href="{{ path('pictures_edit', { 'id': entity.id }) }}">ändern</a>
+                <a class="btn btn-primary" href="{{ path('pictures_new') }}"> Neues Bild erstellen</a>
+            </div>
+            <div class="btn-group pull-left">
+            {{ form(delete_form) }}
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

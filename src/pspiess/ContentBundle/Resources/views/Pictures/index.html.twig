@@ -1,0 +1,35 @@
+{% extends 'pspiessContentBundle::layout.html.twig' %}
+{% set menu = 'project' %}
+
+{% block title %}Bilder bearbeiten{% endblock %}
+
+{% block header %}
+    {{ parent() }}
+    {% render controller('pspiessContentBundle:Navigation:header', {'header': 'Meine Projekte'}) %}
+
+<div class="container">
+    <div class="span12">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Titel</th>
+                    <th>Project</th>
+                    <th>Bild</th>
+                    <th class="pull-right">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entity in entities %}
+                <tr>
+                    <td >{{ entity.title }}</td>
+                    <td>{{ entity.project }}</td>
+                    <td>{{ entity.path }}</td>
+                    <td><a class="btn btn-warning pull-right" href="{{ path('pictures_edit', { 'id': entity.id }) }}">ändern</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a class="btn btn-primary pull-right" href="{{ path('pictures_new') }}"> Neues Bild hinzufügen</a>
+    </div>
+</div>
+{% endblock %}

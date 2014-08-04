@@ -1,0 +1,53 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Price list</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Price</th>
+                <th>Weekday</th>
+                <th>Indentifier</th>
+                <th>Timefrom</th>
+                <th>Timeto</th>
+                <th>Note</th>
+                <th>Created</th>
+                <th>Changed</th>
+                <th>Id</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('price_show', { 'id': entity.id }) }}">{{ entity.price }}</a></td>
+                <td>{{ entity.weekdayfrom }} bis {{ entity.weekdayto }}</td>
+                <td>{{ entity.indentifier }}</td>
+                <td>{{ entity.timefrom|date('H:i:s') }}</td>
+                <td>{{ entity.timeto|date('H:i:s') }}</td>
+                <td>{{ entity.note }}</td>
+                <td>{{ entity.id }}</td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('price_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('price_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('price_new') }}">
+                Create a new entry
+            </a>
+        </li>
+    </ul>
+    {% endblock %}

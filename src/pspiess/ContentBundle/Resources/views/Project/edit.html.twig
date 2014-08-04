@@ -1,0 +1,20 @@
+{% extends 'pspiessContentBundle::layout.html.twig' %}
+{% set menu = 'projects' %}
+
+{% block title %}Folien bearbeiten Admin{% endblock %}
+
+{% block header %}
+    {{ parent() }}
+{% render controller('pspiessContentBundle:Navigation:header', {'header': 'Projekt ändern'}) %}
+
+<div class="container">
+    <div class="span12">
+        <div class="row">
+            {{ form(edit_form) }}
+            {{ form(delete_form) }}
+            <a class='btn btn-info' href="{{ path('project') }}">Zurück zur Übersicht</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

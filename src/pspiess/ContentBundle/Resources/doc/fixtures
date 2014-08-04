@@ -1,0 +1,22 @@
+
+Fixture installieren
+http://symfony.com/doc/current/bundles/DoctrineFixturesBundle/index.html
+
+
+Good Tutorial
+http://www.iliveinperego.com/2013/02/doctrine2-onetomanymanytoone-relations-all-you-need-to-know/
+
+    /**
+     * Add players
+     *
+     * @param \Acme\DemoBundle\Entity\Player $players
+     * @return Team
+     */
+    public function addPlayer(\Acme\DemoBundle\Entity\Player $players)
+    {
+        $this->players[] = $players;
+        $players->setPlayfor($this);
+        return $this;
+    }
+
+Good example of a "OneToMany/ManyToOne" relation

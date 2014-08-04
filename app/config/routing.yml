@@ -1,0 +1,12 @@
+pspiess_letsplay:
+    resource: "@pspiessLetsplayBundle/Controller/"
+    type:     annotation
+    prefix:   /letsplay
+    
+#customer:
+#    resource: "@pspiessLetsplayBundle/Controller/"
+#    type:     annotation
+#    prefix:   /customerd
+
+#_user_bundle:
+#    resource: "@UserBundle/Resources/config/routing.yml"

@@ -1,0 +1,341 @@
+<?xml version="1.0"?>
+<skipper version="3.0.0.1104" name="Torfabrik" mvc="Symfony2" orm="Doctrine2" uuid="749ee221-cb64-48f5-bc02-e93f71ddba46">
+  <module name="pspiess\LetsplayBundle\Entity" import-format="Doctrine2Php" import-path="src/pspiess/LetsplayBundle/Entity" uuid="8e98907a-0e20-4465-ac14-7ac270f4c753">
+    <entity name="Booking" uuid="62b2d6f8-8e74-4024-b854-acb84dcf3438">
+      <field name="id" type="integer" required="true" primary="true" uuid="0b8379df-5ee3-4739-b31b-f37883286094">
+        <orm-attributes>
+          <attribute name="column">id</attribute>
+          <attribute name="generator">
+            <attribute name="strategy">AUTO</attribute>
+          </attribute>
+        </orm-attributes>
+      </field>
+      <field name="created" type="datetime" uuid="5926a01f-34d4-4628-9c46-e59a57b91ae4">
+        <orm-attributes>
+          <attribute name="column">created</attribute>
+        </orm-attributes>
+      </field>
+      <field name="updated" type="datetime" uuid="c9574138-c916-41b6-8722-e933e67fdf96">
+        <orm-attributes>
+          <attribute name="column">updated</attribute>
+        </orm-attributes>
+      </field>
+      <field name="bookingdate" type="date" uuid="1f220629-2590-4290-b80f-24d4cdc832a1">
+        <orm-attributes>
+          <attribute name="column">bookingdate</attribute>
+        </orm-attributes>
+      </field>
+      <field name="timefrom" type="time" uuid="e990cf30-9e41-4eed-b105-f366b81045f9">
+        <orm-attributes>
+          <attribute name="column">timefrom</attribute>
+        </orm-attributes>
+      </field>
+      <field name="timeto" type="time" uuid="dbc385c3-61a5-40a8-99ad-0027a0a5147a">
+        <orm-attributes>
+          <attribute name="column">timeto</attribute>
+        </orm-attributes>
+      </field>
+      <field name="note" type="text" uuid="3bce5022-f219-4fe0-bc12-48adecad8ca9">
+        <orm-attributes>
+          <attribute name="column">note</attribute>
+        </orm-attributes>
+      </field>
+      <field name="field_id" type="integer" uuid="d0f687ab-e016-47c4-beb2-8cfbe7c1e248"/>
+      <field name="customer_id" type="integer" uuid="cfe3a591-3fa2-400d-ae42-6eb99f9e7d27"/>
+      <orm-attributes>
+        <attribute name="repository-class">pspiess\LetsplayBundle\Entity\BookingRepository</attribute>
+        <attribute name="export-file-name">Booking.php</attribute>
+      </orm-attributes>
+    </entity>
+    <association from="Booking" to="Field" caption="Field Booking" owner-alias="booking" inverse-alias="field" uuid="4c0e7603-e9a9-4b7d-9e2d-1d9db165084b">
+      <association-field from="field_id" to="id"/>
+    </association>
+    <association from="Booking" to="Customer" caption="Customer Booking" owner-alias="booking" inverse-alias="customer" uuid="aa547440-cfbc-460f-9f66-27092709726b">
+      <association-field from="customer_id" to="id"/>
+    </association>
+    <entity name="Customer" uuid="8bc6380c-1b7b-4724-941a-aa6506aa07a4">
+      <field name="id" type="integer" required="true" primary="true" uuid="5a6882d2-a253-4132-b7e3-77fb6ac6d2d9">
+        <orm-attributes>
+          <attribute name="column">id</attribute>
+          <attribute name="generator">
+            <attribute name="strategy">AUTO</attribute>
+          </attribute>
+        </orm-attributes>
+      </field>
+      <field name="title" type="string" size="255" uuid="64cfd93c-1318-4b97-8019-5ae7873e1cc8">
+        <orm-attributes>
+          <attribute name="column">title</attribute>
+        </orm-attributes>
+      </field>
+      <field name="path" type="string" size="255" uuid="3cd85595-6736-4e8e-9a60-843bf08e4a74"/>
+      <field name="customernr" type="integer" uuid="32690ec1-2b71-4595-b8d4-d5109bbece2c">
+        <orm-attributes>
+          <attribute name="column">customernr</attribute>
+        </orm-attributes>
+      </field>
+      <field name="name" type="string" size="255" uuid="0d3d60ca-9392-4407-8d9c-a87eb1b7eda1">
+        <orm-attributes>
+          <attribute name="column">name</attribute>
+        </orm-attributes>
+      </field>
+      <field name="firstname" type="string" size="255" uuid="ad71fc46-d4b0-4d02-a3ea-697895bcc841">
+        <orm-attributes>
+          <attribute name="column">firstname</attribute>
+        </orm-attributes>
+      </field>
+      <field name="addon" type="string" size="255" uuid="ba08e2a7-6cdf-46af-9da4-3b8000180b6e">
+        <orm-attributes>
+          <attribute name="column">addon</attribute>
+        </orm-attributes>
+      </field>
+      <field name="street" type="string" size="255" uuid="6f8340fc-2393-4f91-a409-3a68aee96d61">
+        <orm-attributes>
+          <attribute name="column">street</attribute>
+        </orm-attributes>
+      </field>
+      <field name="zip" type="integer" uuid="da48486f-bd1e-4c75-8220-e359a21a67cc">
+        <orm-attributes>
+          <attribute name="column">zip</attribute>
+        </orm-attributes>
+      </field>
+      <field name="location" type="string" size="255" uuid="df9056a3-d1f5-44f8-9e02-5b3192ab1512">
+        <orm-attributes>
+          <attribute name="column">location</attribute>
+        </orm-attributes>
+      </field>
+      <field name="country" type="string" size="255" uuid="86a9e73b-a821-494f-93d2-6e480752dd56">
+        <orm-attributes>
+          <attribute name="column">country</attribute>
+        </orm-attributes>
+      </field>
+      <field name="phone" type="string" size="100" uuid="3c35cd97-17b0-4027-8eb7-1e622f68ecad">
+        <orm-attributes>
+          <attribute name="column">phone</attribute>
+        </orm-attributes>
+      </field>
+      <field name="mobile" type="string" size="100" uuid="4a7ce4dc-21ac-485d-8841-5a69b038be0b">
+        <orm-attributes>
+          <attribute name="column">mobile</attribute>
+        </orm-attributes>
+      </field>
+      <field name="fax" type="string" size="100" uuid="afbcca75-4143-43cd-b70d-1adbc9436ff4">
+        <orm-attributes>
+          <attribute name="column">fax</attribute>
+        </orm-attributes>
+      </field>
+      <field name="note" type="text" uuid="d0f0588f-5c9b-4582-9eab-2729eb5ec772">
+        <orm-attributes>
+          <attribute name="column">note</attribute>
+        </orm-attributes>
+      </field>
+      <field name="discount" type="decimal" uuid="d591df3e-d32b-4347-b36c-9c9861340b77">
+        <orm-attributes>
+          <attribute name="column">discount</attribute>
+        </orm-attributes>
+      </field>
+      <field name="birthday" type="date" uuid="6054ea9e-807e-4a52-91ae-d3f60bc6523c">
+        <orm-attributes>
+          <attribute name="column">birthday</attribute>
+        </orm-attributes>
+      </field>
+      <field name="sex" type="string" size="1" uuid="57d608fe-8522-4e3b-b4d9-3cc9a61702d2">
+        <orm-attributes>
+          <attribute name="column">sex</attribute>
+        </orm-attributes>
+      </field>
+      <field name="sepa" type="string" size="34" uuid="38148be4-184d-4897-8fd8-4cf18f0f7fb0">
+        <orm-attributes>
+          <attribute name="column">sepa</attribute>
+        </orm-attributes>
+      </field>
+      <field name="bic" type="string" size="11" uuid="92d57754-b312-479b-9aea-e7913a560673">
+        <orm-attributes>
+          <attribute name="column">bic</attribute>
+        </orm-attributes>
+      </field>
+      <field name="cashing" type="boolean" uuid="c684da17-5967-496a-aaf9-44f02d0b6b1a">
+        <orm-attributes>
+          <attribute name="column">cashing</attribute>
+        </orm-attributes>
+      </field>
+      <field name="bank" type="string" size="255" uuid="a19f621c-19e4-4f4f-ad3e-0f8141fc45b1">
+        <orm-attributes>
+          <attribute name="column">bank</attribute>
+        </orm-attributes>
+      </field>
+      <field name="bankOwner" type="string" size="255" uuid="7b5c1d48-7ba3-4c52-ac98-069fd9c36588">
+        <orm-attributes>
+          <attribute name="column">bank_owner</attribute>
+        </orm-attributes>
+      </field>
+      <field name="created" type="datetime" uuid="d7058ff4-eae8-4bfc-a093-ba03dd08df5a">
+        <orm-attributes>
+          <attribute name="column">created</attribute>
+        </orm-attributes>
+      </field>
+      <field name="changed" type="datetime" uuid="c3b6101c-655b-49dc-92f2-5b3adca743fb">
+        <orm-attributes>
+          <attribute name="column">changed</attribute>
+        </orm-attributes>
+      </field>
+      <orm-attributes>
+        <attribute name="repository-class">pspiess\LetsplayBundle\Entity\CustomerRepository</attribute>
+        <attribute name="export-file-name">Customer.php</attribute>
+      </orm-attributes>
+    </entity>
+    <entity name="Field" uuid="9542a9f6-0e1f-4f4b-9b4f-0c6f07ca89be">
+      <field name="id" type="integer" required="true" primary="true" uuid="f785eaa9-57e7-4a14-8c3d-805e2c831263">
+        <orm-attributes>
+          <attribute name="column">id</attribute>
+          <attribute name="generator">
+            <attribute name="strategy">AUTO</attribute>
+          </attribute>
+        </orm-attributes>
+      </field>
+      <field name="fieldnr" type="integer" required="true" uuid="3c1f29bb-c3fe-4626-bb17-f6cc988dbb39">
+        <orm-attributes>
+          <attribute name="column">fieldnr</attribute>
+        </orm-attributes>
+      </field>
+      <field name="type" type="string" size="255" uuid="dfcd6e18-4424-4743-bb51-cf878732ea66">
+        <orm-attributes>
+          <attribute name="column">type</attribute>
+        </orm-attributes>
+      </field>
+      <field name="slots" type="smallint" uuid="b30b1f6f-6bc9-422d-ad2c-ac4e13cb55cc">
+        <orm-attributes>
+          <attribute name="column">slots</attribute>
+        </orm-attributes>
+      </field>
+      <field name="ground" type="string" size="255" uuid="73a6cbc5-d592-4b1d-93e8-fdd67c2ac0d3">
+        <orm-attributes>
+          <attribute name="column">ground</attribute>
+        </orm-attributes>
+      </field>
+      <field name="care" type="date" uuid="74f5d7a2-dd26-4eb1-bb18-c7e5af544362">
+        <orm-attributes>
+          <attribute name="column">care</attribute>
+        </orm-attributes>
+      </field>
+      <field name="lenght" type="decimal" uuid="18ac6900-c189-4d22-ba58-2ae36fe26449">
+        <orm-attributes>
+          <attribute name="column">lenght</attribute>
+        </orm-attributes>
+      </field>
+      <field name="width" type="decimal" uuid="48d8ad64-367c-4195-a0eb-97d1bda5c795">
+        <orm-attributes>
+          <attribute name="column">width</attribute>
+        </orm-attributes>
+      </field>
+      <field name="note" type="text" uuid="57911f59-3124-447c-9a27-50631d76403e">
+        <orm-attributes>
+          <attribute name="column">note</attribute>
+        </orm-attributes>
+      </field>
+      <field name="created" type="datetime" uuid="d631c9a0-eac1-493e-b9d1-04992df2213a">
+        <orm-attributes>
+          <attribute name="column">created</attribute>
+        </orm-attributes>
+      </field>
+      <field name="changed" type="datetime" uuid="bd5c6755-e5ef-4725-ba9a-155fec53983b">
+        <orm-attributes>
+          <attribute name="column">changed</attribute>
+        </orm-attributes>
+      </field>
+      <field name="activation" type="date" uuid="bf0cf737-11a0-4d96-b2f5-8dd20baa4bfd">
+        <orm-attributes>
+          <attribute name="column">activation</attribute>
+        </orm-attributes>
+      </field>
+      <orm-attributes>
+        <attribute name="repository-class">pspiess\LetsplayBundle\Entity\FieldRepository</attribute>
+        <attribute name="export-file-name">Field.php</attribute>
+      </orm-attributes>
+    </entity>
+    <entity name="Field_Price" uuid="731df603-3518-440e-a297-189413808e45">
+      <field name="id" type="integer" required="true" unique="true" primary="true" uuid="096d4a4e-b53d-433f-9018-6ebf78242af5"/>
+      <field name="field_id" uuid="200c8cb3-5bd0-4111-ba6f-6666b5cbe91f"/>
+      <field name="price_id" uuid="4f9c9a86-d7aa-40ad-86dd-bed677538b1f"/>
+    </entity>
+    <many-to-many mn-entity="Field_Price" uuid="cf630613-9703-49ff-b451-ceae532e038f">
+      <many-to-many-entity name="Field" owning-side="true" alias="fields" uuid="1bf7c7f0-e8dc-4d31-bec2-c68efa156625">
+        <many-to-many-field from="field_id" to="id"/>
+      </many-to-many-entity>
+      <many-to-many-entity name="Price" owning-side="false" alias="prices" uuid="62495a3d-22b0-47da-8517-61004dbec61d">
+        <many-to-many-field from="price_id" to="id"/>
+      </many-to-many-entity>
+    </many-to-many>
+    <entity name="Price" uuid="f72a9a28-8210-47ed-b34f-0bc3d6a7be4b">
+      <field name="id" type="integer" required="true" primary="true" uuid="dd526a79-4b49-4866-805b-55ba0762afd5">
+        <orm-attributes>
+          <attribute name="column">id</attribute>
+          <attribute name="generator">
+            <attribute name="strategy">AUTO</attribute>
+          </attribute>
+        </orm-attributes>
+      </field>
+      <field name="price" type="decimal" uuid="b7726920-14dd-4a72-9058-30c27629fc3d">
+        <orm-attributes>
+          <attribute name="column">price</attribute>
+          <attribute name="precision">9</attribute>
+          <attribute name="scale">2</attribute>
+        </orm-attributes>
+      </field>
+      <field name="weekdayfrom" type="smallint" uuid="ef6ce632-6bd1-4848-b54f-71f2acbe0093">
+        <orm-attributes>
+          <attribute name="column">weekdayfrom</attribute>
+        </orm-attributes>
+      </field>
+      <field name="weekdayto" type="smallint" uuid="422672dc-99af-418d-8e73-c87b7bf5d018">
+        <orm-attributes>
+          <attribute name="column">weekdayto</attribute>
+        </orm-attributes>
+      </field>
+      <field name="indentifier" type="string" size="255" uuid="95d344fd-a023-4416-9cea-2110dd822f55">
+        <orm-attributes>
+          <attribute name="column">indentifier</attribute>
+        </orm-attributes>
+      </field>
+      <field name="timefrom" type="time" uuid="77393d79-9d77-4d20-9e50-57cdcb1b6304">
+        <orm-attributes>
+          <attribute name="column">timefrom</attribute>
+        </orm-attributes>
+      </field>
+      <field name="timeto" type="time" uuid="db52b348-6935-41e8-8ea2-8f3f6d5d84d3">
+        <orm-attributes>
+          <attribute name="column">timeto</attribute>
+        </orm-attributes>
+      </field>
+      <field name="note" type="text" uuid="1be18783-f195-48c0-8797-acba7720aecd">
+        <orm-attributes>
+          <attribute name="column">note</attribute>
+        </orm-attributes>
+      </field>
+      <field name="created" type="datetime" uuid="7ad50f1c-04ca-4477-85a1-92c5970e0866"/>
+      <field name="changed" type="datetime" uuid="f38bb58b-a877-44cc-af17-554f1407d3ec">
+        <orm-attributes>
+          <attribute name="column">changed</attribute>
+        </orm-attributes>
+      </field>
+      <orm-attributes>
+        <attribute name="repository-class">pspiess\LetsplayBundle\Entity\PriceRepository</attribute>
+        <attribute name="export-file-name">Price.php</attribute>
+      </orm-attributes>
+    </entity>
+    <orm-attributes>
+      <attribute name="namespace">pspiess\LetsplayBundle\Entity</attribute>
+    </orm-attributes>
+  </module>
+  <visual-data>
+    <association uuid="4c0e7603-e9a9-4b7d-9e2d-1d9db165084b" color="4288059030"/>
+    <entity uuid="62b2d6f8-8e74-4024-b854-acb84dcf3438" bg-color="4294967295" hdr-color="4292006610" position-x="392" position-y="14" size-x="0" size-x2="113" size-y="0" size-y2="143"/>
+    <entity uuid="731df603-3518-440e-a297-189413808e45" bg-color="4294967295" hdr-color="4292006610" position-x="38" position-y="447" size-x="0" size-x2="88" size-y="0" size-y2="74"/>
+    <project uuid="749ee221-cb64-48f5-bc02-e93f71ddba46" size-x="0" size-x2="592" size-y="0" size-y2="934"/>
+    <entity uuid="8bc6380c-1b7b-4724-941a-aa6506aa07a4" bg-color="4294967295" hdr-color="4292006610" position-x="330" position-y="337" size-x="0" size-x2="124" size-y="0" size-y2="367"/>
+    <module uuid="8e98907a-0e20-4465-ac14-7ac270f4c753" bg-color="4294831087" position-x="50" position-y="50" size-x="0" size-x2="519" size-y="0" size-y2="834"/>
+    <entity uuid="9542a9f6-0e1f-4f4b-9b4f-0c6f07ca89be" bg-color="4294967295" hdr-color="4292006610" position-x="141" position-y="23" size-x="0" size-x2="106" size-y="0" size-y2="185"/>
+    <association uuid="aa547440-cfbc-460f-9f66-27092709726b" color="4288059030"/>
+    <many-to-many-association uuid="cf630613-9703-49ff-b451-ceae532e038f" color="4294218527"/>
+    <entity uuid="f72a9a28-8210-47ed-b34f-0bc3d6a7be4b" bg-color="4294967295" hdr-color="4292006610" position-x="20" position-y="612" size-x="0" size-x2="123" size-y="0" size-y2="157"/>
+  </visual-data>
+</skipper>

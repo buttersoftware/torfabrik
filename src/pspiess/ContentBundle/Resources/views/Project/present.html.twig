@@ -1,0 +1,93 @@
+{% extends 'pspiessContentBundle::layout.html.twig' %}
+{% set menu = 'projects' %}
+
+
+{% block title %}Willkommen{% endblock %}
+
+{% block stylesheets %}
+<link href="{{ asset('resources/css/prettyPhoto.css')}}" rel="stylesheet" type="text/css">
+<link href="{{ asset('resources/css/flexslider.css')}}" rel="stylesheet">
+
+    {{ parent() }} <!-- import to override the standard css -->
+<link href="{{ asset('resources/css/style.css')}}" rel="stylesheet"><!-- !important THIS STYLE CSS ON BOTTOM OF STYLEs LIST-->    
+{% endblock %}
+
+{% block header %}
+    {{ parent() }}
+<!-- PAGE HEADER -->
+<div class="page-header">
+    <div class="shine">
+        <div class="container">
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="row-fluid">
+                        <div class="span12">
+                            <h1>Projekt</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- PAGE HEADER -->
+{% endblock %}
+
+{% block main %}
+<div class="container">
+    <div class="row-fluid">
+        <!-- SLIDER SIDE -->
+        <div class="span8">
+            <div class="large-sl" id="slider">
+                <div class="portfolio-controls-single"></div>
+                <ul class="slides">
+                    <li class="slide thumbnail">
+                        <img src="{{ asset('resources/images/project/' ~ project.id ~ '/' ~ project.path) }}" alt="" />
+                    </li>
+                    {% for pictures in project.pictures %}
+                    <li class="slide thumbnail">
+                        <img src="{{ asset('resources/images/project/picture/' ~ pictures.id ~ '/' ~ pictures.path) }}" alt="" />
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="well">
+              {{ project.short }}  
+            </div>
+        </div>
+        <div class="span4">
+            <h2 class="folio-title">{{ project.title }}</h2>
+            <p>{{ project.content }} </p>
+            <div class="no-color-line-no-border3"></div>
+            <hr class="half2"/>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+<script type="text/javascript" src="{{ asset('resources/js/hoverIntent.js')}}"></script>
+<script>
+    // Can also be used with $(document).ready()
+
+    jQuery('.large-sl').flexslider({
+        animation: 'slide',
+        animationLoop: false,
+        useCSS: false,
+        controlNav: false,
+        controlsContainer: '.portfolio-controls-single',
+        initDelay: 0,
+        animationSpeed: '500',
+        startAt: 0,
+        touch: true,
+        minItems: 1,
+        maxItems: 30,
+        mousewheel: true,
+        pauseOnHover: true,
+        move: 1,
+        itemWidth: 770,
+        itemMargin: 0,
+    });
+</script>
+{% endblock %}

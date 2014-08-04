@@ -1,0 +1,30 @@
+Picture & Form Builder Problem
+----------------------------------------------------------------------------------------------
+Fehler
+Form Builder
+The form's view data is expected to be an instance of class Symfony\Component\HttpFoundation\File\File, 
+but is a(n) string. You can avoid this error by setting the "data_class" option to null or by adding a 
+view transformer that transforms a(n) string to an instance of Symfony\Component\HttpFoundation\File\File.
+---------------
+slider Entity
+Neither the property "image" nor one of the methods "getImage()", "isImage()", "hasImage()", "__get()" 
+exist and have public access in class "pspiess\ContentBundle\Entity\slider".
+-----------------------------------------------------------------------------------------------
+Wenn man ein image in einem update oder create Form anzeigen möchte bekommt man eine Fehlermeldung.
+Man muss dafür eine Dummy Klasse in der entity deklatieren
+
+public function getImage() {
+
+}
+
+Zusätzlich muss man im builder das picture Attribut folgendermaßen ansprechen 
+->add('picture', 'file', array('data_class' => null));
+-----------------------------------------------------------------------------------------------
+
+JMSSecurityExtraBundle Installation
+http://jmsyst.com/bundles/JMSSecurityExtraBundle/master/installation
+
+-----------------------------------------------------------------------------------------------
+
+Reinstall Vendors
+php bin/vendors install --reinstall
