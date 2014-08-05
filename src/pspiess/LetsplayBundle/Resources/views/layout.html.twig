@@ -9,46 +9,46 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 
     {% block stylesheets %}
-        <!-- bootstrap & fontawesome -->
-        <link href="{{ asset('resources/css/bootstrap.min.css')}}" rel="stylesheet">
-        <link href="{{ asset('resources/css/font-awesome.min.css')}}" rel="stylesheet">
+<!-- bootstrap & fontawesome -->
+<link href="{{ asset('resources/css/bootstrap.min.css')}}" rel="stylesheet">
+<link href="{{ asset('resources/css/font-awesome.min.css')}}" rel="stylesheet">
 
-        <!-- page specific plugin styles -->
+<!-- page specific plugin styles -->
 
-        <!-- text fonts -->
-        <link href="{{ asset('resources/css/font-fonts.css')}}" rel="stylesheet">
+<!-- text fonts -->
+<link href="{{ asset('resources/css/font-fonts.css')}}" rel="stylesheet">
 
-        <!-- ace styles -->
-        <link href="{{ asset('resources/css/ace.min.css')}}" id="main-ace-style" rel="stylesheet">
+<!-- ace styles -->
+<link href="{{ asset('resources/css/ace.min.css')}}" id="main-ace-style" rel="stylesheet">
 
-        <!--[if lte IE 9]>
-            <link href="{{ asset('resources/css/ace-part2.min.css"')}}" rel="stylesheet">
-        <![endif]-->
-        <link href="{{ asset('resources/css/ace-skins.min.css"')}}" rel="stylesheet">
-        <link href="{{ asset('resources/css/ace-rtl.min.css"')}}" rel="stylesheet">
+<!--[if lte IE 9]>
+    <link href="{{ asset('resources/css/ace-part2.min.css"')}}" rel="stylesheet">
+<![endif]-->
+<link href="{{ asset('resources/css/ace-skins.min.css"')}}" rel="stylesheet">
+<link href="{{ asset('resources/css/ace-rtl.min.css"')}}" rel="stylesheet">
 
-        <!--[if lte IE 9]>
-          <link href="{{ asset('resources/css/ace-ie.minn.css"')}}" rel="stylesheet">
-        <![endif]-->
+<!--[if lte IE 9]>
+  <link href="{{ asset('resources/css/ace-ie.minn.css"')}}" rel="stylesheet">
+<![endif]-->
 
-        <!-- inline styles related to this page -->
+<!-- inline styles related to this page -->
 
-        <!-- ace settings handler -->
-        <script src="{{ asset('resources/js/ace-extra.min.js')}}" type="text/javascript"></script>
+<!-- ace settings handler -->
+<script src="{{ asset('resources/js/ace-extra.min.js')}}" type="text/javascript"></script>
 
-        <!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->
+<!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->
 
-        <!--[if lte IE 8]>
-        <script src="{{ asset('resources/js/html5shiv.min.js')}}" type="text/javascript"></script>
-        <script src="{{ asset('resources/js/respond.min.js')}}" type="text/javascript"></script>
-        <![endif]-->
+<!--[if lte IE 8]>
+<script src="{{ asset('resources/js/html5shiv.min.js')}}" type="text/javascript"></script>
+<script src="{{ asset('resources/js/respond.min.js')}}" type="text/javascript"></script>
+<![endif]-->
     {% endblock %}
 {% endblock %} 
 
 {% block body %}        
     {% block navigation %}
-        {{ knp_menu_render('pspiessLetsplayBundle:Builder:mainMenu') }}
-        <div id="navbar" class="navbar navbar-default">
+
+<div id="navbar" class="navbar navbar-default">
     <script type="text/javascript">
         try {
             ace.settings.check('navbar', 'fixed')
@@ -81,6 +81,51 @@
             <!-- /section:basics/navbar.layout.brand -->
 
             <!-- #section:basics/navbar.toggle -->
+            <!-- /section:basics/navbar.dropdown -->
+            <nav role="navigation" class="navbar-menu pull-left collapse navbar-collapse">
+                <!-- #section:basics/navbar.nav -->
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Overview
+                            &nbsp;
+                            <i class="ace-icon fa fa-angle-down bigger-110"></i>
+                        </a>
+
+                        <ul class="dropdown-menu dropdown-light-blue dropdown-caret">
+                            <li>
+                                <a href="#">
+                                    <i class="ace-icon fa fa-eye bigger-110 blue"></i>
+                                    Monthly Visitors
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="#">
+                                    <i class="ace-icon fa fa-user bigger-110 blue"></i>
+                                    Active Users
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="#">
+                                    <i class="ace-icon fa fa-cog bigger-110 blue"></i>
+                                    Settings
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="#">
+                            <i class="ace-icon fa fa-envelope"></i>
+                            Messages
+                            <span class="badge badge-warning">5</span>
+                        </a>
+                    </li>
+                </ul>
+                <!-- /section:basics/navbar.nav -->
+            </nav>
 
             <!-- /section:basics/navbar.toggle -->
         </div>
@@ -236,36 +281,36 @@
     </div><!-- /.navbar-container -->
 </div>
     {% endblock %} 
-        
+
     {% block javascripts %}
-        <script src="{{ asset('resources/js/ace-extra.min.js')}}" type="text/javascript"></script>
-        <script src="{{ asset('resources/js/html5shiv.min.js')}}" type="text/javascript"></script> 
-        <script src="{{ asset('resources/js/respond.min.js')}}" type="text/javascript"></script> 
-        <!-- basic -->
-        <!--[if !IE]> -->
-        <script type="text/javascript">
-            window.jQuery || document.write("<script src='../resources/js/jquery.min.js'>" + "<" + "/script>");
-        </script>
-        <!-- <![endif]-->
-        <!--[if IE]>
-            <script type="text/javascript">
-            window.jQuery || document.write("<script src='../resources/js/jquery1x.min.js'>"+"<"+"/script>");
-            </script>
-        <![endif]-->
-        <script type="text/javascript">
-            if ('ontouchstart' in document.documentElement)
-                document.write("<script src='../assets/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
-        </script>
-        
-        <script src="{{ asset('resources/js/bootstrap-min.js')}}" type="text/javascript"></script> 
-        
-        <!-- page specific plugin scripts -->
-        
-        <!-- ace scripts -->
-        <script src="{{ asset('resources/js/ace-elements.min.js')}}" type="text/javascript"></script> 
-        <script src="{{ asset('resources/js/ace.min.js')}}" type="text/javascript"></script> 
-        
-        <!-- inline scripts related to this page -->
+<script src="{{ asset('resources/js/ace-extra.min.js')}}" type="text/javascript"></script>
+<script src="{{ asset('resources/js/html5shiv.min.js')}}" type="text/javascript"></script> 
+<script src="{{ asset('resources/js/respond.min.js')}}" type="text/javascript"></script> 
+<!-- basic -->
+<!--[if !IE]> -->
+<script type="text/javascript">
+        window.jQuery || document.write("<script src='../resources/js/jquery.min.js'>" + "<" + "/script>");
+</script>
+<!-- <![endif]-->
+<!--[if IE]>
+    <script type="text/javascript">
+    window.jQuery || document.write("<script src='../resources/js/jquery1x.min.js'>"+"<"+"/script>");
+    </script>
+<![endif]-->
+<script type="text/javascript">
+    if ('ontouchstart' in document.documentElement)
+        document.write("<script src='../assets/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
+</script>
+
+<script src="{{ asset('resources/js/bootstrap-min.js')}}" type="text/javascript"></script> 
+
+<!-- page specific plugin scripts -->
+
+<!-- ace scripts -->
+<script src="{{ asset('resources/js/ace-elements.min.js')}}" type="text/javascript"></script> 
+<script src="{{ asset('resources/js/ace.min.js')}}" type="text/javascript"></script> 
+
+<!-- inline scripts related to this page -->
     {% endblock %}
 {% endblock %}     
-        
+
