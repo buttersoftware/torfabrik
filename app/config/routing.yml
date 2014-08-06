@@ -1,8 +1,17 @@
+#pspiess_letsplay:
+#    resource: "@pspiessLetsplayBundle/Controller/"
+#    type:     annotation
+#    prefix:   /
+    
 pspiess_letsplay:
     resource: "@pspiessLetsplayBundle/Controller/"
-    type:     annotation
-    prefix:   /letsplay
+    resource: "@pspiessLetsplayBundle/Resources/config/routing.yml"
+    prefix:   /
     
+#biberltd_currency:
+#    resource: "@VendorNameSampleBundle/Resources/config/routing.yml"
+#    prefix:   /
+#    
 #customer:
 #    resource: "@pspiessLetsplayBundle/Controller/"
 #    type:     annotation

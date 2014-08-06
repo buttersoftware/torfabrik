@@ -1,0 +1,7 @@
+services:
+    pspiess.letsplay.menu.voter.request:
+        class: pspiess\LetsplayBundle\Menu\RequestVoter
+        arguments:
+            - @service_container
+        tags:
+            - { name: knp_menu.voter }
