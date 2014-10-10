@@ -1,16 +1,43 @@
-{% extends '::base.html.twig' %}
+{% extends 'pspiessLetsplayBundle::layout.html.twig' %}
+
+{% block title %}Tarife ändern{% endblock %}
+
+{% block nav %}
+    {{ knp_menu_render('pspiessLetsplayBundle:MenuBuilder:mainMenu', {'currentClass': 'active', 'template': 'pspiessLetsplayBundle:Menu:knp_menu.html.twig'}) }}
+{% endblock %}
 
 {% block body -%}
-    <h1>Price edit</h1>
 
-    {{ form(edit_form) }}
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('price') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+<div class="page-content-area">
+    <div class="col-xs-12 col-sm-6">
+        <div class="widget-box">
+            <div class="widget-header">
+                <h4 class="widget-title">Ausgew&auml;lten Tarif anpassen</h4>
+            </div>
+
+            <div class="widget-body">
+                <div class="widget-main">
+                    {% form_theme edit_form _self %}
+
+                    {% block integer_widget %}
+                        <div class="integer_widget">
+                            {% set type = type|default('number') %}
+                            {{ block('form_widget_simple') }}
+                        </div>
+                    {% endblock %}
+                    
+                    {{ form_start(edit_form, {attr: {class: 'form-s'}}) }}
+                        {{ form_widget(edit_form, {'form_type': 's'}) }}
+                    {{ form_end(edit_form) }}
+                    <a href="{{ path('pspiess_letsplay_price') }}">
+                        Back to the list
+                    </a>
+                    {{ form(delete_form) }}
+                    <!-- /section:plugins/input.autosize -->
+                </div>
+            </div>
+        </div><!-- /.span -->
+    </div><!-- /.row -->    
+</div>
 {% endblock %}

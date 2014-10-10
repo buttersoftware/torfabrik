@@ -3,8 +3,6 @@
 namespace pspiess\LetsplayBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 class DefaultController extends Controller {
 
@@ -20,11 +18,11 @@ class DefaultController extends Controller {
         return $this->render('pspiessLetsplayBundle:Default:index.html.twig');
     }
 
-    public function employeesAction() {
+    public function priceAction() {
         return $this->render('pspiessLetsplayBundle:Default:index.html.twig');
     }
 
-    public function addEmployeeAction() {
+    public function addPriceAction() {
         return $this->render('pspiessLetsplayBundle:Default:index.html.twig');
     }
 

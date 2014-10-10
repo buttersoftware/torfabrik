@@ -1,8 +1,8 @@
 {% extends 'pspiessLetsplayBundle::layout.html.twig' %}
 
-{% block title %}My Awesome Page!{% endblock %}
+{% block title %}Admin Bereich{% endblock %}
 
 {% block nav %}
     {{ knp_menu_render('pspiessLetsplayBundle:MenuBuilder:mainMenu', {'currentClass': 'active', 'template': 'pspiessLetsplayBundle:Menu:knp_menu.html.twig'}) }}
-    {{ knp_menu_render('pspiessLetsplayBundle:MenuBuilder:userMenu', {'currentClass': 'active', 'template': 'pspiessLetsplayBundle:Menu:knp_menu.html.twig'}) }} 
+    {#{{ knp_menu_render('pspiessLetsplayBundle:MenuBuilder:userMenu', {'currentClass': 'active', 'template': 'pspiessLetsplayBundle:Menu:knp_menu.html.twig'}) }}#}
 {% endblock %}

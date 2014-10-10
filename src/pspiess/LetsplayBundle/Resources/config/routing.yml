@@ -17,6 +17,30 @@ pspiess_letsplay_employees:
 pspiess_letsplay_employees_add:
     pattern:  /admin/employees/add
     defaults: { _controller: pspiessLetsplayBundle:Default:addEmployee }
+    
+pspiess_letsplay_price1:
+    pattern:  /admin/price1
+    defaults: { _controller: pspiessLetsplayBundle:Default:price }
+    
+pspiess_letsplay_price:
+    pattern:  /admin/price
+    defaults: { _controller: pspiessLetsplayBundle:Price:index }
+    
+pspiess_letsplay_price_show:
+    pattern:  /admin/price/show/{id}
+    defaults: { _controller: pspiessLetsplayBundle:Price:show }
+    
+pspiess_letsplay_price_edit:
+    pattern:  /admin/price/edit/{id}
+    defaults: { _controller: pspiessLetsplayBundle:Price:edit }
+    
+pspiess_letsplay_price_delete:
+    pattern:  /admin/price/delete/{id}
+    defaults: { _controller: pspiessLetsplayBundle:Price:delete }
+
+pspiess_letsplay_price_add:
+    pattern:  /admin/price/add
+    defaults: { _controller: pspiessLetsplayBundle:Default:addPrice }
 
 pspiess_letsplay_profile:
     pattern:  /admin/profile

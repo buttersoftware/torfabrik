@@ -161,7 +161,7 @@ class PriceController extends Controller
     private function createEditForm(Price $entity)
     {
         $form = $this->createForm(new PriceType(), $entity, array(
-            'action' => $this->generateUrl('price_update', array('id' => $entity->getId())),
+            'action' => $this->generateUrl('pspiess_letsplay_price_edit', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
@@ -238,7 +238,7 @@ class PriceController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('price_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('pspiess_letsplay_price_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()

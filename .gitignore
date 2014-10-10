@@ -11,3 +11,17 @@
 /bin/
 /composer.phar
 nbproject/private/private.xml
+nbproject/private/private.xml
+app/config/config_1.yml
+.idea/.name
+.idea/deployment.xml
+.idea/encodings.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/scopes/scope_settings.xml
+.idea/workspace.xml
+.idea/vcs.xml
+.idea/torfabrik.iml
+app/config/config_1.yml
+nbproject/private/private.xml
+nbproject/private/private.xml

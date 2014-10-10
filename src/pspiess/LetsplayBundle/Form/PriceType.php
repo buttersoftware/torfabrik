@@ -14,8 +14,8 @@ class PriceType extends AbstractType {
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-                ->add('indentifier', 'text', array('label' => 'Bezeichnung', 'attr' => array('class' => 'input-xxlarge')))
-                ->add('price', 'money', array('label' => 'Stundenpreis', 'attr' => array('class' => 'input-xxlarge')))
+                ->add('indentifier', 'text', array('label' => 'Bezeichnung', 'attr' => array('class' => 'xxinput-large')))
+                ->add('price', 'money', array('label' => 'Stundenpreis', 'attr' => array('class' => 'input-large')))
                 ->add('weekdayfrom', 'choice', array('label' => 'Wochentag von', 'attr' => array('class' => 'input-xxlarge'),
                     'choices' => array('0' => 'Montag', '1' => 'Dienstag', '2' => 'Mittwoch', '3' => 'Donnerstag', '4' => 'Freitag', '5' => 'Samstag', '6' => 'Sonntag'),
                     'preferred_choices' => array('0'), 'required' => true))

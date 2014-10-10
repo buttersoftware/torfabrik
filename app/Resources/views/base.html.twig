@@ -13,14 +13,16 @@
         <div id="navbar" class="navbar navbar-default">
             {% block navigation %}{% endblock %}
         </div>
-        <div id="sidebar">
+        <div class="main-container" id="main-container">
+{#        <div id="sidebar">
             {% block sidebar %}
 
             {% endblock %}
-        </div>
+        </div>#}
 
-        <div id="content">
+        <div class="main-content">
             {% block body %}{% endblock %}
+            </div>
         </div>
         {% block javascripts %}{% endblock %}
     </body>
