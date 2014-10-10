@@ -34,6 +34,10 @@ pspiess_letsplay_price_edit:
     pattern:  /admin/price/edit/{id}
     defaults: { _controller: pspiessLetsplayBundle:Price:edit }
     
+pspiess_letsplay_price_update:
+    pattern:  /admin/price/update/{id}
+    defaults: { _controller: pspiessLetsplayBundle:Price:update }
+    
 pspiess_letsplay_price_delete:
     pattern:  /admin/price/delete/{id}
     defaults: { _controller: pspiessLetsplayBundle:Price:delete }

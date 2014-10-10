@@ -15,8 +15,7 @@ use pspiess\LetsplayBundle\Form\PriceType;
  *
  * @Route("/price")
  */
-class PriceController extends Controller
-{
+class PriceController extends Controller {
 
     /**
      * Lists all Price entities.
@@ -25,8 +24,7 @@ class PriceController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function indexAction()
-    {
+    public function indexAction() {
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('pspiessLetsplayBundle:Price')->findAll();
@@ -35,6 +33,7 @@ class PriceController extends Controller
             'entities' => $entities,
         );
     }
+
     /**
      * Creates a new Price entity.
      *
@@ -42,8 +41,7 @@ class PriceController extends Controller
      * @Method("POST")
      * @Template("pspiessLetsplayBundle:Price:new.html.twig")
      */
-    public function createAction(Request $request)
-    {
+    public function createAction(Request $request) {
         $entity = new Price();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -58,19 +56,18 @@ class PriceController extends Controller
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
     /**
-    * Creates a form to create a Price entity.
-    *
-    * @param Price $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
-    private function createCreateForm(Price $entity)
-    {
+     * Creates a form to create a Price entity.
+     *
+     * @param Price $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createCreateForm(Price $entity) {
         $form = $this->createForm(new PriceType(), $entity, array(
             'action' => $this->generateUrl('price_create'),
             'method' => 'POST',
@@ -88,14 +85,13 @@ class PriceController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function newAction()
-    {
+    public function newAction() {
         $entity = new Price();
-        $form   = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity);
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
@@ -106,8 +102,7 @@ class PriceController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function showAction($id)
-    {
+    public function showAction($id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('pspiessLetsplayBundle:Price')->find($id);
@@ -119,7 +114,7 @@ class PriceController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
+            'entity' => $entity,
             'delete_form' => $deleteForm->createView(),
         );
     }
@@ -131,8 +126,7 @@ class PriceController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function editAction($id)
-    {
+    public function editAction($id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('pspiessLetsplayBundle:Price')->find($id);
@@ -145,30 +139,30 @@ class PriceController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
 
     /**
-    * Creates a form to edit a Price entity.
-    *
-    * @param Price $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
-    private function createEditForm(Price $entity)
-    {
+     * Creates a form to edit a Price entity.
+     *
+     * @param Price $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createEditForm(Price $entity) {
         $form = $this->createForm(new PriceType(), $entity, array(
-            'action' => $this->generateUrl('pspiess_letsplay_price_edit', array('id' => $entity->getId())),
+            'action' => $this->generateUrl('pspiess_letsplay_price_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', 'submit', array('label' => 'ändern', 'attr' => array('class' => 'btn btn-success')));
 
         return $form;
     }
+
     /**
      * Edits an existing Price entity.
      *
@@ -176,8 +170,7 @@ class PriceController extends Controller
      * @Method("PUT")
      * @Template("pspiessLetsplayBundle:Price:edit.html.twig")
      */
-    public function updateAction(Request $request, $id)
-    {
+    public function updateAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('pspiessLetsplayBundle:Price')->find($id);
@@ -193,23 +186,23 @@ class PriceController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('price_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('pspiess_letsplay_price_edit', array('id' => $id)));
         }
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
+
     /**
      * Deletes a Price entity.
      *
      * @Route("/{id}", name="price_delete")
      * @Method("DELETE")
      */
-    public function deleteAction(Request $request, $id)
-    {
+    public function deleteAction(Request $request, $id) {
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
@@ -225,7 +218,7 @@ class PriceController extends Controller
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('price'));
+        return $this->redirect($this->generateUrl('pspiess_letsplay_price'));
     }
 
     /**
@@ -235,13 +228,15 @@ class PriceController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($id)
-    {
+    private function createDeleteForm($id) {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('pspiess_letsplay_price_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
+                        ->setAction($this->generateUrl('pspiess_letsplay_price_delete', array('id' => $id)))
+                        ->setMethod('DELETE')
+                        ->add('submit', 'submit', array('label' => 'löschen', 'attr' => array('class' => 'btn btn-danger')))
+
+//            ->add('indentifier', 'text', array('label' => 'Bezeichnung', 'attr' => array('class' => '')))
+                        ->getForm()
         ;
     }
+
 }
