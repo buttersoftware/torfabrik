@@ -29,8 +29,15 @@ class PriceController extends Controller {
 
         $entities = $em->getRepository('pspiessLetsplayBundle:Price')->findAll();
 
+        $deleteForms = array();
+
+        foreach ($entities as $entity) {
+            $deleteForms[$entity->getId()] = $this->createDeleteForm($entity->getId())->createView();
+        }
+
         return array(
             'entities' => $entities,
+            'deleteForms' => $deleteForms,
         );
     }
 
@@ -51,7 +58,7 @@ class PriceController extends Controller {
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('price_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('pspiess_letsplay_price_edit', array('id' => $entity->getId())));
         }
 
         return array(
@@ -69,11 +76,11 @@ class PriceController extends Controller {
      */
     private function createCreateForm(Price $entity) {
         $form = $this->createForm(new PriceType(), $entity, array(
-            'action' => $this->generateUrl('price_create'),
+            'action' => $this->generateUrl('pspiess_letsplay_price_create'),
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', 'submit', array('label' => 'anlegen', 'attr' => array('class' => 'btn btn-success')));
 
         return $form;
     }
@@ -232,11 +239,16 @@ class PriceController extends Controller {
         return $this->createFormBuilder()
                         ->setAction($this->generateUrl('pspiess_letsplay_price_delete', array('id' => $id)))
                         ->setMethod('DELETE')
-                        ->add('submit', 'submit', array('label' => 'löschen', 'attr' => array('class' => 'btn btn-danger')))
-
+//                        ->add('submit', 'submit', array('label' => 'löschen', 'attr' => array('class' => 'btn btn-danger')))
+                        ->add('id', 'hidden')
+                
 //            ->add('indentifier', 'text', array('label' => 'Bezeichnung', 'attr' => array('class' => '')))
                         ->getForm()
         ;
+        
+//            $deleteForm = $this->createFormBuilder(['id' => 1])
+//        ->add('id', 'hidden')
+//        ->getForm();
     }
 
 }

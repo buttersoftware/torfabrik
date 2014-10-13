@@ -26,6 +26,14 @@ pspiess_letsplay_price:
     pattern:  /admin/price
     defaults: { _controller: pspiessLetsplayBundle:Price:index }
     
+pspiess_letsplay_price_new:
+    pattern:  /admin/price/new
+    defaults: { _controller: pspiessLetsplayBundle:Price:new }
+    
+pspiess_letsplay_price_create:
+    pattern:  /admin/price/create
+    defaults: { _controller: pspiessLetsplayBundle:Price:create }
+    
 pspiess_letsplay_price_show:
     pattern:  /admin/price/show/{id}
     defaults: { _controller: pspiessLetsplayBundle:Price:show }

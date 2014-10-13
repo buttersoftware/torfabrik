@@ -1,15 +1,95 @@
-{% extends '::base.html.twig' %}
+{% extends 'pspiessLetsplayBundle::layout.html.twig' %}
+
+{% block title %}Tarife ändern{% endblock %}
+
+{% block nav %}
+    {{ knp_menu_render('pspiessLetsplayBundle:MenuBuilder:mainMenu', {'currentClass': 'active', 'template': 'pspiessLetsplayBundle:Menu:knp_menu.html.twig'}) }}
+{% endblock %}
 
 {% block body -%}
-    <h1>Price creation</h1>
 
-    {{ form(form) }}
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('price') }}">
-            Back to the list
-        </a>
-    </li>
-</ul>
+<div class="page-content-area">
+    <div class="col-xs-12 col-sm-6">
+        <div class="widget-box">
+            <div class="widget-header">
+                <h4 class="widget-title">Neuen Tarif anlegen</h4>
+            </div>
+            {#{{ form(form) }}#}
+            <div class="widget-body">
+                <div class="widget-main">
+
+                    {{ form_start(form, {attr: {class: 'form-horizontal'}}) }}
+                        {#{{ form_widget(form, {'form_type': 's'}) }}#}
+                    {#{{ form_start(form) }}#}
+
+                    <div class="form-group">
+                        {{ form_label(form.indentifier, null, {'label_attr': {'class': 'col-sm-2'}}) }}
+                        <div class="col-sm-9">
+                            {{ form_widget    (form.indentifier) }} 
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="form-group"> <!-- nested form-group acting like row -->
+                                {{ form_label(form.weekdayfrom, null, {'label_attr': {'class': 'col-sm-2'}}) }}
+                                <div class="col-sm-2">
+                                    {{ form_widget (form.weekdayfrom) }}
+                                </div>
+                                <div class="col-sm-2">
+                                    {{ form_widget (form.weekdayto) }} 
+                                </div>
+                            </div> <!-- /nested form-group acting like row -->
+                        </div><!-- /col-sm-offset-3 col-sm-9 -->
+                    </div><!-- /form-group -->
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                {{ form_label(form.timefrom, null, {'label_attr': {'class': 'col-sm-2'}}) }}
+                                <div class="col-sm-2">
+                                    {{ form_widget (form.timefrom) }}
+                                </div>
+                                <div class="col-sm-2">
+                                    {{ form_widget (form.timeto) }} 
+                                </div>
+                            </div> 
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                {{ form_label(form.price, null, {'label_attr': {'class': 'col-sm-2'}}) }}
+                                <div class="col-sm-2">
+                                    {{ form_widget (form.price) }}
+                                </div>
+                            </div> 
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.fields, null, {'label_attr': {'class': 'col-sm-2'}}) }}
+                        <div class="col-sm-9">
+                            {{ form_widget    (form.fields) }} 
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.note, null, {'label_attr': {'class': 'col-sm-2'}}) }}
+                        <div class="col-sm-9">
+                            {{ form_widget    (form.note) }} 
+                        </div>
+                    </div>
+                    <div class="hr hr-24"></div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-1">
+                            <a class="btn btn-info" href="{{ path('pspiess_letsplay_price') }}">zur&uuml;ck</a>
+                        </div>
+                        <div class="col-sm-offset-1 col-sm-1">
+                            {{ form_widget(form.submit) }}
+                        </div>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.span -->
+    </div><!-- /.row -->    
+</div>
 {% endblock %}
