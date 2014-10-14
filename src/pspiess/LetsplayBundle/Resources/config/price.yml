@@ -1,0 +1,31 @@
+pspiess_letsplay_price:
+    pattern:  /admin/price
+    defaults: { _controller: pspiessLetsplayBundle:Price:index }
+    
+pspiess_letsplay_price_new:
+    pattern:  /admin/price/new
+    defaults: { _controller: pspiessLetsplayBundle:Price:new }
+    
+pspiess_letsplay_price_create:
+    pattern:  /admin/price/create
+    defaults: { _controller: pspiessLetsplayBundle:Price:create }
+    
+pspiess_letsplay_price_edit:
+    pattern:  /admin/price/edit/{id}
+    defaults: { _controller: pspiessLetsplayBundle:Price:edit }
+    
+pspiess_letsplay_price_update:
+    pattern:  /admin/price/update/{id}
+    defaults: { _controller: pspiessLetsplayBundle:Price:update }
+    
+pspiess_letsplay_price_delete:
+    pattern:  /admin/price/delete/{id}
+    defaults: { _controller: pspiessLetsplayBundle:Price:delete }
+
+#pspiess_letsplay_price_show:
+#    pattern:  /admin/price/show/{id}
+#    defaults: { _controller: pspiessLetsplayBundle:Price:show }
+
+#pspiess_letsplay_price_add:
+#    pattern:  /admin/price/add
+#    defaults: { _controller: pspiessLetsplayBundle:Default:addPrice }

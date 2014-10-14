@@ -11,13 +11,13 @@ class MenuBuilder extends ContainerAware {
         $menu = $factory->createItem('root');
         $menu->setChildrenAttribute('class', 'nav navbar-nav');
         
-        $menu->addChild('Reservierungen', array('route' => 'pspiess_letsplay_employees'))
+        $menu->addChild('Reservierungen', array('route' => 'pspiess_letsplay_price'))
                 ->setAttribute('icon', 'fa fa-calendar');
 
-        $menu->addChild('Kunden', array('route' => 'pspiess_letsplay_projects'))
+        $menu->addChild('Kunden', array('route' => 'pspiess_letsplay_price'))
                 ->setAttribute('icon', 'fa fa-users');
         
-        $menu->addChild('Felder', array('route' => 'pspiess_letsplay_employees'))
+        $menu->addChild('Felder', array('route' => 'pspiess_letsplay_field'))
                 ->setAttribute('icon', 'fa fa-square');
         
         $menu->addChild('Preise', array('route' => 'pspiess_letsplay_price'))
