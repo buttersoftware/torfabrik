@@ -58,7 +58,7 @@ class FieldController extends Controller {
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('field_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('pspiess_letsplay_field_edit', array('id' => $entity->getId())));
         }
 
         return array(
@@ -76,11 +76,11 @@ class FieldController extends Controller {
      */
     private function createCreateForm(Field $entity) {
         $form = $this->createForm(new FieldType(), $entity, array(
-            'action' => $this->generateUrl('field_create'),
+            'action' => $this->generateUrl('pspiess_letsplay_field_create'),
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', 'submit', array('label' => 'anlegen', 'attr' => array('class' => 'btn btn-success')));
 
         return $form;
     }
@@ -165,8 +165,8 @@ class FieldController extends Controller {
             'method' => 'PUT',
         ));
 
-        //$form->add('submit', 'submit', array('label' => 'Update'));
-        $form->add('id', 'hidden');
+        $form->add('submit', 'submit', array('label' => 'Update'));
+//        $form->add('id', 'hidden');
         return $form;
     }
 
@@ -193,7 +193,7 @@ class FieldController extends Controller {
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('field_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('pspiess_letsplay_field_edit', array('id' => $id)));
         }
 
         return array(
@@ -225,7 +225,7 @@ class FieldController extends Controller {
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('field'));
+        return $this->redirect($this->generateUrl('pspiess_letsplay_field'));
     }
 
     /**

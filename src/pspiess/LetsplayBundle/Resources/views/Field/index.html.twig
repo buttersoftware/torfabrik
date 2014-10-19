@@ -25,6 +25,7 @@
                         <thead>
                             <tr>
                             <tr>
+                                <th>Platznummer</th>
                                 <th>Typ</th>
                                 <th>Pl&auml;tze</th>
                                 <th>Oberfl&auml;che</th>
@@ -41,12 +42,13 @@
                         <tbody>
                             {% for entity in entities %}
                             <tr>
+                                <td>{{ entity.fieldnr }}</td>
                                 <td>{{ entity.type }}</td>
                                 <td>{{ entity.slots }}</td>
                                 <td>{{ entity.ground }}</td>
                                 <td>{% if entity.care %}{{ entity.care|date('d.m.Y') }}{% endif %}</td>
-                                <td>{{ entity.lenght }}</td>
-                                <td>{{ entity.width }}</td>
+                                <td>{{ entity.lenght }} m</td>
+                                <td>{{ entity.width }} m</td>
                                 <td>{{ entity.note }}</td>
                                 <td>{% if entity.activation %}{{ entity.activation|date('d.m.Y') }}{% endif %}</td>
                                 <td>

@@ -6,10 +6,10 @@ pspiess_letsplay_field_new:
     pattern:  /admin/field/new
     defaults: { _controller: pspiessLetsplayBundle:Field:new }
     
-#pspiess_letsplay_price_create:
-#    pattern:  /admin/price/create
-#    defaults: { _controller: pspiessLetsplayBundle:Price:create }
-#    
+pspiess_letsplay_field_create:
+    pattern:  /admin/field/create
+    defaults: { _controller: pspiessLetsplayBundle:Field:create }
+    
 pspiess_letsplay_field_edit:
     pattern:  /admin/field/edit/{id}
     defaults: { _controller: pspiessLetsplayBundle:Field:edit }

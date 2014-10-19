@@ -26,7 +26,7 @@ class FieldType extends AbstractType {
                 ->add('lenght', 'number', array('label' => 'Feldlänge', 'attr' => array('class' => '')))
                 ->add('width', 'number', array('label' => 'Feldbreite', 'attr' => array('class' => '')))
                 ->add('note', 'textarea', array('label' => 'Bemerkung', 'attr' => array('class' => '')))
-                ->add('activation', 'date', array('label' => 'in Betrieb', 'attr' => array('class' => '')))
+                ->add('activation', 'date', array('label' => 'in Betrieb seit', 'attr' => array('class' => '')))
                 ->add('prices', null, array('label' => 'Preise', 'attr' => array('class' => '')))
         ;
     }

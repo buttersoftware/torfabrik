@@ -1,15 +1,102 @@
-{% extends '::base.html.twig' %}
+{% extends 'pspiessLetsplayBundle::layout.html.twig' %}
+
+{% block title %}Spielfeld anlegen{% endblock %}
+
+{% block nav %}
+    {{ knp_menu_render('pspiessLetsplayBundle:MenuBuilder:mainMenu', {'currentClass': 'active', 'template': 'pspiessLetsplayBundle:Menu:knp_menu.html.twig'}) }}
+{% endblock %}
+
 
 {% block body -%}
-    <h1>Field creation</h1>
+{#{{ form(form) }}#}
 
-    {{ form(form) }}
-
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('field') }}">
-            Back to the list
-        </a>
-    </li>
-</ul>
+<div class="page-content-area">
+    <div class="col-xs-12 col-sm-6">
+        <div class="widget-box">
+            <div class="widget-header">
+                <h4 class="widget-title">Ausgew&auml;lten Spielfeld anpassen</h4>
+            </div>
+            {#{{ form(form) }}#}
+            <div class="widget-body">
+                <div class="widget-main">
+                    {{ form_start(form, {attr: {class: 'form-horizontal'}}) }}
+                    <div class="form-group">
+                        {{ form_label(form.fieldnr, null, {'label_attr': {'class': 'col-sm-2'}}) }}
+                        <div class="col-sm-2">
+                            {{ form_widget (form.fieldnr) }} 
+                        </div>
+                        {{ form_label(form.slots, null, {'label_attr': {'class': 'col-sm-5'}}) }}
+                        <div class="col-sm-2">
+                            <div class="input-group">
+                                {{ form_widget (form.slots) }}
+                                <span class="input-group-addon"><i class="fa fa-users"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.type, null, {'label_attr': {'class': 'col-sm-2'}}) }}
+                        <div class="col-sm-5">
+                            {{ form_widget    (form.type) }} 
+                        </div>
+                        {{ form_label(form.ground, null, {'label_attr': {'class': 'col-sm-2'}}) }}
+                        <div class="col-sm-2">
+                            {{ form_widget (form.ground) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        
+                        {{ form_label(form.lenght, null, {'label_attr': {'class': 'col-sm-2'}}) }}
+                        <div class="col-sm-2">
+                            <div class="input-group">
+                                {{ form_widget (form.lenght) }}
+                                <span class="input-group-addon">m</span>
+                            </div>
+                        </div>
+                        {{ form_label(form.width, null, {'label_attr': {'class': 'col-sm-2'}}) }}
+                        <div class="col-sm-2">
+                            <div class="input-group">
+                                {{ form_widget (form.width) }}
+                                <span class="input-group-addon">m</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.care, null, {'label_attr': {'class': 'col-sm-2'}}) }}
+                        <div class="col-lg-4">
+                            {{ form_widget (form.care) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.activation, null, {'label_attr': {'class': 'col-sm-2'}}) }}
+                        <div class="col-lg-4">
+                            {{ form_widget (form.activation) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.prices, null, {'label_attr': {'class': 'col-sm-2'}}) }}
+                        <div class="col-sm-9">
+                            {{ form_widget    (form.prices) }} 
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.note, null, {'label_attr': {'class': 'col-sm-2'}}) }}
+                        <div class="col-sm-9">
+                            {{ form_widget    (form.note) }} 
+                        </div>
+                    </div>
+                    <div class="hr hr-24"></div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-1">
+                            <a class="btn btn-info" href="{{ path('pspiess_letsplay_field') }}">zur&uuml;ck</a>
+                        </div>
+                        <div class="col-sm-offset-1 col-sm-1">
+                           {{ form_widget(form.submit) }}
+                        </div>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.span -->
+    </div><!-- /.row -->    
+</div>
 {% endblock %}

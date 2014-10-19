@@ -7,37 +7,35 @@
 {% endblock %}
 
 {% block body -%}
-
-
 <div class="page-content-area">
     <div class="col-xs-12 col-sm-6">
         <div class="widget-box">
             <div class="widget-header">
-                <h4 class="widget-title">Neuen Tarif anlegen</h4>
+                <h4 class="widget-title">Ausgew&auml;lten Tarif anpassen</h4>
             </div>
-            {#{{ form(form) }}#}
+            {#{{ form(edit_form) }}#}
             <div class="widget-body">
                 <div class="widget-main">
 
-                    {{ form_start(form, {attr: {class: 'form-horizontal'}}) }}
-                        {#{{ form_widget(form, {'form_type': 's'}) }}#}
-                    {#{{ form_start(form) }}#}
+                    {{ form_start(edit_form, {attr: {class: 'form-horizontal'}}) }}
+                        {#{{ form_widget(edit_form, {'form_type': 's'}) }}#}
+                    {#{{ form_start(edit_form) }}#}
 
                     <div class="form-group">
-                        {{ form_label(form.indentifier, null, {'label_attr': {'class': 'col-sm-2'}}) }}
+                        {{ form_label(edit_form.indentifier, null, {'label_attr': {'class': 'col-sm-2'}}) }}
                         <div class="col-sm-9">
-                            {{ form_widget    (form.indentifier) }} 
+                            {{ form_widget    (edit_form.indentifier) }} 
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-12">
                             <div class="form-group"> <!-- nested form-group acting like row -->
-                                {{ form_label(form.weekdayfrom, null, {'label_attr': {'class': 'col-sm-2'}}) }}
+                                {{ form_label(edit_form.weekdayfrom, null, {'label_attr': {'class': 'col-sm-2'}}) }}
                                 <div class="col-sm-2">
-                                    {{ form_widget (form.weekdayfrom) }}
+                                    {{ form_widget (edit_form.weekdayfrom) }}
                                 </div>
                                 <div class="col-sm-2">
-                                    {{ form_widget (form.weekdayto) }} 
+                                    {{ form_widget (edit_form.weekdayto) }} 
                                 </div>
                             </div> <!-- /nested form-group acting like row -->
                         </div><!-- /col-sm-offset-3 col-sm-9 -->
@@ -45,12 +43,12 @@
                     <div class="form-group">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                {{ form_label(form.timefrom, null, {'label_attr': {'class': 'col-sm-2'}}) }}
+                                {{ form_label(edit_form.timefrom, null, {'label_attr': {'class': 'col-sm-2'}}) }}
                                 <div class="col-sm-2">
-                                    {{ form_widget (form.timefrom) }}
+                                    {{ form_widget (edit_form.timefrom) }}
                                 </div>
                                 <div class="col-sm-2">
-                                    {{ form_widget (form.timeto) }} 
+                                    {{ form_widget (edit_form.timeto) }} 
                                 </div>
                             </div> 
                         </div>
@@ -58,23 +56,23 @@
                     <div class="form-group">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                {{ form_label(form.price, null, {'label_attr': {'class': 'col-sm-2'}}) }}
+                                {{ form_label(edit_form.price, null, {'label_attr': {'class': 'col-sm-2'}}) }}
                                 <div class="col-sm-2">
-                                    {{ form_widget (form.price) }}
+                                    {{ form_widget (edit_form.price) }}
                                 </div>
                             </div> 
                         </div>
                     </div>
                     <div class="form-group">
-                        {{ form_label(form.fields, null, {'label_attr': {'class': 'col-sm-2'}}) }}
+                        {{ form_label(edit_form.fields, null, {'label_attr': {'class': 'col-sm-2'}}) }}
                         <div class="col-sm-9">
-                            {{ form_widget    (form.fields) }} 
+                            {{ form_widget    (edit_form.fields) }} 
                         </div>
                     </div>
                     <div class="form-group">
-                        {{ form_label(form.note, null, {'label_attr': {'class': 'col-sm-2'}}) }}
+                        {{ form_label(edit_form.note, null, {'label_attr': {'class': 'col-sm-2'}}) }}
                         <div class="col-sm-9">
-                            {{ form_widget    (form.note) }} 
+                            {{ form_widget    (edit_form.note) }} 
                         </div>
                     </div>
                     <div class="hr hr-24"></div>
@@ -82,10 +80,18 @@
                         <div class="col-sm-offset-2 col-sm-1">
                             <a class="btn btn-info" href="{{ path('pspiess_letsplay_price') }}">zur&uuml;ck</a>
                         </div>
+
                         <div class="col-sm-offset-1 col-sm-1">
-                            {{ form_widget(form.submit) }}
+                            {{ form_widget(edit_form.submit) }}
                         </div>
-                        {{ form_end(form) }}
+                        {{ form_end(edit_form) }}
+                        <div class="col-sm-offset-1 col-sm-1">
+                        {{ form_start(delete_form) }}
+                            <button type="submit" class="btn btn-danger">
+                                löschen
+                            </button>
+                        {{ form_end(delete_form) }}
+                        </div>
                     </div>
                 </div>
             </div>
