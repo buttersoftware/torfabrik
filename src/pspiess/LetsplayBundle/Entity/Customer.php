@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Customer
  *
  * 
- * 
+ * @ORM\HasLifecycleCallbacks 
  * @ORM\Entity(repositoryClass="pspiess\LetsplayBundle\Entity\CustomerRepository")
  */
 class Customer {
@@ -36,7 +36,7 @@ class Customer {
     private $path;
 
     /**
-     * @Assert\File(maxSize = "1024k", mimeTypesMessage = "Please upload a valid Picture")
+     * @Assert\File(maxSize = "1024k", mimeTypesMessage = "Bitte wählen Sie ein gültiges Bild aus.")
      */
     private $picture;
 
@@ -745,12 +745,12 @@ class Customer {
 
     protected function getTmpUploadRootDir() {
         // the absolute directory path where uploaded documents should be saved
-        return __DIR__ . '/../../../../web/resources/images/slider/';
+        return __DIR__ . '/../../../../web/resources/images/customer/';
     }
 
     /**
-     * 
-     * 
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
      */
     public function uploadPicture() {
         // the file property can be empty if the field is not required
@@ -766,7 +766,7 @@ class Customer {
     }
 
     /**
-     * 
+     * @ORM\PostPersist()
      */
     public function movePicture() {
         if (null === $this->picture) {
@@ -780,7 +780,7 @@ class Customer {
     }
 
     /**
-     * 
+     * @ORM\PreRemove()
      */
     public function removePicture() {
         if (file_exists($this->getFullPicturePath())) {

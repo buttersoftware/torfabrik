@@ -14,33 +14,34 @@ class CustomerType extends AbstractType {
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-                ->add('customernr', 'number', array('label' => 'Kundennummer', 'attr' => array('class' => 'input-xxlarge')))
-                ->add('title', 'choice', array('label' => 'Titel', 'attr' => array('class' => 'input-xxlarge'),
+                ->add('customernr', 'number', array('label' => 'Kundennummer', 'attr' => array('class' => '')))
+                ->add('title', 'choice', array('label' => 'Anrede', 'attr' => array('class' => ''),
                     'choices' => array('' => '', 'Herr' => 'Herr', 'Frau' => 'Frau', 'Dr.' => 'Dr.', 'Prof.' => 'Prof.'),
-                    'preferred_choices' => array(''), 'required' => false))
-                ->add('name', 'text', array('label' => 'Nachname', 'attr' => array('class' => 'input-xxlarge')))
-                ->add('firstname', 'text', array('label' => 'Vorname', 'attr' => array('class' => 'input-xxlarge'), 'required' => false))
-                ->add('addon', 'text', array('label' => 'Zusatz', 'attr' => array('class' => 'input-xxlarge'), 'required' => false))
-                ->add('street', 'text', array('label' => 'Straße', 'attr' => array('class' => 'input-xxlarge'), 'required' => false))
-                ->add('zip', 'text', array('label' => 'PLZ', 'attr' => array('class' => 'input-xxlarge'), 'required' => false))
-                ->add('location', 'text', array('label' => 'Ort', 'attr' => array('class' => 'input-xxlarge'), 'required' => false))
-                ->add('country', 'text', array('label' => 'Land', 'attr' => array('class' => 'input-xxlarge'), 'required' => false))
-                ->add('phone', 'text', array('label' => 'Telefon', 'attr' => array('class' => 'input-xxlarge')))
-                ->add('mobile', 'text', array('label' => 'Mobil', 'attr' => array('class' => 'input-xxlarge'), 'required' => false))
-                ->add('fax', 'text', array('label' => 'Fax', 'attr' => array('class' => 'input-xxlarge'), 'required' => false))
-                ->add('note', 'text', array('label' => 'Bemerkung', 'attr' => array('class' => 'input-xxlarge'), 'required' => false))
-                ->add('discount', 'text', array('label' => 'Rabatt', 'attr' => array('class' => 'input-xxlarge'), 'required' => false))
-                ->add('birthday', 'text', array('label' => 'Geburtstag', 'attr' => array('class' => 'input-xxlarge'), 'required' => false))
-                ->add('sex', 'choice', array('label' => 'Geschlecht', 'attr' => array('class' => 'input-xxlarge'),
+                    'preferred_choices' => array('')))
+                ->add('name', 'text', array('label' => 'Nachname', 'attr' => array('class' => '')))
+                ->add('firstname', 'text', array('label' => 'Vorname', 'attr' => array('class' => ''), 'required' => false))
+                ->add('addon', 'text', array('label' => 'Zusatz', 'attr' => array('class' => ''), 'required' => false))
+                ->add('street', 'text', array('label' => 'Straße', 'attr' => array('class' => ''), 'required' => false))
+                ->add('zip', 'text', array('label' => 'PLZ', 'attr' => array('class' => ''), 'required' => false))
+                ->add('location', 'text', array('label' => 'Ort', 'attr' => array('class' => ''), 'required' => false))
+                ->add('country', 'text', array('label' => 'Land', 'attr' => array('class' => ''), 'required' => false))
+                ->add('phone', 'text', array('label' => 'Telefon', 'attr' => array('class' => '')))
+                ->add('mobile', 'text', array('label' => 'Mobil', 'attr' => array('class' => ''), 'required' => false))
+                ->add('fax', 'text', array('label' => 'Fax', 'attr' => array('class' => ''), 'required' => false))
+                ->add('note', 'text', array('label' => 'Bemerkung', 'attr' => array('class' => ''), 'required' => false))
+                ->add('discount', 'text', array('label' => 'Rabatt', 'attr' => array('class' => ''), 'required' => false))
+                ->add('birthday', 'date', array('label' => 'Geburtstag', 'attr' => array('class' => ''), 'required' => false))
+                ->add('sex', 'choice', array('label' => 'Geschlecht', 'attr' => array('class' => ''),
                     'choices' => array('M' => 'männlich', 'W' => 'weiblich'),
                     'preferred_choices' => array(''), 'required' => false))
-                ->add('sepa', 'text', array('label' => 'SEPA', 'attr' => array('class' => 'input-xxlarge'), 'required' => false))
-                ->add('bic', 'url', array('label' => 'BIC', 'attr' => array('class' => 'input-xxlarge'), 'required' => false))
-                ->add('cashing', 'choice', array('label' => 'Einzug', 'attr' => array('class' => 'input-xxlarge'),
+                ->add('sepa', 'text', array('label' => 'SEPA', 'attr' => array('class' => ''), 'required' => false))
+                ->add('bic', 'text', array('label' => 'BIC', 'attr' => array('class' => ''), 'required' => false))
+                ->add('cashing', 'choice', array('label' => 'Einzug', 'attr' => array('class' => ''),
                     'choices' => array('0' => 'Nein', '1' => 'Ja'),
                     'preferred_choices' => array('Nein'), 'required' => false))
-                ->add('bank', 'text', array('label' => 'Bank', 'attr' => array('class' => 'input-xxlarge'), 'required' => false))
-                ->add('bankOwner', 'url', array('label' => 'Inhaber', 'attr' => array('class' => 'input-xxlarge'), 'required' => false))
+                ->add('bank', 'text', array('label' => 'Bank', 'attr' => array('class' => ''), 'required' => false))
+                ->add('bankOwner', 'text', array('label' => 'Inhaber', 'attr' => array('class' => ''), 'required' => false))
+//                ->add('path', 'hidden', array('label' => 'Inhaber', 'attr' => array('class' => ''), 'required' => false))
                 ->add('picture', 'file', array('label' => 'Bild', 'required' => false));
     }
 

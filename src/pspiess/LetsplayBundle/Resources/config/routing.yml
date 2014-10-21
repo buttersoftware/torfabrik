@@ -1,3 +1,8 @@
+pspiess_letsplay_customer:
+    resource: "@pspiessLetsplayBundle/Controller/"
+    resource: "@pspiessLetsplayBundle/Resources/config/customer.yml"
+    prefix:   /
+    
 pspiess_letsplay_price:
     resource: "@pspiessLetsplayBundle/Controller/"
     resource: "@pspiessLetsplayBundle/Resources/config/price.yml"
@@ -7,26 +12,10 @@ pspiess_letsplay_field:
     resource: "@pspiessLetsplayBundle/Controller/"
     resource: "@pspiessLetsplayBundle/Resources/config/field.yml"
     prefix:   /
-
-pspiess_letsplay_profile:
-    pattern:  /admin/profile
-    defaults: { _controller: pspiessLetsplayBundle:Default:profile }
     
 pspiess_letsplay:
     pattern:  /admin/
     defaults: { _controller: pspiessLetsplayBundle:Default:index }
-
-pspiess_letsplay_projects_add:
-    pattern:  /admin/projects/add
-    defaults: { _controller: pspiessLetsplayBundle:Default:addProject }
-
-pspiess_letsplay_employees:
-    pattern:  /admin/employees
-    defaults: { _controller: pspiessLetsplayBundle:Default:employees }
-
-pspiess_letsplay_employees_add:
-    pattern:  /admin/employees/add
-    defaults: { _controller: pspiessLetsplayBundle:Default:addEmployee }
     
 pspiess_letsplay_profile:
     pattern:  /admin/profile

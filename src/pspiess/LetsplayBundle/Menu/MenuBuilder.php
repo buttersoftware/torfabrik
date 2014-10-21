@@ -14,7 +14,7 @@ class MenuBuilder extends ContainerAware {
         $menu->addChild('Reservierungen', array('route' => 'pspiess_letsplay_price'))
                 ->setAttribute('icon', 'fa fa-calendar');
 
-        $menu->addChild('Kunden', array('route' => 'pspiess_letsplay_price'))
+        $menu->addChild('Kunden', array('route' => 'pspiess_letsplay_customer'))
                 ->setAttribute('icon', 'fa fa-users');
         
         $menu->addChild('Felder', array('route' => 'pspiess_letsplay_field'))
