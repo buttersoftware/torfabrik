@@ -11,7 +11,7 @@ class MenuBuilder extends ContainerAware {
         $menu = $factory->createItem('root');
         $menu->setChildrenAttribute('class', 'nav navbar-nav');
         
-        $menu->addChild('Reservierungen', array('route' => 'pspiess_letsplay_price'))
+        $menu->addChild('Reservierungen', array('route' => 'pspiess_letsplay_booking'))
                 ->setAttribute('icon', 'fa fa-calendar');
 
         $menu->addChild('Kunden', array('route' => 'pspiess_letsplay_customer'))
@@ -22,6 +22,9 @@ class MenuBuilder extends ContainerAware {
         
         $menu->addChild('Preise', array('route' => 'pspiess_letsplay_price'))
                 ->setAttribute('icon', 'fa fa-eur');
+        
+        $menu->addChild('Kassenabschluss', array('route' => 'pspiess_letsplay_price'))
+                ->setAttribute('icon', 'fa fa-line-chart');
         
         return $menu;
     }

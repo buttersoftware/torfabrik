@@ -2,6 +2,7 @@
 
 namespace pspiess\LetsplayBundle\Entity;
 
+Use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -10,8 +11,8 @@ use Doctrine\ORM\Mapping as ORM;
  * 
  * @ORM\Entity(repositoryClass="pspiess\LetsplayBundle\Entity\BookingRepository")
  */
-class Booking
-{
+class Booking {
+
     /**
      * @var integer
      *
@@ -23,7 +24,7 @@ class Booking
 
     /**
      * @var \DateTime
-     *
+     * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime", nullable=true, name="created")
      */
     private $created;
@@ -31,9 +32,17 @@ class Booking
     /**
      * @var \DateTime
      *
-     * @ORM\Column(type="datetime", nullable=true, name="updated")
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(type="datetime", nullable=true, name="changed")
      */
-    private $updated;
+    private $changed;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=255, nullable=true, name="title")
+     */
+    private $title = '';
 
     /**
      * @var \DateTime
@@ -45,16 +54,16 @@ class Booking
     /**
      * @var \DateTime
      *
-     * @ORM\Column(type="time", nullable=true, name="timefrom")
+     * @ORM\Column(type="datetime", nullable=true, name="start")
      */
-    private $timefrom;
+    private $start;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(type="time", nullable=true, name="timeto")
+     * @ORM\Column(type="datetime", nullable=true, name="end")
      */
-    private $timeto;
+    private $end;
 
     /**
      * @var integer
@@ -69,6 +78,13 @@ class Booking
      * 
      */
     private $customerId;
+    
+    /**
+     * @var integer
+     *
+     * 
+     */
+    private $cancellation;
 
     /**
      * @var string
@@ -78,25 +94,23 @@ class Booking
     private $note;
 
     /**
-     * @ORM\ManyToOne(targetEntity="pspiess\LetsplayBundle\Entity\Customer", inversedBy="booking")
+     * @ORM\ManyToOne(targetEntity="pspiess\LetsplayBundle\Entity\Customer", inversedBy="bookings")
      * @ORM\JoinColumn(name="customer_id", referencedColumnName="id")
      */
     private $customer;
-
+    
     /**
-     * @ORM\ManyToOne(targetEntity="pspiess\LetsplayBundle\Entity\Field", inversedBy="booking")
+     * @ORM\ManyToOne(targetEntity="pspiess\LetsplayBundle\Entity\Field", inversedBy="bookings")
      * @ORM\JoinColumn(name="field_id", referencedColumnName="id")
      */
     private $field;
-
 
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -106,8 +120,7 @@ class Booking
      * @param \DateTime $created
      * @return Booking
      */
-    public function setCreated($created)
-    {
+    public function setCreated($created) {
         $this->created = $created;
 
         return $this;
@@ -118,32 +131,29 @@ class Booking
      *
      * @return \DateTime 
      */
-    public function getCreated()
-    {
+    public function getCreated() {
         return $this->created;
     }
 
     /**
-     * Set updated
+     * Set changed
      *
-     * @param \DateTime $updated
+     * @param \DateTime $changed
      * @return Booking
      */
-    public function setUpdated($updated)
-    {
-        $this->updated = $updated;
+    public function setChanged($changed) {
+        $this->changed = $changed;
 
         return $this;
     }
 
     /**
-     * Get updated
+     * Get changed
      *
      * @return \DateTime 
      */
-    public function getUpdated()
-    {
-        return $this->updated;
+    public function getChanged() {
+        return $this->changed;
     }
 
     /**
@@ -152,8 +162,7 @@ class Booking
      * @param \DateTime $bookingdate
      * @return Booking
      */
-    public function setBookingdate($bookingdate)
-    {
+    public function setBookingdate($bookingdate) {
         $this->bookingdate = $bookingdate;
 
         return $this;
@@ -164,55 +173,59 @@ class Booking
      *
      * @return \DateTime 
      */
-    public function getBookingdate()
-    {
+    public function getBookingdate() {
         return $this->bookingdate;
     }
-
+    
     /**
-     * Set timefrom
+     * Get title
      *
-     * @param \DateTime $timefrom
-     * @return Booking
+     * @return \String 
      */
-    public function setTimefrom($timefrom)
-    {
-        $this->timefrom = $timefrom;
+    public function getTitle() {
+        return $this->title;
+    }
+    
+    /**
+     * Set start
+     *
+     * @param \DateTime $start
+     * @return start
+     */
+    public function setStart($start) {
+        $this->start = $start;
 
         return $this;
     }
 
     /**
-     * Get timefrom
+     * Get title
      *
-     * @return \DateTime 
+     * @return \String 
      */
-    public function getTimefrom()
-    {
-        return $this->timefrom;
+    public function getStart() {
+        return $this->start;
     }
 
     /**
-     * Set timeto
+     * Set end
      *
-     * @param \DateTime $timeto
-     * @return Booking
+     * @param \DateTime $end
+     * @return end
      */
-    public function setTimeto($timeto)
-    {
-        $this->timeto = $timeto;
+    public function setEnd($end) {
+        $this->end = $end;
 
         return $this;
     }
 
     /**
-     * Get timeto
+     * Get end
      *
      * @return \DateTime 
      */
-    public function getTimeto()
-    {
-        return $this->timeto;
+    public function getEnd() {
+        return $this->end;
     }
 
     /**
@@ -221,8 +234,7 @@ class Booking
      * @param integer $fieldId
      * @return Booking
      */
-    public function setFieldId($fieldId)
-    {
+    public function setFieldId($fieldId) {
         $this->fieldId = $fieldId;
 
         return $this;
@@ -233,8 +245,7 @@ class Booking
      *
      * @return integer 
      */
-    public function getFieldId()
-    {
+    public function getFieldId() {
         return $this->fieldId;
     }
 
@@ -244,8 +255,7 @@ class Booking
      * @param integer $customerId
      * @return Booking
      */
-    public function setCustomerId($customerId)
-    {
+    public function setCustomerId($customerId) {
         $this->customerId = $customerId;
 
         return $this;
@@ -256,8 +266,7 @@ class Booking
      *
      * @return integer 
      */
-    public function getCustomerId()
-    {
+    public function getCustomerId() {
         return $this->customerId;
     }
 
@@ -267,8 +276,7 @@ class Booking
      * @param string $note
      * @return Booking
      */
-    public function setNote($note)
-    {
+    public function setNote($note) {
         $this->note = $note;
 
         return $this;
@@ -279,8 +287,63 @@ class Booking
      *
      * @return string 
      */
-    public function getNote()
-    {
+    public function getNote() {
         return $this->note;
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     * @return title
+     */
+    public function setTitle($title) {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Set customer
+     *
+     * @param \pspiess\LetsplayBundle\Entity\Customer $customer
+     * @return Booking
+     */
+    public function setCustomer(\pspiess\LetsplayBundle\Entity\Customer $customer = null) {
+        $this->customer = $customer;
+
+        return $this;
+    }
+
+    /**
+     * Get customer
+     *
+     * @return \pspiess\LetsplayBundle\Entity\Customer 
+     */
+    public function getCustomer() {
+        return $this->customer;
+    }
+
+    /**
+     * Set field
+     *
+     * @param \pspiess\LetsplayBundle\Entity\Field $field
+     * @return Booking
+     */
+    public function setField(\pspiess\LetsplayBundle\Entity\Field $field = null)
+    {
+        $this->field = $field;
+
+        return $this;
+    }
+
+    /**
+     * Get field
+     *
+     * @return \pspiess\LetsplayBundle\Entity\Field 
+     */
+    public function getField()
+    {
+        return $this->field;
     }
 }

@@ -5,6 +5,7 @@ namespace pspiess\LetsplayBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 Use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Customer
@@ -14,6 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="pspiess\LetsplayBundle\Entity\CustomerRepository")
  */
 class Customer {
+
     /**
      * @var integer
      *
@@ -198,7 +200,11 @@ class Customer {
     /**
      * @ORM\OneToMany(targetEntity="pspiess\LetsplayBundle\Entity\Booking", mappedBy="customer")
      */
-    private $booking;
+    private $bookings;
+
+    public function __construct() {
+        $this->bookings = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -789,6 +795,10 @@ class Customer {
         if (is_dir($this->getUploadRootDir())) {
             //rmdir($this->getUploadRootDir());
         }
+    }
+
+    public function __toString() {
+        return $this->firstname.', '.$this->name;
     }
 
 }

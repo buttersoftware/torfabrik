@@ -58,7 +58,7 @@ class FieldController extends Controller {
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('pspiess_letsplay_field_edit', array('id' => $entity->getId())));
+//            return $this->redirect($this->generateUrl('pspiess_letsplay_field_edit', array('id' => $entity->getId())));
         }
 
         return array(
@@ -93,6 +93,7 @@ class FieldController extends Controller {
      * @Template()
      */
     public function newAction() {
+
         $entity = new Field();
         $form = $this->createCreateForm($entity);
 

@@ -1,6 +1,11 @@
 pspiess_letsplay_customer:
     pattern:  /admin/customer
     defaults: { _controller: pspiessLetsplayBundle:Customer:index }
+
+pspiess_letsplay_customer_getall:
+    pattern:  /admin/customer/getall
+    defaults: { _controller: pspiessLetsplayBundle:Customer:getAllCustomer, _format: json }
+    requirements: { _format: (xml|json), _method: GET }
     
 pspiess_letsplay_customer_new:
     pattern:  /admin/customer/new

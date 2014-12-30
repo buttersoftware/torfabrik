@@ -13,29 +13,29 @@
             <div class="widget-header">
                 <h4 class="widget-title">Ausgew&auml;lten Tarif anpassen</h4>
             </div>
-            {#{{ form(edit_form) }}#}
+            {#{{ form(form) }}#}
             <div class="widget-body">
                 <div class="widget-main">
 
-                    {{ form_start(edit_form, {attr: {class: 'form-horizontal'}}) }}
-                        {#{{ form_widget(edit_form, {'form_type': 's'}) }}#}
-                    {#{{ form_start(edit_form) }}#}
+                    {{ form_start(form, {attr: {class: 'form-horizontal'}}) }}
+                        {#{{ form_widget(form, {'form_type': 's'}) }}#}
+                    {#{{ form_start(form) }}#}
 
                     <div class="form-group">
-                        {{ form_label(edit_form.indentifier, null, {'label_attr': {'class': 'col-sm-2'}}) }}
+                        {{ form_label(form.indentifier, null, {'label_attr': {'class': 'col-sm-2'}}) }}
                         <div class="col-sm-9">
-                            {{ form_widget    (edit_form.indentifier) }} 
+                            {{ form_widget    (form.indentifier) }} 
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-12">
                             <div class="form-group"> <!-- nested form-group acting like row -->
-                                {{ form_label(edit_form.weekdayfrom, null, {'label_attr': {'class': 'col-sm-2'}}) }}
+                                {{ form_label(form.weekdayfrom, null, {'label_attr': {'class': 'col-sm-2'}}) }}
                                 <div class="col-sm-2">
-                                    {{ form_widget (edit_form.weekdayfrom) }}
+                                    {{ form_widget (form.weekdayfrom) }}
                                 </div>
                                 <div class="col-sm-2">
-                                    {{ form_widget (edit_form.weekdayto) }} 
+                                    {{ form_widget (form.weekdayto) }} 
                                 </div>
                             </div> <!-- /nested form-group acting like row -->
                         </div><!-- /col-sm-offset-3 col-sm-9 -->
@@ -43,12 +43,12 @@
                     <div class="form-group">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                {{ form_label(edit_form.timefrom, null, {'label_attr': {'class': 'col-sm-2'}}) }}
+                                {{ form_label(form.timefrom, null, {'label_attr': {'class': 'col-sm-2'}}) }}
                                 <div class="col-sm-2">
-                                    {{ form_widget (edit_form.timefrom) }}
+                                    {{ form_widget (form.timefrom) }}
                                 </div>
                                 <div class="col-sm-2">
-                                    {{ form_widget (edit_form.timeto) }} 
+                                    {{ form_widget (form.timeto) }} 
                                 </div>
                             </div> 
                         </div>
@@ -56,23 +56,23 @@
                     <div class="form-group">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                {{ form_label(edit_form.price, null, {'label_attr': {'class': 'col-sm-2'}}) }}
+                                {{ form_label(form.price, null, {'label_attr': {'class': 'col-sm-2'}}) }}
                                 <div class="col-sm-2">
-                                    {{ form_widget (edit_form.price) }}
+                                    {{ form_widget (form.price) }}
                                 </div>
                             </div> 
                         </div>
                     </div>
                     <div class="form-group">
-                        {{ form_label(edit_form.fields, null, {'label_attr': {'class': 'col-sm-2'}}) }}
+                        {{ form_label(form.fields, null, {'label_attr': {'class': 'col-sm-2'}}) }}
                         <div class="col-sm-9">
-                            {{ form_widget    (edit_form.fields) }} 
+                            {{ form_widget    (form.fields) }} 
                         </div>
                     </div>
                     <div class="form-group">
-                        {{ form_label(edit_form.note, null, {'label_attr': {'class': 'col-sm-2'}}) }}
+                        {{ form_label(form.note, null, {'label_attr': {'class': 'col-sm-2'}}) }}
                         <div class="col-sm-9">
-                            {{ form_widget    (edit_form.note) }} 
+                            {{ form_widget    (form.note) }} 
                         </div>
                     </div>
                     <div class="hr hr-24"></div>
@@ -82,16 +82,9 @@
                         </div>
 
                         <div class="col-sm-offset-1 col-sm-1">
-                            {{ form_widget(edit_form.submit) }}
+                            {{ form_widget(form.submit) }}
                         </div>
-                        {{ form_end(edit_form) }}
-                        <div class="col-sm-offset-1 col-sm-1">
-                        {{ form_start(delete_form) }}
-                            <button type="submit" class="btn btn-danger">
-                                löschen
-                            </button>
-                        {{ form_end(delete_form) }}
-                        </div>
+                        {{ form_end(form) }}
                     </div>
                 </div>
             </div>

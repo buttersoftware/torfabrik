@@ -9,6 +9,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use pspiess\LetsplayBundle\Entity\Customer;
 use pspiess\LetsplayBundle\Form\CustomerType;
+use Symfony\Component\HttpFoundation\Response;
+
 
 /**
  * Customer controller.
@@ -39,6 +41,30 @@ class CustomerController extends Controller {
             'entities' => $entities,
             'deleteForms' => $deleteForms,
         );
+    }
+
+    /**
+     * Lists all customer entities for Calendar.
+     *
+     * @Route("/", name="customer_getAllCalendar")
+     * @Method("GET")
+     * @Template()
+     */
+    public function getAllCustomerAction() {
+        $em = $this->getDoctrine()->getManager();
+
+        $customer = $em->getRepository('pspiessLetsplayBundle:Customer')->findAll();
+
+        $rows = array();
+        foreach ($customer as $obj) {
+            $rows[] = array('label' => $obj->getName().', '. $obj->getFirstname(), 
+                'value' => $obj->getId());
+        }
+
+        $serializedEntity = $this->container->get('serializer')->serialize($rows, 'json');
+        $response = new Response($serializedEntity);
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
     }
 
     /**

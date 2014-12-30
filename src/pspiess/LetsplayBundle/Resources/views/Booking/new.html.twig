@@ -1,0 +1,15 @@
+{% extends 'pspiessLetsplayBundle::layout.html.twig' %}
+
+{% block body -%}
+    <h1>Booking creation</h1>
+
+    {{ form(form) }}
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('pspiess_letsplay_booking') }}">
+            Back to the list
+        </a>
+    </li>
+</ul>
+{% endblock %}

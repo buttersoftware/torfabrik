@@ -1,3 +1,8 @@
+pspiess_letsplay_booking:
+    resource: "@pspiessLetsplayBundle/Controller/"
+    resource: "@pspiessLetsplayBundle/Resources/config/booking.yml"
+    prefix:   /
+    
 pspiess_letsplay_customer:
     resource: "@pspiessLetsplayBundle/Controller/"
     resource: "@pspiessLetsplayBundle/Resources/config/customer.yml"
