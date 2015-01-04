@@ -1,0 +1,73 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Invoice list</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Created</th>
+                <th>Updated</th>
+                <th>Date</th>
+                <th>Invoicenumber</th>
+                <th>Customernumber</th>
+                <th>Companystreet</th>
+                <th>Companyzip</th>
+                <th>Companylocation</th>
+                <th>Companycountry</th>
+                <th>Companyphone</th>
+                <th>Payment</th>
+                <th>Customerstreet</th>
+                <th>Customerzip</th>
+                <th>Customerlocation</th>
+                <th>Customercountry</th>
+                <th>Customerphone</th>
+                <th>Note</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('invoice_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{% if entity.created %}{{ entity.created|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if entity.updated %}{{ entity.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if entity.date %}{{ entity.date|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ entity.invoiceNumber }}</td>
+                <td>{{ entity.customerNumber }}</td>
+                <td>{{ entity.companyStreet }}</td>
+                <td>{{ entity.companyZip }}</td>
+                <td>{{ entity.companyLocation }}</td>
+                <td>{{ entity.companyCountry }}</td>
+                <td>{{ entity.companyPhone }}</td>
+                <td>{{ entity.payment }}</td>
+                <td>{{ entity.customerStreet }}</td>
+                <td>{{ entity.customerZip }}</td>
+                <td>{{ entity.customerLocation }}</td>
+                <td>{{ entity.customerCountry }}</td>
+                <td>{{ entity.customerPhone }}</td>
+                <td>{{ entity.note }}</td>
+                <td>
+                <ul>
+                    <li>
+{#                        <a href="{{ path('invoice_show', { 'id': entity.id }) }}">show</a>#}
+                    </li>
+                    <li>
+{#                        <a href="{{ path('invoice_edit', { 'id': entity.id }) }}">edit</a>#}
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+{#            <a href="{{ path('invoice_new') }}">
+                Create a new entry
+            </a>#}
+        </li>
+    </ul>
+    {% endblock %}

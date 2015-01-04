@@ -45,16 +45,16 @@ class BookingController extends Controller {
     public function showCalendarAction($iField = 0) {
         $em = $this->getDoctrine()->getManager();
 
-        $mBooking = $em->getRepository('pspiessLetsplayBundle:Booking')->findAll();
+        $entBooking = $em->getRepository('pspiessLetsplayBundle:Booking')->findAll();
 
         $rows = array();
-        foreach ($mBooking as $obj) {
+        foreach ($entBooking as $obj) {
             $rows[] = array(
                 'id' => $obj->getId(),
                 'title' => $obj->getCustomer()->getName() . ', ' . $obj->getCustomer()->getFirstname(),
                 'start' => $obj->getStart()->format('Y-m-d H:i:s'),
                 'end' => $obj->getEnd()->format('Y-m-d H:i:s'),
-                'className' => 'label-success',
+                'className' => $this->GetStatus($obj),
             );
         }
 
@@ -63,12 +63,30 @@ class BookingController extends Controller {
         $response->headers->set('Content-Type', 'application/json');
         return $response;
     }
+    
+    /**
+     * 
+     * @param type $entBooking
+     */
+    public function GetStatus ($entBooking) {
+        $DateTimeNow = new \DateTime("now");
+        $sReturnLabel = 'label-primary';
+        
+        if ($DateTimeNow > $entBooking->getEnd()) {
+            $sReturnLabel = 'label-danger';
+        }
+        
+        if ($entBooking->getCancellation() == 1) {
+            $sReturnLabel = 'label-warning';
+        } 
+        
+        return $sReturnLabel;
+    }
 
     /**
      * Add a Reservation to the Calendar
      */
     public function addReservationAction() {
-        try {
             $em = $this->getDoctrine()->getManager();
             $request = $this->get('request');
             $data = $request->request->all();
@@ -79,29 +97,19 @@ class BookingController extends Controller {
             $booking = new Booking();
 
             $booking->setCustomer($customer);
-            $booking->setFieldId($field);
+            $booking->setField($field);
             //$booking->setNote('blabla');
             $booking->setTitle($data["title"]);
             $booking->setStart(new \DateTime($data["start"]));
             $booking->setEnd(new \DateTime($data["end"]));
 
-            $em = $this->getDoctrine()->getManager();
             $em->persist($booking);
             $em->flush();
-
-
-
-            //$response = new Response(json_encode($rows));
-            //$response->headers->set('Content-Type', 'application/json');
-            //return $serializer->serialize($rows, 'json');
 
             $serializedEntity = $this->container->get('serializer')->serialize($booking, 'json');
             $response = new Response($serializedEntity);
             $response->headers->set('Content-Type', 'application/json');
             return $response;
-        } catch (\Exception $e) {
-            $e;
-        }
     }
 
     /**
@@ -134,6 +142,27 @@ class BookingController extends Controller {
         } catch (\Exception $e) {
             $e;
         }
+    }
+    
+     /**
+     * Cancel a Reservation to the Calendar
+     */
+    public function cancelReservationAction() {
+        $request = $this->get('request');
+        $data = $request->request->all();
+
+        $em = $this->getDoctrine()->getManager();
+        $booking = $em->getRepository('pspiessLetsplayBundle:Booking')->find($data["id"]);
+
+        $booking->setCancellation(1);
+
+        $em->persist($booking);
+        $em->flush();
+
+        $serializedEntity = $this->container->get('serializer')->serialize($booking, 'json');
+        $response = new Response($serializedEntity);
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
     }
 
     /**

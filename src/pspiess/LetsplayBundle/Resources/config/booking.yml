@@ -22,6 +22,10 @@ pspiess_letsplay_booking_delete:
     pattern:  /admin/booking/delete
     defaults: { _controller: pspiessLetsplayBundle:Booking:deleteReservation }
     
+pspiess_letsplay_booking_cancel:
+    pattern:  /admin/booking/cancel
+    defaults: { _controller: pspiessLetsplayBundle:Booking:cancelReservation }
+    
 pspiess_letsplay_booking_calendar:
     pattern:  /admin/booking/calendar
     defaults: { _controller: pspiessLetsplayBundle:Booking:showCalendar, _format: json }

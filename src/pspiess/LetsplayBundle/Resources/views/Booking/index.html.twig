@@ -231,7 +231,7 @@
     <script src="{{ asset('resources/js/fullcalendar/lang/de.js')}}" type="text/javascript"></script>
     <script src="{{ asset('resources/js/bootbox.min.js')}}" type="text/javascript"></script>
     {#<script src="{{ asset('resources/js/date-time/locales/bootstrap-datepicker.de.js')}}" type="text/javascript"></script>#}
-
+    {#<div class="spinner" ng-show="loading"></div>#}
 <script type="text/javascript">
     function CalendarResponse(start, end, fieldid) {
         var title = $(".title").val(); // gets title value
@@ -270,6 +270,7 @@
             },
             { text: "reservieren",
                 "class": "btn btn-success btn-xs",
+                "id": "add_reservation",
                 click: function() {
                     CalendarResponse(start, end, fieldid),
                     $(this).dialog("close");
@@ -277,26 +278,9 @@
             }
             ]
         });
-    }
-    function UpdateCalendar(start, end, fieldid, calendar, id) {
-        var title = $(".title").val(); // gets title value
-        var customerid = $('#customer_id').val();
-        $.ajax({
-            url: '{{ path('pspiess_letsplay_booking_update') }}',
-            data: {"start": start, "end": end, "id":id, "customerid": customerid, "title":title},
-            type: "POST",
-            success: function(json) {
-            }
-        });
+        $("#add_reservation").attr("disabled", "disabled");
     }
     function showChangeDialog (start, end, fieldid, calendar, id) {
-{#        alert(id);#}
-{#        calendar.fullCalendar('renderEvent', {
-
-            start: start,
-            end: end, //alle werte die neu dazugekommen sind auch id !!!
-        }, true);#}
-        
         var dialog = $("#dialog-message").removeClass('hide').dialog({
             modal: true,
             title: "Reservierung bearbeiten",
@@ -305,6 +289,7 @@
             buttons: [
             { text: "ändern",
                 "class": "btn btn-success btn-xs",
+                "id": "add_reservation",
                 click: function() {
                     UpdateCalendar(start, end, fieldid, calendar, id),
                     $(this).dialog("close");
@@ -320,7 +305,7 @@
             { text: "stornieren",
                 "class": "btn btn-warning btn-xs",
                 click: function() {
-                    UpdateCalendar(start, end, fieldid),
+                    CancelCalendar(id),
                     $(this).dialog("close");
                 }
             },
@@ -332,6 +317,19 @@
                 }
             }
             ]
+        });
+        $("#add_reservation").attr("disabled", "disabled");
+    }
+    
+    function UpdateCalendar(start, end, fieldid, calendar, id) {
+        var title = $(".title").val(); // gets title value
+        var customerid = $('#customer_id').val();
+        $.ajax({
+            url: '{{ path('pspiess_letsplay_booking_update') }}',
+            data: {"start": start, "end": end, "id":id, "customerid": customerid, "title":title},
+            type: "POST",
+            success: function(json) {
+            }
         });
     }
     function DeleteReservation (id, calendar, start, end) {
@@ -345,8 +343,24 @@
             }
         });
     }
-    
+    function CancelCalendar(id) {
+        $.ajax({
+            url: '{{ path('pspiess_letsplay_booking_cancel') }}',
+            data: {"id":id},
+            type: "POST",
+            success: function(json) {
+            }
+        });
+    }
+
     jQuery(function($) {
+        $(document).ajaxStart(function() {
+            $('#loading').html('<img src="loading.gif"> loading...');
+        });
+        $(document).ajaxStop(function() {
+            $('#loading').html('<img src="loading.gif"> loading...');
+        });
+        
         //autocomplete
         var raw = {{ render(controller('pspiessLetsplayBundle:Customer:getAllCustomer')) }};
         var source = [ ];
@@ -360,6 +374,15 @@
             source: source,
             select: function(event, ui) {
                 $('#customer_id').val(mapping[ui.item.value]);
+                $("#add_reservation").removeAttr("disabled");
+            },
+            change: function(event, ui) {
+                if (!ui.item) {
+                    $("#add_reservation").attr("disabled", "disabled");
+                    $(this).val(''); 
+                } else {
+                    $("#add_reservation").removeAttr("disabled");  
+                }
             }
         });
 

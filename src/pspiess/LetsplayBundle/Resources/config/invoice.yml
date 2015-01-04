@@ -1,0 +1,19 @@
+pspiess_letsplay_invoice:
+    pattern:  /admin/invoice
+    defaults: { _controller: pspiessLetsplayBundle:Invoice:index }
+    
+pspiess_letsplay_invoice_new:
+    pattern:  /admin/invoice/new
+    defaults: { _controller: pspiessLetsplayBundle:Invoice:new }
+    
+pspiess_letsplay_invoice_create:
+    pattern:  /admin/invoice/create
+    defaults: { _controller: pspiessLetsplayBundle:Invoice:create }
+
+pspiess_letsplay_invoice_edit:
+    pattern:  /admin/invoice/edit/{id}
+    defaults: { _controller: pspiessLetsplayBundle:Invoice:edit }
+    
+pspiess_letsplay_invoice_update:
+    pattern:  /admin/invoice/update/{id}
+    defaults: { _controller: pspiessLetsplayBundle:Invoice:update }

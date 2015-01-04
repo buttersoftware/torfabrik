@@ -1,0 +1,96 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Invoice</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Created</th>
+                <td>{{ entity.created|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Updated</th>
+                <td>{{ entity.updated|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{{ entity.date|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Invoicenumber</th>
+                <td>{{ entity.invoiceNumber }}</td>
+            </tr>
+            <tr>
+                <th>Customernumber</th>
+                <td>{{ entity.customerNumber }}</td>
+            </tr>
+            <tr>
+                <th>Companystreet</th>
+                <td>{{ entity.companyStreet }}</td>
+            </tr>
+            <tr>
+                <th>Companyzip</th>
+                <td>{{ entity.companyZip }}</td>
+            </tr>
+            <tr>
+                <th>Companylocation</th>
+                <td>{{ entity.companyLocation }}</td>
+            </tr>
+            <tr>
+                <th>Companycountry</th>
+                <td>{{ entity.companyCountry }}</td>
+            </tr>
+            <tr>
+                <th>Companyphone</th>
+                <td>{{ entity.companyPhone }}</td>
+            </tr>
+            <tr>
+                <th>Payment</th>
+                <td>{{ entity.payment }}</td>
+            </tr>
+            <tr>
+                <th>Customerstreet</th>
+                <td>{{ entity.customerStreet }}</td>
+            </tr>
+            <tr>
+                <th>Customerzip</th>
+                <td>{{ entity.customerZip }}</td>
+            </tr>
+            <tr>
+                <th>Customerlocation</th>
+                <td>{{ entity.customerLocation }}</td>
+            </tr>
+            <tr>
+                <th>Customercountry</th>
+                <td>{{ entity.customerCountry }}</td>
+            </tr>
+            <tr>
+                <th>Customerphone</th>
+                <td>{{ entity.customerPhone }}</td>
+            </tr>
+            <tr>
+                <th>Note</th>
+                <td>{{ entity.note }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('invoice') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('invoice_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

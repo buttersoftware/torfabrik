@@ -15,3 +15,17 @@ generate Entities -->
 
 Mapping Information anzeigen -->
     doctrine:mapping:info
+
+Ganz wichtig sind die ORM notationen, sonst wird nichts erkannt.
+Z.B. * @ORM\Column(type="text", nullable=true, name="note")
+
+Probleme bei ManyToOne Beziehungen, wenn die id von der Parent Tabelle nicht abgespeichert wird!
+Fehlt wahrscheinlich beim add eine Zeile
+Beispiel:
+
+    public function addInvoicepos(\pspiess\LetsplayBundle\Entity\Invoicepos $invoicepos)
+    {
+        $this->invoicepos[] = $invoicepos;
+        $invoicepos->setInvoice($this); //Das fehlt !!!!!
+        return $this;
+    }

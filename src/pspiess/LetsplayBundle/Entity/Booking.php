@@ -81,8 +81,7 @@ class Booking {
     
     /**
      * @var integer
-     *
-     * 
+     * @ORM\Column(type="integer", name="cancellation", options={"default" = "0"}, nullable=true)
      */
     private $cancellation;
 
@@ -345,5 +344,28 @@ class Booking {
     public function getField()
     {
         return $this->field;
+    }
+
+    /**
+     * Set cancellation
+     *
+     * @param integer $cancellation
+     * @return Booking
+     */
+    public function setCancellation($cancellation)
+    {
+        $this->cancellation = $cancellation;
+
+        return $this;
+    }
+
+    /**
+     * Get cancellation
+     *
+     * @return integer 
+     */
+    public function getCancellation()
+    {
+        return $this->cancellation;
     }
 }
