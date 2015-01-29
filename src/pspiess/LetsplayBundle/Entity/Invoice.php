@@ -15,7 +15,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 class Invoice
 {
     /**
-     * @ORM\OneToMany(targetEntity="Invoicepos", mappedBy="invoice", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="Invoicepos", mappedBy="invoice", cascade={"persist", "remove"})
      */
     protected $invoicepos;
 
@@ -60,6 +60,7 @@ class Invoice
      * @var integer
      *
      * @ORM\Column(name="invoice_number", type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $invoiceNumber;
 
@@ -153,7 +154,55 @@ class Invoice
      * @ORM\Column(name="note", type="text", nullable=true)
      */
     private $note;
-
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="total_price", type="decimal")
+     */
+    private $totalPrice;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="paid_price", type="decimal")
+     */
+    private $paidPrice;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="total_price_net", type="decimal")
+     */
+    private $totalPricenet;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="tax", type="decimal")
+     */
+    private $tax;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="tax_number", type="string", length=50)
+     */
+    private $taxNumber;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="customer_firstname", type="string", length=100)
+     */
+    private $customerFirstname;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="customer_name", type="string", length=100)
+     */
+    private $customerName;
 
     /**
      * Get id
@@ -220,6 +269,7 @@ class Invoice
      */
     public function setInvoiceNumber($invoiceNumber)
     {
+        
         $this->invoiceNumber = $invoiceNumber;
 
         return $this;
@@ -556,7 +606,7 @@ class Invoice
     {
         $this->invoicepos->removeElement($invoicepos);
     }
-
+    
     /**
      * Get invoicepos
      *
@@ -565,6 +615,121 @@ class Invoice
     public function getInvoicepos()
     {
         return $this->invoicepos;
+    }
+
+    /**
+     * Set changed
+     *
+     * @param \DateTime $changed
+     * @return Invoice
+     */
+    public function setChanged($changed)
+    {
+        $this->changed = $changed;
+
+        return $this;
+    }
+
+    /**
+     * Get changed
+     *
+     * @return \DateTime 
+     */
+    public function getChanged()
+    {
+        return $this->changed;
+    }
+
+    /**
+     * Set totalPrice
+     *
+     * @param string $totalPrice
+     * @return Invoice
+     */
+    public function setTotalPrice($totalPrice)
+    {
+        $this->totalPrice = $totalPrice;
+
+        return $this;
+    }
+
+    /**
+     * Get totalPrice
+     *
+     * @return string 
+     */
+    public function getTotalPrice()
+    {
+        return $this->totalPrice;
+    }
+
+    /**
+     * Set paidPrice
+     *
+     * @param string $paidPrice
+     * @return Invoice
+     */
+    public function setPaidPrice($paidPrice)
+    {
+        $this->paidPrice = $paidPrice;
+
+        return $this;
+    }
+
+    /**
+     * Get paidPrice
+     *
+     * @return string 
+     */
+    public function getPaidPrice()
+    {
+        return $this->paidPrice;
+    }
+
+    /**
+     * Set totalPricenet
+     *
+     * @param string $totalPricenet
+     * @return Invoice
+     */
+    public function setTotalPricenet($totalPricenet)
+    {
+        $this->totalPricenet = $totalPricenet;
+
+        return $this;
+    }
+
+    /**
+     * Get totalPricenet
+     *
+     * @return string 
+     */
+    public function getTotalPricenet()
+    {
+        return $this->totalPricenet;
+    }
+
+    /**
+     * Set tax
+     *
+     * @param string $tax
+     * @return Invoice
+     */
+    public function setTax($tax)
+    {
+        $this->tax = $tax;
+
+        return $this;
+    }
+
+    /**
+     * Get tax
+     *
+     * @return string 
+     */
+    public function getTax()
+    {
+        return $this->tax;
     }
 
     /**
@@ -591,25 +756,71 @@ class Invoice
     }
 
     /**
-     * Set changed
+     * Set taxNumber
      *
-     * @param \DateTime $changed
+     * @param string $taxNumber
      * @return Invoice
      */
-    public function setChanged($changed)
+    public function setTaxNumber($taxNumber)
     {
-        $this->changed = $changed;
+        $this->taxNumber = $taxNumber;
 
         return $this;
     }
 
     /**
-     * Get changed
+     * Get taxNumber
      *
-     * @return \DateTime 
+     * @return string 
      */
-    public function getChanged()
+    public function getTaxNumber()
     {
-        return $this->changed;
+        return $this->taxNumber;
+    }
+
+    /**
+     * Set customerFirstname
+     *
+     * @param string $customerFirstname
+     * @return Invoice
+     */
+    public function setCustomerFirstname($customerFirstname)
+    {
+        $this->customerFirstname = $customerFirstname;
+
+        return $this;
+    }
+
+    /**
+     * Get customerFirstname
+     *
+     * @return string 
+     */
+    public function getCustomerFirstname()
+    {
+        return $this->customerFirstname;
+    }
+
+    /**
+     * Set customerName
+     *
+     * @param string $customerName
+     * @return Invoice
+     */
+    public function setCustomerName($customerName)
+    {
+        $this->customerName = $customerName;
+
+        return $this;
+    }
+
+    /**
+     * Get customerName
+     *
+     * @return string 
+     */
+    public function getCustomerName()
+    {
+        return $this->customerName;
     }
 }

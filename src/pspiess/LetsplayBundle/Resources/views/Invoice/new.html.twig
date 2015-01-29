@@ -25,9 +25,12 @@
                             {#<span class="red">#121212</span>#}
                             {#<span class="invoice-info-label">Date:</span>#}
                             {#<span class="blue">04/04/2014</span>#}
-                            <div class="form-group">
+                            <div class="form-group col-ld-12">
                                 {#{{ form_label(form.date, null, {'label_attr': {'class': 'col-sm-6'}}) }}#}
-                                <div class="col-ld-10">
+                                {#                                <div class="col-sm-3">
+                                                                    {{ form_widget (form.invoiceNumber) }}
+                                                                </div>#}
+                                <div class="col-ld-12">
                                     {{ form_widget (form.date) }}
                                 </div>
                             </div>
@@ -46,57 +49,50 @@
                             <div class="col-sm-6">
 
                                 <div class="col-xs-11 label label-lg label-info arrowed-in arrowed-right">
-                                    <b>Torfabrik Krefeld</b>
+                                    <b>TorFabrik Sport &amp; Event GmbH</b>
                                 </div>
-
-
-                                <div class="col-sm-6">
-                                    <ul class="list-unstyled spaced">
-                                        <li>
-                                            <div class="form-group">
-                                                {{ form_label(form.companyStreet, null, {'label_attr': {'class': ''}}) }}
-                                                <div class="">
-                                                    {{ form_widget (form.companyStreet) }}
-                                                </div>
+                                <div class="col-sm-12" style='padding-top:7px'>
+                                    <div class="col-sm-5">
+                                        <div class="form-group">
+                                            {{ form_label(form.taxNumber, null, {'label_attr': {'class': ''}}) }}
+                                            <div class="">
+                                                {{ form_widget (form.taxNumber) }}
                                             </div>
-                                        </li>
-                                        <li>
-                                            <div class="form-group">
-                                                {{ form_label(form.companyZip, null, {'label_attr': {'class': ''}}) }}
-                                                <div class="">
-                                                    {{ form_widget (form.companyZip) }}
-                                                </div>
+                                        </div>
+                                        <div class="form-group">
+                                            {{ form_label(form.companyLocation, null, {'label_attr': {'class': ''}}) }}
+                                            <div class="">
+                                                {{ form_widget (form.companyLocation) }}
                                             </div>
-                                        </li>
-
-                                        <li>
-                                            <div class="form-group">
-                                                {{ form_label(form.companyLocation, null, {'label_attr': {'class': ''}}) }}
-                                                <div class="">
-                                                    {{ form_widget (form.companyLocation) }}
-                                                </div>
+                                        </div>
+                                        <div class="form-group">
+                                            {{ form_label(form.companyStreet, null, {'label_attr': {'class': ''}}) }}
+                                            <div class="">
+                                                {{ form_widget (form.companyStreet) }}
                                             </div>
-                                        </li>
-
-                                        <li>
-                                            <div class="form-group">
-                                                {{ form_label(form.companyCountry, null, {'label_attr': {'class': ''}}) }}
-                                                <div class="">
-                                                    {{ form_widget (form.companyCountry) }}
-                                                </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <div class="form-group">
+                                            {{ form_label(form.companyPhone, null, {'label_attr': {'class': ''}}) }}
+                                            <div class="">
+                                                {{ form_widget (form.companyPhone) }}
                                             </div>
-                                        </li>
-
-                                        <li>
-                                            <div class="form-group">
-                                                {{ form_label(form.companyPhone, null, {'label_attr': {'class': ''}}) }}
-                                                <div class="">
-                                                    {{ form_widget (form.companyPhone) }}
-                                                </div>
+                                        </div>
+                                        <div class="form-group">
+                                            {{ form_label(form.companyZip, null, {'label_attr': {'class': ''}}) }}
+                                            <div class="">
+                                                {{ form_widget (form.companyZip) }}
                                             </div>
-                                        </li>
-                                    </ul>
-                                </div>              
+                                        </div>
+                                        <div class="form-group">
+                                            {{ form_label(form.companyCountry, null, {'label_attr': {'class': ''}}) }}
+                                            <div class="">
+                                                {{ form_widget (form.companyCountry) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>             
                             </div><!-- /.col -->
 
                             <div class="col-sm-6">
@@ -104,104 +100,169 @@
                                 <div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right">
                                     <b>Rechnung an</b>
                                 </div>
+                                <div class="col-sm-12" style='padding-top:7px'>
+                                    <div class="col-sm-5">
+                                        <div class="form-group">
+                                            {{ form_label(form.customerNumber, null, {'label_attr': {'class': ''}}) }}
+                                            <div class="">
+                                                {{ form_widget (form.customerNumber) }}
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            {{ form_label(form.customerFirstname, null, {'label_attr': {'class': ''}}) }}
+                                            <div class="">
+                                                {{ form_widget (form.customerFirstname) }}
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            {{ form_label(form.customerLocation, null, {'label_attr': {'class': ''}}) }}
+                                            <div class="">
+                                                {{ form_widget (form.customerLocation) }}
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            {{ form_label(form.customerStreet, null, {'label_attr': {'class': ''}}) }}
+                                            <div class="">
+                                                {{ form_widget (form.customerStreet) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <div class="form-group">
+                                            {{ form_label(form.customerPhone, null, {'label_attr': {'class': ''}}) }}
+                                            <div class="">
+                                                {{ form_widget (form.customerPhone) }}
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            {{ form_label(form.customerName, null, {'label_attr': {'class': ''}}) }}
+                                            <div class="">
+                                                {{ form_widget (form.customerName) }}
+                                            </div>
+                                        </div>
 
-                                <div class="col-sm-6">
-                                    <ul class="list-unstyled spaced">
-                                        <li>
-                                            <div class="form-group">
-                                                {{ form_label(form.customerStreet, null, {'label_attr': {'class': ''}}) }}
-                                                <div class="">
-                                                    {{ form_widget (form.customerStreet) }}
-                                                </div>
+                                        <div class="form-group">
+                                            {{ form_label(form.customerZip, null, {'label_attr': {'class': ''}}) }}
+                                            <div class="">
+                                                {{ form_widget (form.customerZip) }}
                                             </div>
-                                        </li>
-                                        <li>
-                                            <div class="form-group">
-                                                {{ form_label(form.customerZip, null, {'label_attr': {'class': ''}}) }}
-                                                <div class="">
-                                                    {{ form_widget (form.customerZip) }}
-                                                </div>
+                                        </div>
+                                        <div class="form-group">
+                                            {{ form_label(form.customerCountry, null, {'label_attr': {'class': ''}}) }}
+                                            <div class="">
+                                                {{ form_widget (form.customerCountry) }}
                                             </div>
-                                        </li>
+                                        </div>
 
-                                        <li>
-                                            <div class="form-group">
-                                                {{ form_label(form.customerLocation, null, {'label_attr': {'class': ''}}) }}
-                                                <div class="">
-                                                    {{ form_widget (form.customerLocation) }}
-                                                </div>
-                                            </div>
-                                        </li>
-
-                                        <li>
-                                            <div class="form-group">
-                                                {{ form_label(form.customerCountry, null, {'label_attr': {'class': ''}}) }}
-                                                <div class="">
-                                                    {{ form_widget (form.customerCountry) }}
-                                                </div>
-                                            </div>
-                                        </li>
-
-                                        <li>
-                                            <div class="form-group">
-                                                {{ form_label(form.customerPhone, null, {'label_attr': {'class': ''}}) }}
-                                                <div class="">
-                                                    {{ form_widget (form.customerPhone) }}
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
+                                    </div>
                                 </div>
-                            </div><!-- /.col -->
-                            <div class="space"></div>
+                            </div>
+                        </div><!-- /.col -->
+                        <div class="space"></div>
 
-                            <div>
-                                <table class="table table-striped table-bordered">
-                                    <thead>
+                        <div>
+                            <table class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th width="5%">#</th>
+                                        <th width="40%">Produkt</th>
+                                        <th width="45%">Beschreibung</th>
+                                        <th width="10%">Preis</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    {% for invoicepos in form.invoicepos %}
                                         <tr>
-                                            <th>Produkt</th>
-                                            <th>Beschreibung</th>
-                                            <th class="hidden-xs">Preis</th>
+                                            <td>
+                                                {{ form_widget(invoicepos.pos) }}
+                                            </td>
+                                            <td>
+                                                {{ form_widget(invoicepos.product) }}
+                                            </td>
+                                            <td>
+                                                {{ form_widget(invoicepos.description) }}
+                                            </td>
+                                            <td>
+                                                {{ form_widget(invoicepos.totalPrice) }}
+                                            </td>
                                         </tr>
-                                    </thead>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div style="display: none;">{{ form_widget(form.invoicepos) }}</div>
 
-                                    <tbody>
-                                        {% for invoicepos in form.invoicepos %}
-                                            <tr>
-                                                <td>
-                                                    {{ form_widget(invoicepos.product) }}
-                                                </td>
-                                                <td>
-                                                    {{ form_widget(invoicepos.description) }}
-                                                </td>
-                                                <td>
-                                                    {{ form_widget(invoicepos.totalPrice) }}
-                                                </td>
-                                            </tr>
-                                        {% endfor %}
-                                    </tbody>
-                                </table>
-                            </div>
+                        <div class="hr hr8 hr-double hr-dotted"></div>
 
-                            <div class="hr hr8 hr-double hr-dotted"></div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    {{ form_label(form.payment, null, {'label_attr': {'class': ''}}) }}
+                                    <div class="">
+                                        <span class="red">{{ form_widget (form.payment) }}</span>
 
-                            <div class="row">
-                                <div class="col-sm-5 pull-right">
-                                    <h4 class="pull-right">
-                                        Gesamtsumme :
-                                        <span class="red">$395</span>
-                                    </h4>
+                                    </div>
                                 </div>
                             </div>
-                            
-                            <div class="hr hr8 hr-double hr-dotted"></div>
+                            <div class="col-sm-3 pull-right">
+                                <div class="form-group">
+                                    {{ form_label(form.TotalPricenet, null, {'label_attr': {'class': ''}}) }}
+                                    <div class="">
+                                        <span class="red">{{ form_widget (form.TotalPricenet) }}</span>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3 pull-right">
+                                <div class="form-group">
+                                    {{ form_label(form.PaidPrice, null, {'label_attr': {'class': ''}}) }}
+                                    <div class="">
+                                        {{ form_widget (form.PaidPrice) }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3 pull-right">
+                                <div class="form-group">
+                                    {{ form_label(form.tax, null, {'label_attr': {'class': ''}}) }}
+                                    <div class="">
+                                        <span class="red">{{ form_widget (form.tax) }}</span>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3 pull-right">
+                                <div class="form-group">
+                                    {{ form_label(form.TotalPrice, null, {'label_attr': {'class': ''}}) }}
+                                    <div class="">
+                                        <span class="red">{{ form_widget (form.TotalPrice) }}</span>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hr hr8 hr-double hr-dotted"></div>
+                        <div class="form-group">
+                            {{ form_label(form.note, null, {'label_attr': {'class': ''}}) }}
+                            <div class="">
+                                {{ form_widget (form.note) }}
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            {{ form_widget(form.submit) }}
                         </div>
                     </div>
                 </div>
-                {{ form_end(form) }}
-                <!-- /section:pages/invoice -->
             </div>
-            <!-- PAGE CONTENT ENDS -->
-        </div><!-- /.col -->
-    </div><!-- /.page-content-area -->
+            {{ form_end(form) }}
+            <!-- /section:pages/invoice -->
+        </div>
+        <!-- PAGE CONTENT ENDS -->
+    </div><!-- /.col -->
+</div><!-- /.page-content-area -->
 {% endblock %}

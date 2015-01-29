@@ -21,30 +21,37 @@ class InvoiceType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         
         $builder
-                ->add('invoiceNumber')
+                ->add('invoiceNumber', 'hidden', array('label' => ''))
                 ->add('date', 'date', array('label' => 'Field', 'data' => new \DateTime("now")))
                 ->add('companyStreet', 'text', array('label' => 'Stra&szlig;e', 'attr' => array('class' => '')))
                 ->add('companyZip', 'text', array('label' => 'PLZ', 'attr' => array('class' => '')))
                 ->add('companyLocation', 'text', array('label' => 'Ort', 'attr' => array('class' => '')))
                 ->add('companyCountry', 'text', array('label' => 'Land', 'attr' => array('class' => '')))
                 ->add('companyPhone', 'text', array('label' => 'Telefon', 'attr' => array('class' => '')))
-                ->add('customerNumber')
-                ->add('payment')
+                ->add('customerNumber', 'text', array('label' => 'Kundennummer', 'attr' => array()))
+                ->add('payment', 'choice', array('label' => 'Zahlung', 'attr' => array('class' => ''),
+                    'choices' => array('Bar' => 'Bar', 'EC Karte' => 'EC - Karte', 'Kreditkarte' => 'Kreditkarte', 'Überweisung' => 'Überweisung'),
+                    'preferred_choices' => array('Bar'), 'required' => true))
                 ->add('customerStreet', 'text', array('label' => 'Stra&szlig;e', 'attr' => array('class' => '')))
                 ->add('customerZip', 'text', array('label' => 'PLZ', 'attr' => array('class' => '')))
                 ->add('customerLocation', 'text', array('label' => 'Ort', 'attr' => array('class' => '')))
                 ->add('customerCountry', 'text', array('label' => 'Land', 'attr' => array('class' => '')))
                 ->add('customerPhone', 'text', array('label' => 'Telefon', 'attr' => array('class' => '')))
+                ->add('TotalPrice', 'money', array('label' => 'Bruttopreis', 'attr' => array('class' => '')))
+                ->add('TotalPricenet', 'money', array('label' => 'Nettopreis', 'attr' => array('class' => '')))
+                ->add('tax', 'money', array('label' => 'Mehrwertssteuer', 'attr' => array('class' => '')))
+                ->add('PaidPrice', 'money', array('label' => 'Bereits bezahlt', 'attr' => array('class' => '')))
+                ->add('note', 'textarea', array('label' => 'Bemerkung', 'attr' => array('class' => '')))
+                ->add('taxNumber', 'text', array('label' => 'Steuernummer', 'attr' => array('class' => '')))
+                ->add('customerFirstname', 'text', array('label' => 'Vorname', 'attr' => array('class' => '')))
+                ->add('customerName', 'text', array('label' => 'Nachname', 'attr' => array('class' => '')))
                 ->add('invoicepos', 'collection', array(
                         'type' => new InvoiceposType(),
-                        'allow_add' => true,
+                        'allow_add'    => true,
                         'allow_delete' => true,
-                        'prototype' => true,
-                        'by_reference' => false,
+                        'cascade_validation' => true,
+                        'by_reference' => true,
                     ))
-                
-
-                ->add('note', 'textarea', array('label' => 'Bemerkung', 'attr' => array('class' => '')))
         ;
     }
 

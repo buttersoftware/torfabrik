@@ -29,3 +29,5 @@ Beispiel:
         $invoicepos->setInvoice($this); //Das fehlt !!!!!
         return $this;
     }
+//Wichtig für JavaScript Routes
+https://github.com/FriendsOfSymfony/FOSJsRoutingBundle/blob/master/Resources/doc/index.md

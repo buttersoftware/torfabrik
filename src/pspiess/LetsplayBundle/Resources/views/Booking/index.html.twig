@@ -27,7 +27,17 @@
                     alle Reservierungen
                 </small>
             </h1>
+            
         </div><!-- /.page-header -->
+        <div class="col-lg-12">
+            <div class="col-lg-3">
+                <span class="label label-lg label-info">reserviert</span>
+                <span class="label label-lg label-danger">nicht bezahlt</span>
+                <span class="label label-lg label-success">bezahlt</span>
+                <span class="label label-lg label-warning">storniert</span>
+            </div>
+        </div>
+        <div class="col-lg-12"></div>
         <div class="col-xs-12">
             <!-- PAGE CONTENT BEGINS -->
             <div class="col-lg-3">
@@ -66,113 +76,10 @@
 
                 <!-- /section:plugins/data-time.calendar -->
             </div>
-
-            {#                <div class="col-sm-3">
-                                <div class="widget-box transparent">
-                                    <div class="widget-header">
-                                        <h4>Draggable events</h4>
-                                    </div>
-                                    <div class="widget-body">
-                                        <div class="widget-main no-padding">
-                                            <div id="external-events">
-                                                <div class="external-event label-grey" data-class="label-grey">
-                                                    <i class="ace-icon fa fa-arrows"></i>
-                                                    My Event 1
-                                                </div>
-            
-                                                <div class="external-event label-success" data-class="label-success">
-                                                    <i class="ace-icon fa fa-arrows"></i>
-                                                    My Event 2
-                                                </div>
-            
-                                                <div class="external-event label-danger" data-class="label-danger">
-                                                    <i class="ace-icon fa fa-arrows"></i>
-                                                    My Event 3
-                                                </div>
-            
-                                                <div class="external-event label-purple" data-class="label-purple">
-                                                    <i class="ace-icon fa fa-arrows"></i>
-                                                    My Event 4
-                                                </div>
-            
-                                                <div class="external-event label-yellow" data-class="label-yellow">
-                                                    <i class="ace-icon fa fa-arrows"></i>
-                                                    My Event 5
-                                                </div>
-            
-                                                <div class="external-event label-pink" data-class="label-pink">
-                                                    <i class="ace-icon fa fa-arrows"></i>
-                                                    My Event 6
-                                                </div>
-            
-                                                <div class="external-event label-info" data-class="label-info">
-                                                    <i class="ace-icon fa fa-arrows"></i>
-                                                    My Event 7
-                                                </div>
-            
-                                                <label>
-                                                    <input type="checkbox" class="ace ace-checkbox" id="drop-remove" />
-                                                    <span class="lbl"> Remove after drop</span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>#}
-
-
             <!-- PAGE CONTENT ENDS -->
         </div><!-- /.col -->
     </div><!-- /.page-content-area -->
-
-    {#<h1>Booking list</h1>
     
-    <table class="records_list">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Created</th>
-                <th>Updated</th>
-                <th>Bookingdate</th>
-                <th>Timefrom</th>
-                <th>Timeto</th>
-                <th>Note</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for entity in entities %}
-            <tr>
-                <td><a href="{{ path('booking_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{% if entity.created %}{{ entity.created|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if entity.updated %}{{ entity.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if entity.bookingdate %}{{ entity.bookingdate|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{{ entity.timefrom }}</td>
-                <td>{{ entity.timeto }}</td>
-                <td>{{ entity.note }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('booking_show', { 'id': entity.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('booking_edit', { 'id': entity.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    #}
-    {#<ul>
-        <li>
-            <a href="{{ path('pspiess_letsplay_booking_new') }}">
-                Create a new entry
-            </a>
-        </li>
-    </ul>#}
-
     {#<div class="popup"><h3>Neu Reservierung hinzufügen</h3>
         <h3 class="header blue lighter smaller">Kunde :</h3>
         <div class="row">
@@ -242,7 +149,9 @@
                 data: {"title": title, "start": start, "end": end, "customerid": customerid, "fieldid": fieldid},
                 type: 'post',
                 success: function(result) {
+                    {#console.log(result.id);#}
                     $('#calendar1').fullCalendar('renderEvent', {
+                        id:result.id,
                         title: title,
                         start: start,
                         end: end, //alle werte die neu dazugekommen sind auch id !!!
@@ -264,7 +173,7 @@
             { text: "neuer Kunde",
                 "class": "btn btn-primary btn-xs",
                 click: function() {
-                    window.location.href="{{ path('pspiess_letsplay_customer_new') }}",
+                    window.location.href = Routing.generate('pspiess_letsplay_customer_new'),
                     $(this).dialog("close");
                 }
             },
@@ -298,8 +207,7 @@
             { text: "abrechnen",
                 "class": "btn btn-primary btn-xs",
                 click: function() {
-                    UpdateCalendar(start, end, fieldid),
-                    $(this).dialog("close");
+                    window.location.href = Routing.generate('pspiess_letsplay_invoice_new', {id:id})
                 }
             },
             { text: "stornieren",
@@ -349,10 +257,12 @@
             data: {"id":id},
             type: "POST",
             success: function(json) {
+                
             }
         });
     }
-
+    
+    
     jQuery(function($) {
         $(document).ajaxStart(function() {
             $('#loading').html('<img src="loading.gif"> loading...');
@@ -407,12 +317,13 @@
                 center: '',
                 right: 'today prev,next'
             },
-            events:{{ render(controller('pspiessLetsplayBundle:Booking:showCalendar', {'iField': '28'})) }}
-            ,{#editable: true,#}
+            events:{{ render(controller('pspiessLetsplayBundle:Booking:showCalendar', {'iField': '28'})) }},
+            editable: true,
             droppable: true, // this allows things to be dropped onto the calendar !!!
             selectable: true,
             selectHelper: true,
             select: function(start, end) {
+{#                alert('select');#}
                 showDialog(start.format("YYYY-MM-DD HH:mm:ss"), end.format("YYYY-MM-DD HH:mm:ss"), 28);
             },
             editable: true,
@@ -422,6 +333,7 @@
                     data: {"start": event.start.format("YYYY-MM-DD HH:mm:ss"), "end": event.end.format("YYYY-MM-DD HH:mm:ss"), "id":event.id},
                     type: "POST",
                     success: function(json) {
+{#                        alert('drop');#}
                     }
                 });
             },
@@ -431,10 +343,12 @@
                     data: {"start": event.start.format("YYYY-MM-DD HH:mm:ss"), "end": event.end.format("YYYY-MM-DD HH:mm:ss"), "id":event.id},
                     type: "POST",
                     success: function(json) {
+{#                        alert('resize');#}
                     }
                 });
             },
             eventClick: function(calEvent, jsEvent, view) {
+{#                alert('click');#}
                 showChangeDialog(calEvent.start.format("YYYY-MM-DD HH:mm:ss"), calEvent.end.format("YYYY-MM-DD HH:mm:ss"), 28, calendar, calEvent.id);
             }
     });
@@ -528,21 +442,5 @@
                 ]
         });
         })
-
-{#                                                if (jqXHR.status === 0) {
-                                alert('Not connect.\n Verify Network.');
-                                } else if (jqXHR.status == 404) {
-                                alert('Requested page not found. [404]');
-                                } else if (jqXHR.status == 500) {
-                                alert('Internal Server Error [500].');
-                                } else if (exception === 'parsererror') {
-                                alert('Requested JSON parse failed.');
-                                } else if (exception === 'timeout') {
-                                alert('Time out error.');
-                                } else if (exception === 'abort') {
-                                alert('Ajax request aborted.');
-                                } else {
-                                alert('Uncaught Error.\n' + jqXHR.responseText);
-                                }#}
 </script>
 {% endblock %}

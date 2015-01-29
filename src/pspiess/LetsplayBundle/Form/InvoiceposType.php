@@ -15,14 +15,15 @@ class InvoiceposType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('pos')
+            ->add('pos', 'text', array('label' => '', 'attr' => array()))
             ->add('product')
+//            ->add('invoice', 'hidden')
             ->add('description')
-            ->add('discount')
-            ->add('quantity')
-            ->add('price')
-            ->add('totalPrice')
-            ->add('tax')
+            ->add('discount', 'hidden')
+            ->add('quantity', 'hidden')
+            ->add('price', 'hidden')
+            ->add('totalPrice', 'money', array('label' => 'Bereits bezahlt', 'attr' => array('class' => '')))
+            ->add('tax', 'money', array('label' => 'Bereits bezahlt', 'attr' => array('class' => '')))
         ;
     }
     

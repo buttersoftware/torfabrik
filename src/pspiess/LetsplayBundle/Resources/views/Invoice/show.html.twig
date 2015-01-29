@@ -1,96 +1,153 @@
-{% extends '::base.html.twig' %}
+{% extends 'pspiessLetsplayBundle::layout.html.twig' %}
+
+{% block title %}Rechnung{% endblock %}
+
+{% block nav %}
+    {{ knp_menu_render('pspiessLetsplayBundle:MenuBuilder:mainMenu', {'currentClass': 'active', 'template': 'pspiessLetsplayBundle:Menu:knp_menu.html.twig'}) }}
+{% endblock %}
 
 {% block body -%}
-    <h1>Invoice</h1>
+    <div class="page-content-area">
+        <div class="col-xs-12">
+            <!-- PAGE CONTENT BEGINS -->
+            <div class="space-6"></div>
+            <div class="col-sm-10 col-sm-offset-1">
+                <!-- #section:pages/invoice -->
+                <div class="widget-box transparent">
+                    <div class="widget-header widget-header-large">
+                        <h3 class="widget-title grey lighter">
+                            Kundenrechnung
+                        </h3>
+                        
+                        <!-- #section:pages/invoice.info -->
+                        <div class="widget-toolbar no-border invoice-info">
+                            <span class="invoice-info-label">Nummer:</span>
+                            <span class="red">{{ entity.invoiceNumber }}</span>
 
-    <table class="record_properties">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ entity.id }}</td>
-            </tr>
-            <tr>
-                <th>Created</th>
-                <td>{{ entity.created|date('Y-m-d H:i:s') }}</td>
-            </tr>
-            <tr>
-                <th>Updated</th>
-                <td>{{ entity.updated|date('Y-m-d H:i:s') }}</td>
-            </tr>
-            <tr>
-                <th>Date</th>
-                <td>{{ entity.date|date('Y-m-d H:i:s') }}</td>
-            </tr>
-            <tr>
-                <th>Invoicenumber</th>
-                <td>{{ entity.invoiceNumber }}</td>
-            </tr>
-            <tr>
-                <th>Customernumber</th>
-                <td>{{ entity.customerNumber }}</td>
-            </tr>
-            <tr>
-                <th>Companystreet</th>
-                <td>{{ entity.companyStreet }}</td>
-            </tr>
-            <tr>
-                <th>Companyzip</th>
-                <td>{{ entity.companyZip }}</td>
-            </tr>
-            <tr>
-                <th>Companylocation</th>
-                <td>{{ entity.companyLocation }}</td>
-            </tr>
-            <tr>
-                <th>Companycountry</th>
-                <td>{{ entity.companyCountry }}</td>
-            </tr>
-            <tr>
-                <th>Companyphone</th>
-                <td>{{ entity.companyPhone }}</td>
-            </tr>
-            <tr>
-                <th>Payment</th>
-                <td>{{ entity.payment }}</td>
-            </tr>
-            <tr>
-                <th>Customerstreet</th>
-                <td>{{ entity.customerStreet }}</td>
-            </tr>
-            <tr>
-                <th>Customerzip</th>
-                <td>{{ entity.customerZip }}</td>
-            </tr>
-            <tr>
-                <th>Customerlocation</th>
-                <td>{{ entity.customerLocation }}</td>
-            </tr>
-            <tr>
-                <th>Customercountry</th>
-                <td>{{ entity.customerCountry }}</td>
-            </tr>
-            <tr>
-                <th>Customerphone</th>
-                <td>{{ entity.customerPhone }}</td>
-            </tr>
-            <tr>
-                <th>Note</th>
-                <td>{{ entity.note }}</td>
-            </tr>
-        </tbody>
-    </table>
+                            <br />
+                            <span class="invoice-info-label">Datum:</span>
+                            <span class="blue">{{  entity.date|date("d.m.Y") }}</span>
+                        </div>
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('invoice') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('invoice_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+                        <div class="widget-toolbar hidden-480">
+                            <a href="#">
+                                <i class="ace-icon fa fa-print"></i>
+                            </a>
+                        </div>
+
+                        <!-- /section:pages/invoice.info -->
+                    </div>
+
+                    <div class="widget-body">
+                        <div class="widget-main padding-24">
+                            <div class="col-sm-6">
+
+                                <div class="col-xs-11 label label-lg label-info arrowed-in arrowed-right">
+                                    <b>Torfabrik Krefeld</b>
+                                </div>
+                                <div class="col-sm-12" style='padding-top:7px'>
+                                    <div class="col-sm-6">
+                                        <div class="row">
+                                            <ul class="list-unstyled spaced">
+                                                <li><i class="ace-icon fa fa-caret-right blue"></i>{{ entity.companyStreet }}</li>
+                                                <li><i class="ace-icon fa fa-caret-right blue"></i>{{ entity.companyZip }}</li>
+                                                <li><i class="ace-icon fa fa-caret-right blue"></i>{{ entity.companyLocation }}</li>
+                                                <li><i class="ace-icon fa fa-caret-right blue"></i>{{ entity.companyCountry }}</li>
+                                                <li><i class="ace-icon fa fa-caret-right blue"></i>{{ entity.companyPhone }}</li>
+                                            </ul>
+                                        </div>
+                                    </div><!-- /.col -->
+                                </div>             
+                            </div><!-- /.col -->
+
+                            <div class="col-sm-6">
+
+                                <div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right">
+                                    <b>{{ customer.customernr }} - {{ customer.firstname }}, {{ customer.name }}</b>
+                                </div>
+                                <div class="col-sm-12" style='padding-top:7px'>
+                                    <div class="col-sm-6">
+                                        <div>
+                                            <ul class="list-unstyled  spaced">
+                                            <ul class="list-unstyled spaced">
+                                                <li><i class="ace-icon fa fa-caret-right blue"></i>{{ entity.customerStreet }}</li>
+                                                <li><i class="ace-icon fa fa-caret-right blue"></i>{{ entity.customerZip }}</li>
+                                                <li><i class="ace-icon fa fa-caret-right blue"></i>{{ entity.customerLocation }}</li>
+                                                <li><i class="ace-icon fa fa-caret-right blue"></i>{{ entity.customerCountry }}</li>
+                                                <li><i class="ace-icon fa fa-caret-right blue"></i>{{ entity.customerPhone }}</li>
+                                            </ul>
+                                            </ul>
+                                        </div>
+                                    </div><!-- /.col -->
+                                </div>
+                            </div>
+                        </div><!-- /.col -->
+                        <div class="space"></div>
+
+                        <div>
+                            <table class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th width="5%">#</th>
+                                        <th width="40%">Produkt</th>
+                                        <th width="45%">Beschreibung</th>
+                                        <th width="10%">Preis</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    {% for invoicepos in entity.invoicepos %}
+                                        <tr>
+                                            <td>{{ invoicepos.pos }}</td>
+                                            <td>{{ invoicepos.product }}</td>
+                                            <td>{{ invoicepos.description }}</td>
+                                            <td>{{ invoicepos.totalPrice|number_format(2, ',', '.') }} &euro;</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td class="clear" colspan="3"></td>
+                                        <td><span class="red">{{ entity.TotalPrice|number_format(2, ',', '.') }} &euro;</span></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+
+                        <div class="hr hr8 hr-double hr-dotted"></div>
+
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="entity-group">
+                                    <div class="">
+                                        <span class="red">Bezahlung: {{ entity.payment }}</span>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="entity-group">
+                                    <div class="">
+                                        <span class="red">{{ entity.TotalPrice|number_format(2, ',', '.') }} &euro;</span>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hr hr8 hr-double hr-dotted"></div>
+                        <div class="entity-group">
+                            <div class="">
+                                {{ entity.note }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /section:pages/invoice -->
+        </div>
+        <!-- PAGE CONTENT ENDS -->
+    </div><!-- /.col -->
+</div><!-- /.page-content-area -->
 {% endblock %}

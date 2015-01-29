@@ -121,7 +121,7 @@ class CustomerController extends Controller {
     public function newAction() {
         $entity = new Customer();
         $form = $this->createCreateForm($entity);
-
+        
         return array(
             'entity' => $entity,
             'form' => $form->createView(),

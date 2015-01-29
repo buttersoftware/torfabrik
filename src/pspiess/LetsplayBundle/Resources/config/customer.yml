@@ -10,6 +10,8 @@ pspiess_letsplay_customer_getall:
 pspiess_letsplay_customer_new:
     pattern:  /admin/customer/new
     defaults: { _controller: pspiessLetsplayBundle:Customer:new }
+    options:
+        expose: true
     
 pspiess_letsplay_customer_create:
     pattern:  /admin/customer/create
