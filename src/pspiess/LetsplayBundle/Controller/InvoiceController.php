@@ -61,23 +61,19 @@ class InvoiceController extends Controller {
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-//            $query = $em->createQuery(
-//                'SELECT i
-//                FROM pspiessLetsplayBundle:Invoice i
-//                WHERE i.invoiceNumber < :invoiceNumber
-//                ORDER BY i.invoiceNumber ASC'
-//            )->setParameter('invoiceNumber', '99999999999');
-//            
-//            $entInvoice = $query->getResult();
-//            
+            $em = $this->getDoctrine()->getManager();   
 
             foreach ($entity->getInvoicepos() as $entInvoice) {
                 $entity->addInvoicepos($entInvoice);
             }
-
+            
             $em->persist($entity);
             $em->flush();
+            
+            $entBooking = $em->getRepository('pspiessLetsplayBundle:Booking')->find($entity->getBookingId());
+            $em->persist($entBooking->setInvoiceId($entity->getId()));
+            $em->flush();
+            
             return $this->redirect($this->generateUrl('pspiess_letsplay_invoice_show', array('id' => $entity->getId())));
         }
 
@@ -118,6 +114,7 @@ class InvoiceController extends Controller {
         $entBooking = $em->getRepository('pspiessLetsplayBundle:Booking')->find($id);
         $entInvoice = new Invoice();
         
+        $entInvoice->setBookingId($entBooking->Getid()); //ToDo
         $entInvoice->setInvoiceNumber($em->getRepository('pspiessLetsplayBundle:Invoice')->getNextInviceNumber()); //ToDo
         $entInvoice->setTaxNumber("123/222/9087"); //ToDo 
         $entInvoice->setCustomerNumber($entBooking->getCustomer()->getCustomernr()); //ToDo 
@@ -201,6 +198,7 @@ class InvoiceController extends Controller {
 //        $form = $this->createEditForm($entInvoice);
         return array(
             'entity' => $entInvoice,
+            'data' => 'TEST',
             'form' => $form->createView(),
         );
     }
@@ -297,7 +295,6 @@ class InvoiceController extends Controller {
 
         if ($editForm->isValid()) {
             $em->flush();
-
             return $this->redirect($this->generateUrl('invoice_edit', array('id' => $id)));
         }
 

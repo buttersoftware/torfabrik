@@ -75,9 +75,11 @@ class BookingController extends Controller {
         if ($DateTimeNow > $entBooking->getEnd()) {
             $sReturnLabel = 'label-danger';
         }
-
         if ($entBooking->getCancellation() == 1) {
             $sReturnLabel = 'label-warning';
+        }
+        if ($entBooking->getInvoiceId() > 0) {
+            $sReturnLabel = 'label-success';
         }
 
         return $sReturnLabel;

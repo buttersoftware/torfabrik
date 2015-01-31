@@ -45,6 +45,7 @@ class InvoiceType extends AbstractType {
                 ->add('taxNumber', 'text', array('label' => 'Steuernummer', 'attr' => array('class' => '')))
                 ->add('customerFirstname', 'text', array('label' => 'Vorname', 'attr' => array('class' => '')))
                 ->add('customerName', 'text', array('label' => 'Nachname', 'attr' => array('class' => '')))
+                ->add('bookingId', 'hidden')
                 ->add('invoicepos', 'collection', array(
                         'type' => new InvoiceposType(),
                         'allow_add'    => true,

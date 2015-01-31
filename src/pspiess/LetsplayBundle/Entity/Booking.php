@@ -105,6 +105,12 @@ class Booking {
     private $field;
 
     /**
+     * @var integer
+     * @ORM\Column(type="integer", name="invoice_id", nullable=true)
+     */
+    private $InvoiceId;
+    
+    /**
      * Get id
      *
      * @return integer 
@@ -367,5 +373,28 @@ class Booking {
     public function getCancellation()
     {
         return $this->cancellation;
+    }
+
+    /**
+     * Set InvoiceId
+     *
+     * @param integer $invoiceId
+     * @return Booking
+     */
+    public function setInvoiceId($invoiceId)
+    {
+        $this->InvoiceId = $invoiceId;
+
+        return $this;
+    }
+
+    /**
+     * Get InvoiceId
+     *
+     * @return integer 
+     */
+    public function getInvoiceId()
+    {
+        return $this->InvoiceId;
     }
 }

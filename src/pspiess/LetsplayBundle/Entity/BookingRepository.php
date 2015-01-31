@@ -3,6 +3,7 @@
 namespace pspiess\LetsplayBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\EntityManager;
 
 /**
  * BookingRepository
@@ -12,4 +13,11 @@ use Doctrine\ORM\EntityRepository;
  */
 class BookingRepository extends EntityRepository
 {
+    public function SetInvoiceId ($iBookingId, $iInvoiceId) {
+        $em = $this->getDoctrine()->getEntityManager()->getRepository('pspiessLetsplayBundle:Booking')->find($iBookingId);
+        //$entBooking = $em->getRepository('pspiessLetsplayBundle:Booking')->find($iBookingId);
+        $entBooking->setInvoiceId($iInvoiceId);
+        $em->persist($entBooking);
+        $em->flush();
+    }
 }

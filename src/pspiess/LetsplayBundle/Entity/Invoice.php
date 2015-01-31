@@ -203,6 +203,13 @@ class Invoice {
      * @ORM\Column(name="customer_name", type="string", length=100)
      */
     private $customerName;
+    
+    /**
+     * @var Integer
+     *
+     * @ORM\Column(name="booking_id", type="integer", nullable=true)
+     */
+    private $bookingId;
 
     /**
      * Get id
@@ -767,5 +774,28 @@ class Invoice {
      */
     public function getCustomerName() {
         return $this->customerName;
+    }
+
+    /**
+     * Set bookingId
+     *
+     * @param integer $bookingId
+     * @return Invoice
+     */
+    public function setBookingId($bookingId)
+    {
+        $this->bookingId = $bookingId;
+
+        return $this;
+    }
+
+    /**
+     * Get bookingId
+     *
+     * @return integer 
+     */
+    public function getBookingId()
+    {
+        return $this->bookingId;
     }
 }
