@@ -47,13 +47,6 @@ class Booking {
     /**
      * @var \DateTime
      *
-     * @ORM\Column(type="date", nullable=true, name="bookingdate")
-     */
-    private $bookingdate;
-
-    /**
-     * @var \DateTime
-     *
      * @ORM\Column(type="datetime", nullable=true, name="start")
      */
     private $start;

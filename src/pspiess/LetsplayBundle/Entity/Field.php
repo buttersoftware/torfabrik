@@ -18,7 +18,6 @@ class Field {
     }
 
     /**
-     * 
      * @var \Doctrine\Common\Collections\ArrayCollection $prices
      * 
      * @ORM\ManyToMany(targetEntity="pspiess\LetsplayBundle\Entity\Price", inversedBy="fields")
@@ -121,7 +120,7 @@ class Field {
     /**
      * @ORM\OneToMany(targetEntity="pspiess\LetsplayBundle\Entity\Booking", mappedBy="field")
      */
-    private $booking;
+    private $bookings;
 
     /**
      * Get id
@@ -414,12 +413,12 @@ class Field {
     /**
      * Add booking
      *
-     * @param \pspiess\LetsplayBundle\Entity\Booking $booking
+     * @param \pspiess\LetsplayBundle\Entity\Booking $bookings
      * @return Field
      */
-    public function addBooking(\pspiess\LetsplayBundle\Entity\Booking $booking)
+    public function addBooking(\pspiess\LetsplayBundle\Entity\Booking $bookings)
     {
-        $this->booking[] = $booking;
+        $this->bookings[] = $bookings;
 
         return $this;
     }
@@ -427,11 +426,11 @@ class Field {
     /**
      * Remove booking
      *
-     * @param \pspiess\LetsplayBundle\Entity\Booking $booking
+     * @param \pspiess\LetsplayBundle\Entity\Booking $bookings
      */
-    public function removeBooking(\pspiess\LetsplayBundle\Entity\Booking $booking)
+    public function removeBooking(\pspiess\LetsplayBundle\Entity\Booking $bookings)
     {
-        $this->booking->removeElement($booking);
+        $this->bookings->removeElement($bookings);
     }
 
     /**

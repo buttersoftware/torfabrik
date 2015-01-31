@@ -30,3 +30,4 @@ src/pspiess/LetsplayBundle/Entity/Booking.php~
 src/pspiess/LetsplayBundle/Entity/Invoice.php~
 composer.lock
 composer.lock
+src/pspiess/LetsplayBundle/Entity/Field.php~
