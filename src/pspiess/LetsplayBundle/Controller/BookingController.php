@@ -63,23 +63,23 @@ class BookingController extends Controller {
         $response->headers->set('Content-Type', 'application/json');
         return $response;
     }
-    
+
     /**
      * 
      * @param type $entBooking
      */
-    public function GetStatus ($entBooking) {
+    public function GetStatus($entBooking) {
         $DateTimeNow = new \DateTime("now");
         $sReturnLabel = 'label-primary';
-        
+
         if ($DateTimeNow > $entBooking->getEnd()) {
             $sReturnLabel = 'label-danger';
         }
-        
+
         if ($entBooking->getCancellation() == 1) {
             $sReturnLabel = 'label-warning';
-        } 
-        
+        }
+
         return $sReturnLabel;
     }
 
@@ -87,33 +87,60 @@ class BookingController extends Controller {
      * Add a Reservation to the Calendar
      */
     public function addReservationAction() {
-            $em = $this->getDoctrine()->getManager();
-            $request = $this->get('request');
-            $data = $request->request->all();
-
-            $customer = $em->getRepository('pspiessLetsplayBundle:Customer')->find($data["customerid"]);
-            $field = $em->getRepository('pspiessLetsplayBundle:Field')->find($data["fieldid"]);
-
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->get('request');
+        $data = $request->request->all();
+        
+        $sSerial = $this->GetSerialOption($data['serial']);
+        $dSerialDate = new \DateTime($data['serial_date']);
+        $dStartDate = new \DateTime($data['start']);
+        $dEndDate = new \DateTime($data['end']);
+        
+        $customer = $em->getRepository('pspiessLetsplayBundle:Customer')->find($data["customerid"]);
+        $field = $em->getRepository('pspiessLetsplayBundle:Field')->find($data["fieldid"]);
+        
+        for ($dDate = $dStartDate; $dDate < $dSerialDate; $dDate->modify($sSerial)) {
             $booking = new Booking();
 
             $booking->setCustomer($customer);
             $booking->setField($field);
-            //$booking->setNote('blabla');
             $booking->setTitle($data["title"]);
-            $booking->setStart(new \DateTime($data["start"]));
-            $booking->setEnd(new \DateTime($data["end"]));
+            $booking->setStart($dStartDate);
+            $booking->setEnd($dEndDate);
 
             $em->persist($booking);
             $em->flush();
 
-            $serializedEntity = $this->container->get('serializer')->serialize($booking, 'json');
-            $response = new Response($serializedEntity);
-            $response->headers->set('Content-Type', 'application/json');
-            return $response;
+            $dEndDate->modify($sSerial);
+        }
+
+        $serializedEntity = $this->container->get('serializer')->serialize($booking->getId(), 'json');
+        $response = new Response($serializedEntity);
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+    }
+
+    public function GetSerialOption($data) {
+        switch ($data) {
+            case 0:
+                $sSerial = '+1 day';
+                break;
+            case 1:
+                $sSerial = '+7 day';
+                break;
+            case 2:
+                $sSerial = '+14 day';
+                break;
+            case 3:
+                $sSerial = '+1 month';
+                break;
+        }
+        return $sSerial;
     }
 
     /**
-     * Update a Reservation to the Calendar
+     * Update a reservation to the calendar
+     * 
      */
     public function updateReservationAction() {
         try {
@@ -143,8 +170,8 @@ class BookingController extends Controller {
             $e;
         }
     }
-    
-     /**
+
+    /**
      * Cancel a Reservation to the Calendar
      */
     public function cancelReservationAction() {
@@ -171,13 +198,13 @@ class BookingController extends Controller {
     public function deleteReservationAction() {
         $request = $this->get('request');
         $data = $request->request->all();
-        
+
         $em = $this->getDoctrine()->getManager();
         $booking = $em->getRepository('pspiessLetsplayBundle:Booking')->find($data["id"]);
-        
+
         $em->remove($booking);
         $em->flush();
-        
+
         $serializedEntity = $this->container->get('serializer')->serialize($booking, 'json');
         $response = new Response($serializedEntity);
         $response->headers->set('Content-Type', 'application/json');

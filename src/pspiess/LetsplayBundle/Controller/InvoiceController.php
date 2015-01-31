@@ -59,7 +59,7 @@ class InvoiceController extends Controller {
         $entity = new Invoice();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
-        
+
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 //            $query = $em->createQuery(
@@ -71,11 +71,11 @@ class InvoiceController extends Controller {
 //            
 //            $entInvoice = $query->getResult();
 //            
-            
+
             foreach ($entity->getInvoicepos() as $entInvoice) {
                 $entity->addInvoicepos($entInvoice);
             }
-            
+
             $em->persist($entity);
             $em->flush();
             return $this->redirect($this->generateUrl('pspiess_letsplay_invoice_show', array('id' => $entity->getId())));
@@ -116,10 +116,9 @@ class InvoiceController extends Controller {
 //        echo '<javascript>console.log("drin");</javascript>';
         $em = $this->getDoctrine()->getManager();
         $entBooking = $em->getRepository('pspiessLetsplayBundle:Booking')->find($id);
-
         $entInvoice = new Invoice();
         
-        $entInvoice->setInvoiceNumber(0); //ToDo
+        $entInvoice->setInvoiceNumber($em->getRepository('pspiessLetsplayBundle:Invoice')->getNextInviceNumber()); //ToDo
         $entInvoice->setTaxNumber("123/222/9087"); //ToDo 
         $entInvoice->setCustomerNumber($entBooking->getCustomer()->getCustomernr()); //ToDo 
         $entInvoice->setPayment("Cash"); //ToDo 
@@ -130,7 +129,7 @@ class InvoiceController extends Controller {
         $entInvoice->setCompanyCountry('Deutschland');
         $entInvoice->setCompanyPhone('02151 1504410');
         $entInvoice->setNote('Gespielt wurde auf Platz: ' . $entBooking->getField()->getFieldnr() . ' - ' . $entBooking->getField()->getType());
-        
+
         $entInvoice->setCustomerFirstname($entBooking->getCustomer()->getFirstname());
         $entInvoice->setCustomerName($entBooking->getCustomer()->getName());
         $entInvoice->setCustomerStreet($entBooking->getCustomer()->getStreet());
@@ -141,30 +140,29 @@ class InvoiceController extends Controller {
 
         $dDateStart = $entBooking->getStart();
         $dDateEnd = $entBooking->getEnd();
-        
+
         $dDate = $dDateStart;
         $decTotalTime = 0;
         $decTotalPrice = 0.0;
-        
+
         for ($dDate = $dDateStart; $dDate < $dDateEnd; $dDate->modify("+30 minutes")) {
             $entInvoicepos = new Invoicepos();
-            
+
             //Standart Preis
             $entInvoicepos->setPrice(20);
             $entInvoicepos->setProduct('Spielzeit - 30 Minuten');
             $entInvoicepos->setDescription("Kein Preis hinterlegt");
-            
+
             foreach ($entBooking->getField()->GetPrice() as $obj) {
-                if ($dDate->format('H:i:s') >= $obj->GetTimefrom()->format('H:i:s') && $dDate->format('H:i:s') <= $obj->GetTimeto()->format('H:i:s') 
-                        && ((int)$dDate->format('N'))- 1 >= $obj->getWeekDayFrom() && ((int)$dDate->format('N'))- 1 <= $obj->getWeekDayto()) {
-                    $entInvoicepos->setPrice($obj->GetPrice()/2);
+                if ($dDate->format('H:i:s') >= $obj->GetTimefrom()->format('H:i:s') && $dDate->format('H:i:s') <= $obj->GetTimeto()->format('H:i:s') && ((int) $dDate->format('N')) - 1 >= $obj->getWeekDayFrom() && ((int) $dDate->format('N')) - 1 <= $obj->getWeekDayto()) {
+                    $entInvoicepos->setPrice($obj->GetPrice() / 2);
                     $entInvoicepos->setProduct('Spielzeit - 30 Minuten');
-                    $entInvoicepos->setDescription($dDate->format('H:i:s') . ' - '. $obj->GetIndentifier());
+                    $entInvoicepos->setDescription($dDate->format('H:i:s') . ' - ' . $obj->GetIndentifier());
                 }
             }
-            
-            $decTotalPrice = (float)$entInvoicepos->getPrice() + $decTotalPrice;
-            
+
+            $decTotalPrice = (float) $entInvoicepos->getPrice() + $decTotalPrice;
+
             $decTotalTime++;
 //            echo $dDate->format('H:i:s') .'>='. $obj->GetTimefrom()->format('H:i:s') .'&&'. $dDate->format('H:i:s') .'<='. $obj->GetTimeto()->format('H:i:s').'<br>';
             $entInvoicepos->setPos($decTotalTime); //Position
@@ -174,7 +172,7 @@ class InvoiceController extends Controller {
             $entInvoicepos->setTax(0);
             $entInvoice->addInvoicepos($entInvoicepos);
         }
-        
+
         if ($entBooking->getCustomer()->getDiscount() > 0) {
             $entInvoicepos = new Invoicepos();
             $entInvoicepos->setPrice($entBooking->getCustomer()->getDiscount() * (- 1));
@@ -185,18 +183,18 @@ class InvoiceController extends Controller {
             $entInvoicepos->setTotalPrice($entInvoicepos->getQuantity() * $entInvoicepos->getPrice());
             $entInvoicepos->setDiscount(0);
             $entInvoicepos->setTax(0);
-            $decTotalPrice = (float)$entInvoicepos->getPrice() + $decTotalPrice;
+            $decTotalPrice = (float) $entInvoicepos->getPrice() + $decTotalPrice;
             $entInvoice->addInvoicepos($entInvoicepos);
         }
-        
+
 //        echo ($decTotalTime / 2). ' Stunden gespielt';
 //        echo (string)$decTotalPrice. '€ Gesamtpreis';
-        
+
         $entInvoice->setTotalPrice($decTotalPrice);
-        $entInvoice->setTotalPricenet($decTotalPrice / (19/100+1));
+        $entInvoice->setTotalPricenet($decTotalPrice / (19 / 100 + 1));
         $entInvoice->setTax($entInvoice->getTotalPrice() - $entInvoice->getTotalPricenet());
         $entInvoice->setPaidPrice($decTotalPrice);
-        
+
         $em->persist($entInvoice);
         //$em->flush($entInvoice); // ohne flusch gibt es keine verknüpfung in der Form... warum?
         $form = $this->createCreateForm($entInvoice);
@@ -225,7 +223,7 @@ class InvoiceController extends Controller {
 
 //        $deleteForm = $this->createDeleteForm($id);
         $customer = $em->getRepository('pspiessLetsplayBundle:Customer')->findOneByCustomernr($entity->GetCustomerNumber());
-        
+
         return array(
             'entity' => $entity,
             'customer' => $customer,

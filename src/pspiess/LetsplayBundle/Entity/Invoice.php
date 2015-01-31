@@ -2,6 +2,7 @@
 
 namespace pspiess\LetsplayBundle\Entity;
 
+use Doctrine\ORM\Repository;
 Use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -12,18 +13,17 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="pspiess\LetsplayBundle\Entity\InvoiceRepository")
  */
-class Invoice
-{
+class Invoice {
+
     /**
      * @ORM\OneToMany(targetEntity="Invoicepos", mappedBy="invoice", cascade={"persist", "remove"})
      */
     protected $invoicepos;
 
-    public function __construct()
-    {
+    public function __construct() {
         $this->invoicepos = new ArrayCollection();
     }
-            
+
     /**
      * @var integer
      *
@@ -154,49 +154,49 @@ class Invoice
      * @ORM\Column(name="note", type="text", nullable=true)
      */
     private $note;
-    
+
     /**
      * @var float
      *
      * @ORM\Column(name="total_price", type="decimal")
      */
     private $totalPrice;
-    
+
     /**
      * @var float
      *
      * @ORM\Column(name="paid_price", type="decimal")
      */
     private $paidPrice;
-    
+
     /**
      * @var float
      *
      * @ORM\Column(name="total_price_net", type="decimal")
      */
     private $totalPricenet;
-    
+
     /**
      * @var float
      *
      * @ORM\Column(name="tax", type="decimal")
      */
     private $tax;
-    
+
     /**
      * @var string
      *
      * @ORM\Column(name="tax_number", type="string", length=50)
      */
     private $taxNumber;
-    
+
     /**
      * @var string
      *
      * @ORM\Column(name="customer_firstname", type="string", length=100)
      */
     private $customerFirstname;
-    
+
     /**
      * @var string
      *
@@ -209,8 +209,7 @@ class Invoice
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -220,8 +219,7 @@ class Invoice
      * @param \DateTime $created
      * @return Invoice
      */
-    public function setCreated($created)
-    {
+    public function setCreated($created) {
         $this->created = $created;
 
         return $this;
@@ -232,11 +230,9 @@ class Invoice
      *
      * @return \DateTime 
      */
-    public function getCreated()
-    {
+    public function getCreated() {
         return $this->created;
     }
-
 
     /**
      * Set date
@@ -244,8 +240,7 @@ class Invoice
      * @param \DateTime $date
      * @return Invoice
      */
-    public function setDate($date)
-    {
+    public function setDate($date) {
         $this->date = $date;
 
         return $this;
@@ -256,8 +251,7 @@ class Invoice
      *
      * @return \DateTime 
      */
-    public function getDate()
-    {
+    public function getDate() {
         return $this->date;
     }
 
@@ -267,9 +261,8 @@ class Invoice
      * @param integer $invoiceNumber
      * @return Invoice
      */
-    public function setInvoiceNumber($invoiceNumber)
-    {
-        
+    public function setInvoiceNumber($invoiceNumber) {
+
         $this->invoiceNumber = $invoiceNumber;
 
         return $this;
@@ -280,8 +273,7 @@ class Invoice
      *
      * @return integer 
      */
-    public function getInvoiceNumber()
-    {
+    public function getInvoiceNumber() {
         return $this->invoiceNumber;
     }
 
@@ -291,8 +283,7 @@ class Invoice
      * @param string $customerNumber
      * @return Invoice
      */
-    public function setCustomerNumber($customerNumber)
-    {
+    public function setCustomerNumber($customerNumber) {
         $this->customerNumber = $customerNumber;
 
         return $this;
@@ -303,8 +294,7 @@ class Invoice
      *
      * @return string 
      */
-    public function getCustomerNumber()
-    {
+    public function getCustomerNumber() {
         return $this->customerNumber;
     }
 
@@ -314,8 +304,7 @@ class Invoice
      * @param string $companyStreet
      * @return Invoice
      */
-    public function setCompanyStreet($companyStreet)
-    {
+    public function setCompanyStreet($companyStreet) {
         $this->companyStreet = $companyStreet;
 
         return $this;
@@ -326,8 +315,7 @@ class Invoice
      *
      * @return string 
      */
-    public function getCompanyStreet()
-    {
+    public function getCompanyStreet() {
         return $this->companyStreet;
     }
 
@@ -337,8 +325,7 @@ class Invoice
      * @param integer $companyZip
      * @return Invoice
      */
-    public function setCompanyZip($companyZip)
-    {
+    public function setCompanyZip($companyZip) {
         $this->companyZip = $companyZip;
 
         return $this;
@@ -349,8 +336,7 @@ class Invoice
      *
      * @return integer 
      */
-    public function getCompanyZip()
-    {
+    public function getCompanyZip() {
         return $this->companyZip;
     }
 
@@ -360,8 +346,7 @@ class Invoice
      * @param string $companyLocation
      * @return Invoice
      */
-    public function setCompanyLocation($companyLocation)
-    {
+    public function setCompanyLocation($companyLocation) {
         $this->companyLocation = $companyLocation;
 
         return $this;
@@ -372,8 +357,7 @@ class Invoice
      *
      * @return string 
      */
-    public function getCompanyLocation()
-    {
+    public function getCompanyLocation() {
         return $this->companyLocation;
     }
 
@@ -383,8 +367,7 @@ class Invoice
      * @param string $companyCountry
      * @return Invoice
      */
-    public function setCompanyCountry($companyCountry)
-    {
+    public function setCompanyCountry($companyCountry) {
         $this->companyCountry = $companyCountry;
 
         return $this;
@@ -395,8 +378,7 @@ class Invoice
      *
      * @return string 
      */
-    public function getCompanyCountry()
-    {
+    public function getCompanyCountry() {
         return $this->companyCountry;
     }
 
@@ -406,8 +388,7 @@ class Invoice
      * @param string $companyPhone
      * @return Invoice
      */
-    public function setCompanyPhone($companyPhone)
-    {
+    public function setCompanyPhone($companyPhone) {
         $this->companyPhone = $companyPhone;
 
         return $this;
@@ -418,8 +399,7 @@ class Invoice
      *
      * @return string 
      */
-    public function getCompanyPhone()
-    {
+    public function getCompanyPhone() {
         return $this->companyPhone;
     }
 
@@ -429,8 +409,7 @@ class Invoice
      * @param string $payment
      * @return Invoice
      */
-    public function setPayment($payment)
-    {
+    public function setPayment($payment) {
         $this->payment = $payment;
 
         return $this;
@@ -441,8 +420,7 @@ class Invoice
      *
      * @return string 
      */
-    public function getPayment()
-    {
+    public function getPayment() {
         return $this->payment;
     }
 
@@ -452,8 +430,7 @@ class Invoice
      * @param string $customerStreet
      * @return Invoice
      */
-    public function setCustomerStreet($customerStreet)
-    {
+    public function setCustomerStreet($customerStreet) {
         $this->customerStreet = $customerStreet;
 
         return $this;
@@ -464,8 +441,7 @@ class Invoice
      *
      * @return string 
      */
-    public function getCustomerStreet()
-    {
+    public function getCustomerStreet() {
         return $this->customerStreet;
     }
 
@@ -475,8 +451,7 @@ class Invoice
      * @param integer $customerZip
      * @return Invoice
      */
-    public function setCustomerZip($customerZip)
-    {
+    public function setCustomerZip($customerZip) {
         $this->customerZip = $customerZip;
 
         return $this;
@@ -487,8 +462,7 @@ class Invoice
      *
      * @return integer 
      */
-    public function getCustomerZip()
-    {
+    public function getCustomerZip() {
         return $this->customerZip;
     }
 
@@ -498,8 +472,7 @@ class Invoice
      * @param string $customerLocation
      * @return Invoice
      */
-    public function setCustomerLocation($customerLocation)
-    {
+    public function setCustomerLocation($customerLocation) {
         $this->customerLocation = $customerLocation;
 
         return $this;
@@ -510,8 +483,7 @@ class Invoice
      *
      * @return string 
      */
-    public function getCustomerLocation()
-    {
+    public function getCustomerLocation() {
         return $this->customerLocation;
     }
 
@@ -521,8 +493,7 @@ class Invoice
      * @param string $customerCountry
      * @return Invoice
      */
-    public function setCustomerCountry($customerCountry)
-    {
+    public function setCustomerCountry($customerCountry) {
         $this->customerCountry = $customerCountry;
 
         return $this;
@@ -533,8 +504,7 @@ class Invoice
      *
      * @return string 
      */
-    public function getCustomerCountry()
-    {
+    public function getCustomerCountry() {
         return $this->customerCountry;
     }
 
@@ -544,8 +514,7 @@ class Invoice
      * @param string $customerPhone
      * @return Invoice
      */
-    public function setCustomerPhone($customerPhone)
-    {
+    public function setCustomerPhone($customerPhone) {
         $this->customerPhone = $customerPhone;
 
         return $this;
@@ -556,8 +525,7 @@ class Invoice
      *
      * @return string 
      */
-    public function getCustomerPhone()
-    {
+    public function getCustomerPhone() {
         return $this->customerPhone;
     }
 
@@ -567,8 +535,7 @@ class Invoice
      * @param string $note
      * @return Invoice
      */
-    public function setNote($note)
-    {
+    public function setNote($note) {
         $this->note = $note;
 
         return $this;
@@ -579,8 +546,7 @@ class Invoice
      *
      * @return string 
      */
-    public function getNote()
-    {
+    public function getNote() {
         return $this->note;
     }
 
@@ -590,8 +556,7 @@ class Invoice
      * @param \pspiess\LetsplayBundle\Entity\Invoicepos $invoicepos
      * @return Invoice
      */
-    public function addInvoicepos(\pspiess\LetsplayBundle\Entity\Invoicepos $invoicepos)
-    {
+    public function addInvoicepos(\pspiess\LetsplayBundle\Entity\Invoicepos $invoicepos) {
         $this->invoicepos[] = $invoicepos;
         $invoicepos->setInvoice($this);
         return $this;
@@ -602,18 +567,16 @@ class Invoice
      *
      * @param \pspiess\LetsplayBundle\Entity\Invoicepos $invoicepos
      */
-    public function removeInvoicepos(\pspiess\LetsplayBundle\Entity\Invoicepos $invoicepos)
-    {
+    public function removeInvoicepos(\pspiess\LetsplayBundle\Entity\Invoicepos $invoicepos) {
         $this->invoicepos->removeElement($invoicepos);
     }
-    
+
     /**
      * Get invoicepos
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getInvoicepos()
-    {
+    public function getInvoicepos() {
         return $this->invoicepos;
     }
 
@@ -623,8 +586,7 @@ class Invoice
      * @param \DateTime $changed
      * @return Invoice
      */
-    public function setChanged($changed)
-    {
+    public function setChanged($changed) {
         $this->changed = $changed;
 
         return $this;
@@ -635,8 +597,7 @@ class Invoice
      *
      * @return \DateTime 
      */
-    public function getChanged()
-    {
+    public function getChanged() {
         return $this->changed;
     }
 
@@ -646,8 +607,7 @@ class Invoice
      * @param string $totalPrice
      * @return Invoice
      */
-    public function setTotalPrice($totalPrice)
-    {
+    public function setTotalPrice($totalPrice) {
         $this->totalPrice = $totalPrice;
 
         return $this;
@@ -658,8 +618,7 @@ class Invoice
      *
      * @return string 
      */
-    public function getTotalPrice()
-    {
+    public function getTotalPrice() {
         return $this->totalPrice;
     }
 
@@ -669,8 +628,7 @@ class Invoice
      * @param string $paidPrice
      * @return Invoice
      */
-    public function setPaidPrice($paidPrice)
-    {
+    public function setPaidPrice($paidPrice) {
         $this->paidPrice = $paidPrice;
 
         return $this;
@@ -681,8 +639,7 @@ class Invoice
      *
      * @return string 
      */
-    public function getPaidPrice()
-    {
+    public function getPaidPrice() {
         return $this->paidPrice;
     }
 
@@ -692,8 +649,7 @@ class Invoice
      * @param string $totalPricenet
      * @return Invoice
      */
-    public function setTotalPricenet($totalPricenet)
-    {
+    public function setTotalPricenet($totalPricenet) {
         $this->totalPricenet = $totalPricenet;
 
         return $this;
@@ -704,8 +660,7 @@ class Invoice
      *
      * @return string 
      */
-    public function getTotalPricenet()
-    {
+    public function getTotalPricenet() {
         return $this->totalPricenet;
     }
 
@@ -715,8 +670,7 @@ class Invoice
      * @param string $tax
      * @return Invoice
      */
-    public function setTax($tax)
-    {
+    public function setTax($tax) {
         $this->tax = $tax;
 
         return $this;
@@ -727,8 +681,7 @@ class Invoice
      *
      * @return string 
      */
-    public function getTax()
-    {
+    public function getTax() {
         return $this->tax;
     }
 
@@ -738,8 +691,7 @@ class Invoice
      * @param \pspiess\LetsplayBundle\Entity\Invoicepos $invoicepos
      * @return Invoice
      */
-    public function addInvoicepo(\pspiess\LetsplayBundle\Entity\Invoicepos $invoicepos)
-    {
+    public function addInvoicepo(\pspiess\LetsplayBundle\Entity\Invoicepos $invoicepos) {
         $this->invoicepos[] = $invoicepos;
 
         return $this;
@@ -750,8 +702,7 @@ class Invoice
      *
      * @param \pspiess\LetsplayBundle\Entity\Invoicepos $invoicepos
      */
-    public function removeInvoicepo(\pspiess\LetsplayBundle\Entity\Invoicepos $invoicepos)
-    {
+    public function removeInvoicepo(\pspiess\LetsplayBundle\Entity\Invoicepos $invoicepos) {
         $this->invoicepos->removeElement($invoicepos);
     }
 
@@ -761,8 +712,7 @@ class Invoice
      * @param string $taxNumber
      * @return Invoice
      */
-    public function setTaxNumber($taxNumber)
-    {
+    public function setTaxNumber($taxNumber) {
         $this->taxNumber = $taxNumber;
 
         return $this;
@@ -773,8 +723,7 @@ class Invoice
      *
      * @return string 
      */
-    public function getTaxNumber()
-    {
+    public function getTaxNumber() {
         return $this->taxNumber;
     }
 
@@ -784,8 +733,7 @@ class Invoice
      * @param string $customerFirstname
      * @return Invoice
      */
-    public function setCustomerFirstname($customerFirstname)
-    {
+    public function setCustomerFirstname($customerFirstname) {
         $this->customerFirstname = $customerFirstname;
 
         return $this;
@@ -796,8 +744,7 @@ class Invoice
      *
      * @return string 
      */
-    public function getCustomerFirstname()
-    {
+    public function getCustomerFirstname() {
         return $this->customerFirstname;
     }
 
@@ -807,8 +754,7 @@ class Invoice
      * @param string $customerName
      * @return Invoice
      */
-    public function setCustomerName($customerName)
-    {
+    public function setCustomerName($customerName) {
         $this->customerName = $customerName;
 
         return $this;
@@ -819,8 +765,7 @@ class Invoice
      *
      * @return string 
      */
-    public function getCustomerName()
-    {
+    public function getCustomerName() {
         return $this->customerName;
     }
 }

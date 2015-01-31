@@ -26,3 +26,7 @@ app/config/config_1.yml
 nbproject/private/private.xml
 nbproject/private/private.xml
 nbproject/private/private.properties
+src/pspiess/LetsplayBundle/Entity/Booking.php~
+src/pspiess/LetsplayBundle/Entity/Invoice.php~
+composer.lock
+composer.lock
