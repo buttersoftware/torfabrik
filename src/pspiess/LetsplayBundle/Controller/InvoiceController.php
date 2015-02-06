@@ -109,7 +109,6 @@ class InvoiceController extends Controller {
      * @Template()
      */
     public function newAction($id) {
-//        echo '<javascript>console.log("drin");</javascript>';
         $em = $this->getDoctrine()->getManager();
         $entBooking = $em->getRepository('pspiessLetsplayBundle:Booking')->find($id);
         $entInvoice = new Invoice();

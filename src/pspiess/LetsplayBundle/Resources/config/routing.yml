@@ -1,3 +1,8 @@
+pspiess_letsplay_cashingup:
+    resource: "@pspiessLetsplayBundle/Controller/"
+    resource: "@pspiessLetsplayBundle/Resources/config/cashingup.yml"
+    prefix:   /
+    
 pspiess_letsplay_invoice:
     resource: "@pspiessLetsplayBundle/Controller/"
     resource: "@pspiessLetsplayBundle/Resources/config/invoice.yml"

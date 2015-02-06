@@ -1,0 +1,52 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Cashingup</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Created</th>
+                <td>{{ entity.created|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Changed</th>
+                <td>{{ entity.changed|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Nominal</th>
+                <td>{{ entity.nominal }}</td>
+            </tr>
+            <tr>
+                <th>Actual</th>
+                <td>{{ entity.actual }}</td>
+            </tr>
+            <tr>
+                <th>Daydate</th>
+                <td>{{ entity.daydate|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Note</th>
+                <td>{{ entity.note }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('cashingup') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('cashingup_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

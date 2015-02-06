@@ -26,8 +26,8 @@ class MenuBuilder extends ContainerAware {
         $menu->addChild('Rechnungen', array('route' => 'pspiess_letsplay_invoice'))
                 ->setAttribute('icon', 'fa fa-list-alt');
         
-        $menu->addChild('Kassenabschluss', array('route' => 'pspiess_letsplay_price'))
-                ->setAttribute('icon', 'fa fa-list-alt');
+        $menu->addChild('Kassenabschluss', array('route' => 'pspiess_letsplay_cashingup'))
+                ->setAttribute('icon', 'fa fa-list-alt')->actsLikeFirst();
         
         return $menu;
     }

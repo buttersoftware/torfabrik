@@ -1,27 +1,27 @@
 <?php
 
-namespace pspiess\ContentBundle\Controller;
+namespace pspiess\LetsplayBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use pspiess\ContentBundle\Entity\Pictures;
-use pspiess\ContentBundle\Form\PicturesType;
+use pspiess\LetsplayBundle\Entity\Cashingup;
+use pspiess\LetsplayBundle\Form\CashingupType;
 
 /**
- * Pictures controller.
+ * Cashingup controller.
  *
- * @Route("/pictures")
+ * @Route("/cashingup")
  */
-class PicturesController extends Controller
+class CashingupController extends Controller
 {
 
     /**
-     * Lists all Pictures entities.
+     * Lists all Cashingup entities.
      *
-     * @Route("/", name="pictures")
+     * @Route("/", name="cashingup")
      * @Method("GET")
      * @Template()
      */
@@ -29,23 +29,22 @@ class PicturesController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('pspiessContentBundle:Pictures')->findAll();
+        $entities = $em->getRepository('pspiessLetsplayBundle:Cashingup')->findAll();
 
         return array(
             'entities' => $entities,
         );
     }
     /**
-     * Creates a new Pictures entity.
+     * Creates a new Cashingup entity.
      *
-     * @Route("/", name="pictures_create")
+     * @Route("/", name="cashingup_create")
      * @Method("POST")
-     * @Template("pspiessContentBundle:Pictures:new.html.twig")
+     * @Template("pspiessLetsplayBundle:Cashingup:new.html.twig")
      */
     public function createAction(Request $request)
     {
-        $entity = new Pictures();
-        
+        $entity = new Cashingup();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
@@ -53,8 +52,8 @@ class PicturesController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
-            
-            return $this->redirect($this->generateUrl('pictures', array('id' => $entity->getId())));
+
+            return $this->redirect($this->generateUrl('cashingup_show', array('id' => $entity->getId())));
         }
 
         return array(
@@ -64,37 +63,40 @@ class PicturesController extends Controller
     }
 
     /**
-    * Creates a form to create a Pictures entity.
-    *
-    * @param Pictures $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
-    private function createCreateForm(Pictures $entity)
+     * Creates a form to create a Cashingup entity.
+     *
+     * @param Cashingup $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createCreateForm(Cashingup $entity)
     {
-        $form = $this->createForm(new PicturesType(), $entity, array(
-            'action' => $this->generateUrl('pictures_create'),
+        $form = $this->createForm(new CashingupType(), $entity, array(
+            'action' => $this->generateUrl('pspiess_letsplay_cashingup_create'),
             'method' => 'POST',
         ));
-        
-        $form->add('erstellen', 'submit', array('attr' => array('class' => 'btn btn-success')));
 
+        $form->add('submit', 'submit', array('label' => 'abrechnen', 'attr' => array('class' => 'btn btn-success')));
 
         return $form;
     }
 
     /**
-     * Displays a form to create a new Pictures entity.
+     * Displays a form to create a new Cashingup entity.
      *
-     * @Route("/new", name="pictures_new")
+     * @Route("/new", name="cashingup_new")
      * @Method("GET")
      * @Template()
      */
     public function newAction()
     {
-        $entity = new Pictures();
+        $em = $this->getDoctrine()->getManager();
+        $entBooking = $em->getRepository('pspiessLetsplayBundle:Booking')->GetClearedByDate(new \DateTime("now"));
+        
+        
+        $entity = new Cashingup();
         $form   = $this->createCreateForm($entity);
-
+        
         return array(
             'entity' => $entity,
             'form'   => $form->createView(),
@@ -102,9 +104,9 @@ class PicturesController extends Controller
     }
 
     /**
-     * Finds and displays a Pictures entity.
+     * Finds and displays a Cashingup entity.
      *
-     * @Route("/{id}", name="pictures_show")
+     * @Route("/{id}", name="cashingup_show")
      * @Method("GET")
      * @Template()
      */
@@ -112,10 +114,9 @@ class PicturesController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('pspiessContentBundle:Pictures')->find($id);
-
+        $entity = $em->getRepository('pspiessLetsplayBundle:Cashingup')->find($id);
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Pictures entity.');
+            throw $this->createNotFoundException('Unable to find Cashingup entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -127,9 +128,9 @@ class PicturesController extends Controller
     }
 
     /**
-     * Displays a form to edit an existing Pictures entity.
+     * Displays a form to edit an existing Cashingup entity.
      *
-     * @Route("/{id}/edit", name="pictures_edit")
+     * @Route("/{id}/edit", name="cashingup_edit")
      * @Method("GET")
      * @Template()
      */
@@ -137,10 +138,10 @@ class PicturesController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('pspiessContentBundle:Pictures')->find($id);
+        $entity = $em->getRepository('pspiessLetsplayBundle:Cashingup')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Pictures entity.');
+            throw $this->createNotFoundException('Unable to find Cashingup entity.');
         }
 
         $editForm = $this->createEditForm($entity);
@@ -154,38 +155,38 @@ class PicturesController extends Controller
     }
 
     /**
-    * Creates a form to edit a Pictures entity.
+    * Creates a form to edit a Cashingup entity.
     *
-    * @param Pictures $entity The entity
+    * @param Cashingup $entity The entity
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createEditForm(Pictures $entity)
+    private function createEditForm(Cashingup $entity)
     {
-        $form = $this->createForm(new PicturesType(), $entity, array(
-            'action' => $this->generateUrl('pictures_update', array('id' => $entity->getId())),
+        $form = $this->createForm(new CashingupType(), $entity, array(
+            'action' => $this->generateUrl('cashingup_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
-        $form->add('erstellen', 'submit', array('attr' => array('class' => 'btn btn-success'), 'label' => 'ändern'));
+        $form->add('submit', 'submit', array('label' => 'Update'));
 
         return $form;
     }
     /**
-     * Edits an existing Pictures entity.
+     * Edits an existing Cashingup entity.
      *
-     * @Route("/{id}", name="pictures_update")
+     * @Route("/{id}", name="cashingup_update")
      * @Method("PUT")
-     * @Template("pspiessContentBundle:Pictures:edit.html.twig")
+     * @Template("pspiessLetsplayBundle:Cashingup:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('pspiessContentBundle:Pictures')->find($id);
+        $entity = $em->getRepository('pspiessLetsplayBundle:Cashingup')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Pictures entity.');
+            throw $this->createNotFoundException('Unable to find Cashingup entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -195,7 +196,7 @@ class PicturesController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('pictures', array('id' => $id)));
+            return $this->redirect($this->generateUrl('cashingup_edit', array('id' => $id)));
         }
 
         return array(
@@ -204,39 +205,34 @@ class PicturesController extends Controller
             'delete_form' => $deleteForm->createView(),
         );
     }
-
     /**
-     * Deletes a Pictures entity.
+     * Deletes a Cashingup entity.
      *
-     * @Route("/{id}", name="pictures_delete")
+     * @Route("/{id}", name="cashingup_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, $id)
     {
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
-        
-        //\Doctrine\Common\Util\Debug::dump($request);
-        
-        //return;
-        //if ($form->isValid()) { // Need a FIX becouse CSRF token the form is not valid
-            
+
+        if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('pspiessContentBundle:Pictures')->find($id);
+            $entity = $em->getRepository('pspiessLetsplayBundle:Cashingup')->find($id);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Datensatz nicht gefunden.');
+                throw $this->createNotFoundException('Unable to find Cashingup entity.');
             }
 
             $em->remove($entity);
             $em->flush();
-        //}
-        
-        return $this->redirect($this->generateUrl('pictures'));
+        }
+
+        return $this->redirect($this->generateUrl('cashingup'));
     }
 
     /**
-     * Creates a form to delete a Pictures entity by id.
+     * Creates a form to delete a Cashingup entity by id.
      *
      * @param mixed $id The entity id
      *
@@ -245,9 +241,9 @@ class PicturesController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('pictures_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('cashingup_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('erstellen', 'submit', array('attr' => array('class' => 'btn btn-danger'), 'label' => 'löschen'))
+            ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()
         ;
     }
