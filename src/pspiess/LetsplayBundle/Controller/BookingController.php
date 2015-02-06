@@ -68,7 +68,7 @@ class BookingController extends Controller {
      * 
      * @param type $entBooking
      */
-    public function GetStatus($entBooking) {
+    private function GetStatus($entBooking) {
         $DateTimeNow = new \DateTime("now");
         $sReturnLabel = 'label-primary';
 
@@ -122,7 +122,7 @@ class BookingController extends Controller {
         return $response;
     }
 
-    public function GetSerialOption($data) {
+    private function GetSerialOption($data) {
         switch ($data) {
             case 0:
                 $sSerial = '+1 day';

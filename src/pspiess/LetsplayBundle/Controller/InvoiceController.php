@@ -39,14 +39,14 @@ class InvoiceController extends Controller {
      * Lists all Invoice entities.
      *
      */
-    public function GetPreInvoice($iBooking_id) {
-        $em = $this->getDoctrine()->getManager();
-        $booking = $em->getRepository('pspiessLetsplayBundle:Booking')->find($iBooking_id);
-
-        return array(
-            'entities' => $booking,
-        );
-    }
+//    public function GetPreInvoice($iBooking_id) {
+//        $em = $this->getDoctrine()->getManager();
+//        $booking = $em->getRepository('pspiessLetsplayBundle:Booking')->find($iBooking_id);
+//
+//        return array(
+//            'entities' => $booking,
+//        );
+//    }
 
     /**
      * Creates a new Invoice entity.
