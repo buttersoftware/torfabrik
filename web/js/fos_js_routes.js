@@ -1,0 +1,1 @@
+fos.Router.setData({"base_url":"","routes":{"pspiess_letsplay_invoice_new":{"tokens":[["variable","\/","[^\/]++","id"],["text","\/admin\/invoice\/new"]],"defaults":[],"requirements":[],"hosttokens":[]},"pspiess_letsplay_customer_new":{"tokens":[["text","\/admin\/customer\/new"]],"defaults":[],"requirements":[],"hosttokens":[]}},"prefix":"","host":"localhost","scheme":"http"});

@@ -2,7 +2,6 @@
 
 namespace pspiess\LetsplayBundle\Entity;
 
-
 Use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -13,7 +12,9 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="pspiess\LetsplayBundle\Entity\PriceRepository")
  */
 class Price {
+
     public function __construct() {
+        
     }
 
     /**
@@ -252,7 +253,7 @@ class Price {
     public function getNote() {
         return $this->note;
     }
-    
+
     /**
      * Get created
      *
@@ -313,6 +314,15 @@ class Price {
         return $this->fields;
     }
 
+    /**
+     * Get fields
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getFields() {
+        return $this->fields;
+    }
+
     /*
      * @return string
      */
@@ -321,27 +331,16 @@ class Price {
         return $this->getIndentifier();
     }
 
-
     /**
      * Set created
      *
      * @param \DateTime $created
      * @return Price
      */
-    public function setCreated($created)
-    {
+    public function setCreated($created) {
         $this->created = $created;
 
         return $this;
     }
 
-    /**
-     * Get fields
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getFields()
-    {
-        return $this->fields;
-    }
 }

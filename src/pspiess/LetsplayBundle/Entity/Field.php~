@@ -2,6 +2,7 @@
 
 namespace pspiess\LetsplayBundle\Entity;
 
+Use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -14,13 +15,9 @@ class Field {
 
     public function __construct() {
         $this->prices = new \Doctrine\Common\Collections\ArrayCollection();
-
-        $this->created = new \DateTime();
-        $this->changed = new \DateTime();
     }
 
     /**
-     * 
      * @var \Doctrine\Common\Collections\ArrayCollection $prices
      * 
      * @ORM\ManyToMany(targetEntity="pspiess\LetsplayBundle\Entity\Price", inversedBy="fields")
@@ -31,8 +28,6 @@ class Field {
      * )
      * */
     protected $prices;
-    
-    protected $price;
 
     /**
      * @var integer
@@ -46,7 +41,7 @@ class Field {
     /**
      * @var integer
      *
-     * @ORM\Column(type="integer", nullable=false, name="fieldnr")
+     * @ORM\Column(type="integer", nullable=false, name="fieldnr", unique=true)
      */
     private $fieldnr;
 
@@ -103,6 +98,7 @@ class Field {
      * @var \DateTime
      *
      * @ORM\Column(type="datetime", nullable=true, name="created")
+     * @Gedmo\Timestampable(on="create")
      */
     private $created;
 
@@ -110,6 +106,7 @@ class Field {
      * @var \DateTime
      *
      * @ORM\Column(type="datetime", nullable=true, name="changed")
+     * @Gedmo\Timestampable(on="update")
      */
     private $changed;
 
@@ -401,5 +398,48 @@ class Field {
      */
     public function __toString() {
         return $this->type;
+    }
+
+    /**
+     * Get prices
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPrices()
+    {
+        return $this->prices;
+    }
+
+    /**
+     * Add booking
+     *
+     * @param \pspiess\LetsplayBundle\Entity\Booking $booking
+     * @return Field
+     */
+    public function addBooking(\pspiess\LetsplayBundle\Entity\Booking $booking)
+    {
+        $this->booking[] = $booking;
+
+        return $this;
+    }
+
+    /**
+     * Remove booking
+     *
+     * @param \pspiess\LetsplayBundle\Entity\Booking $booking
+     */
+    public function removeBooking(\pspiess\LetsplayBundle\Entity\Booking $booking)
+    {
+        $this->booking->removeElement($booking);
+    }
+
+    /**
+     * Get booking
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getBooking()
+    {
+        return $this->booking;
     }
 }

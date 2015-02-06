@@ -14,20 +14,20 @@ class FieldType extends AbstractType {
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-                ->add('fieldnr', 'integer', array('label' => 'Platznummer', 'attr' => array('class' => 'input-xxlarge')))
-                ->add('type', 'choice', array('label' => 'Typ', 'attr' => array('class' => 'input-xxlarge'),
+                ->add('fieldnr', 'integer', array('label' => 'Platznummer', 'attr' => array('class' => '')))
+                ->add('type', 'choice', array('label' => 'Typ', 'attr' => array('class' => ''),
                     'choices' => array('4er Platz' => '4er Platz', '5er Platz' => '5er Platz'),
                     'preferred_choices' => array('0'), 'required' => true))
-                ->add('slots', 'integer', array('label' => 'Teilnehmer', 'attr' => array('class' => 'input-xxlarge')))
-                ->add('ground', 'choice', array('label' => 'Platzbeschaffenheit', 'attr' => array('class' => 'input-xxlarge'),
+                ->add('slots', 'integer', array('label' => 'Teilnehmer', 'attr' => array('class' => '')))
+                ->add('ground', 'choice', array('label' => 'Platzbeschaffenheit', 'attr' => array('class' => ''),
                     'choices' => array('Kunstrasen' => 'Kunstrasen', 'Naturrasen' => 'Naturrasen', 'Asche' => 'Asche', 'Halle' => 'Halle'),
                     'preferred_choices' => array('Kunstrasen'), 'required' => false))
-                ->add('care', 'date', array('label' => 'letzte Wartung', 'attr' => array('class' => 'input-xxlarge')))
-                ->add('lenght', 'number', array('label' => 'Feldlänge', 'attr' => array('class' => 'input-xxlarge')))
-                ->add('width', 'number', array('label' => 'Feldbreite', 'attr' => array('class' => 'input-xxlarge')))
-                ->add('note', 'textarea', array('label' => 'Bemerkung', 'attr' => array('class' => 'input-xxlarge')))
-                ->add('activation', 'date', array('label' => 'in Betrieb seit', 'attr' => array('class' => 'input-xxlarge')))
-                ->add('prices', null, array('label' => 'Preise', 'attr' => array('class' => 'input-xxlarge')))
+                ->add('care', 'date', array('label' => 'letzte Wartung', 'attr' => array('class' => '')))
+                ->add('lenght', 'number', array('label' => 'Feldlänge', 'attr' => array('class' => '')))
+                ->add('width', 'number', array('label' => 'Feldbreite', 'attr' => array('class' => '')))
+                ->add('note', 'textarea', array('label' => 'Bemerkung', 'attr' => array('class' => '')))
+                ->add('activation', 'date', array('label' => 'in Betrieb seit', 'attr' => array('class' => '')))
+                ->add('prices', null, array('label' => 'Preise', 'attr' => array('class' => '')))
         ;
     }
 

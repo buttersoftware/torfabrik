@@ -1,15 +1,157 @@
-{% extends '::base.html.twig' %}
+{% extends 'pspiessLetsplayBundle::layout.html.twig' %}
+
+{% block title %}Neuen Kunden anlegen{% endblock %}
+
+{% block nav %}
+    {{ knp_menu_render('pspiessLetsplayBundle:MenuBuilder:mainMenu', {'currentClass': 'active', 'template': 'pspiessLetsplayBundle:Menu:knp_menu.html.twig'}) }}
+{% endblock %}
 
 {% block body -%}
-    <h1>Customer creation</h1>
 
-    {{ form(form) }}
-
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('customer') }}">
-            Back to the list
-        </a>
-    </li>
-</ul>
+<div class="page-content-area">
+    <div class="col-xs-12 col-sm-6">
+        <div class="widget-box">
+            <div class="widget-header">
+                <h4 class="widget-title">Ausgew&auml;lten Kunden anpassen</h4>
+            </div>
+            <div class="widget-body">
+                <div class="widget-main">
+                    {{ form_start(form, {attr: {class: 'form-horizontal'}}) }}
+                    <div class="form-group">
+                        {{ form_label(form.customernr, null, {'label_attr': {'class': 'col-sm-2'}}) }}
+                        <div class="col-sm-2">
+                            {{ form_widget (form.customernr) }} 
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.title, null, {'label_attr': {'class': 'col-sm-2'}}) }}
+                        <div class="col-sm-2">
+                            {{ form_widget (form.title) }}
+                        </div>
+                        {{ form_label(form.sex, null, {'label_attr': {'class': 'col-sm-5'}}) }}
+                        <div class="col-sm-3">
+                            {{ form_widget(form.sex) }} 
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.firstname, null, {'label_attr': {'class': 'col-sm-2'}}) }}
+                        <div class="col-sm-4">
+                            {{ form_widget(form.firstname) }} 
+                        </div>
+                            {{ form_label(form.name, null, {'label_attr': {'class': 'col-sm-1'}}) }}
+                        <div class="col-sm-5">
+                            {{ form_widget (form.name) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.birthday, null, {'label_attr': {'class': 'col-sm-2'}}) }}
+                        <div class="col-sm-4">
+                            {{ form_widget (form.birthday) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.addon, null, {'label_attr': {'class': 'col-sm-2'}}) }}
+                        <div class="col-sm-10">
+                            {{ form_widget    (form.addon) }} 
+                        </div>
+                    </div>
+                    <div class="hr hr-24"></div>
+                    <div class="form-group">
+                        {{ form_label(form.street, null, {'label_attr': {'class': 'col-sm-2'}}) }}
+                        <div class="col-sm-5">
+                            {{ form_widget (form.street) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.zip, null, {'label_attr': {'class': 'col-sm-2'}}) }}
+                        <div class="col-sm-2">
+                            {{ form_widget (form.zip) }}
+                        </div>
+                        {#{{ form_label(form.location, null, {'label_attr': {'class': 'col-sm-2'}}) }}#}
+                        <div class="col-sm-3">
+                            {{ form_widget    (form.location) }} 
+                        </div>
+                        {{ form_label(form.country, null, {'label_attr': {'class': 'col-sm-1'}}) }}
+                        <div class="col-sm-4">
+                            {{ form_widget (form.country) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.phone, null, {'label_attr': {'class': 'col-sm-2'}}) }}
+                        <div class="col-sm-3">
+                            {{ form_widget(form.phone) }} 
+                        </div>
+                        {{ form_label(form.fax, null, {'label_attr': {'class': 'col-sm-1'}}) }}
+                        <div class="col-lg-2">
+                            {{ form_widget (form.fax) }}
+                        </div>
+                        {{ form_label(form.mobile, null, {'label_attr': {'class': 'col-sm-1'}}) }}
+                        <div class="col-sm-3">
+                            {{ form_widget    (form.mobile) }} 
+                        </div>
+                    </div>
+                    <div class="hr hr-24"></div>
+                    <div class="form-group">
+                        {{ form_label(form.bankOwner, null, {'label_attr': {'class': 'col-sm-2'}}) }}
+                        <div class="col-sm-4">
+                            {{ form_widget    (form.bankOwner) }} 
+                        </div>
+                        {{ form_label(form.bank, null, {'label_attr': {'class': 'col-sm-1'}}) }}
+                        <div class="col-sm-5">
+                            {{ form_widget    (form.bank) }} 
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.bic, null, {'label_attr': {'class': 'col-sm-2'}}) }}
+                        <div class="col-sm-4">
+                            {{ form_widget    (form.bic) }} 
+                        </div>
+                        {{ form_label(form.sepa, null, {'label_attr': {'class': 'col-sm-1'}}) }}
+                        <div class="col-sm-5">
+                            {{ form_widget    (form.sepa) }} 
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.discount, null, {'label_attr': {'class': 'col-sm-2'}}) }}
+                        <div class="col-sm-4">
+                            {{ form_widget    (form.discount) }} 
+                        </div>
+                        {{ form_label(form.cashing, null, {'label_attr': {'class': 'col-sm-1'}}) }}
+                        <div class="col-sm-5">
+                            {{ form_widget    (form.cashing) }} 
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.note, null, {'label_attr': {'class': 'col-sm-2'}}) }}
+                        <div class="col-sm-10">
+                            {{ form_widget(form.note) }} 
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.picture, null, {'label_attr': {'class': 'col-sm-2'}}) }}
+                        <div class="col-sm-9">
+                            {{ form_widget(form.picture) }} 
+                        </div>
+                    </div>
+{#                    <div class="form-group">
+                        {{ form_label(form.path, null, {'label_attr': {'class': 'col-sm-2'}}) }}
+                        <div class="col-sm-9">
+                            {{ form_widget(form.path) }} 
+                        </div>
+                    </div>#}
+                    <div class="hr hr-24"></div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-1">
+                            <a class="btn btn-info" href="{{ path('pspiess_letsplay_customer') }}">zur&uuml;ck</a>
+                        </div>
+                        <div class="col-sm-offset-1 col-sm-1">
+                           {{ form_widget(form.submit) }}
+                        </div>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.span -->
+    </div><!-- /.row -->    
+</div>
 {% endblock %}

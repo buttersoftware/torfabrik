@@ -5,15 +5,17 @@ namespace pspiess\LetsplayBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 Use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Customer
  *
  * 
- * 
+ * @ORM\HasLifecycleCallbacks 
  * @ORM\Entity(repositoryClass="pspiess\LetsplayBundle\Entity\CustomerRepository")
  */
 class Customer {
+
     /**
      * @var integer
      *
@@ -36,7 +38,7 @@ class Customer {
     private $path;
 
     /**
-     * @Assert\File(maxSize = "1024k", mimeTypesMessage = "Please upload a valid Picture")
+     * @Assert\File(maxSize = "1024k", mimeTypesMessage = "Bitte wählen Sie ein gültiges Bild aus.")
      */
     private $picture;
 
@@ -198,7 +200,11 @@ class Customer {
     /**
      * @ORM\OneToMany(targetEntity="pspiess\LetsplayBundle\Entity\Booking", mappedBy="customer")
      */
-    private $booking;
+    private $bookings;
+
+    public function __construct() {
+        $this->bookings = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -745,12 +751,12 @@ class Customer {
 
     protected function getTmpUploadRootDir() {
         // the absolute directory path where uploaded documents should be saved
-        return __DIR__ . '/../../../../web/resources/images/slider/';
+        return __DIR__ . '/../../../../web/resources/images/customer/';
     }
 
     /**
-     * 
-     * 
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
      */
     public function uploadPicture() {
         // the file property can be empty if the field is not required
@@ -766,7 +772,7 @@ class Customer {
     }
 
     /**
-     * 
+     * @ORM\PostPersist()
      */
     public function movePicture() {
         if (null === $this->picture) {
@@ -780,7 +786,7 @@ class Customer {
     }
 
     /**
-     * 
+     * @ORM\PreRemove()
      */
     public function removePicture() {
         if (file_exists($this->getFullPicturePath())) {
@@ -789,6 +795,10 @@ class Customer {
         if (is_dir($this->getUploadRootDir())) {
             //rmdir($this->getUploadRootDir());
         }
+    }
+
+    public function __toString() {
+        return $this->firstname.', '.$this->name;
     }
 
 }

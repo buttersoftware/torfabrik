@@ -1,12 +1,15 @@
-#pspiess_letsplay:
-#    resource: "@pspiessLetsplayBundle/Controller/"
-#    type:     annotation
-#    prefix:   /
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
     
 pspiess_letsplay:
     resource: "@pspiessLetsplayBundle/Controller/"
     resource: "@pspiessLetsplayBundle/Resources/config/routing.yml"
     prefix:   /
+    
+#pspiess_letsplay:
+#    resource: "@pspiessLetsplayBundle/Controller/"
+#    type:     annotation
+#    prefix:   /
     
 #biberltd_currency:
 #    resource: "@VendorNameSampleBundle/Resources/config/routing.yml"
@@ -19,3 +22,6 @@ pspiess_letsplay:
 
 #_user_bundle:
 #    resource: "@UserBundle/Resources/config/routing.yml"
+
+#fos_js_routing:
+#    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"

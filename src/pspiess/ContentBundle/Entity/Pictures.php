@@ -47,7 +47,7 @@ class Pictures
     private $path;
     
     /**
-     * @Assert\File(maxSize = "1024k", mimeTypesMessage = "Please upload a valid Picture")
+     * @Assert\File(maxSize = "1024k", mimeTypesMessage = "Bitte laden wählen Sie ein gültiges Bild aus.")
      */
     private $picture;
     

@@ -1,61 +1,78 @@
-{% extends '::base.html.twig' %}
+{% extends 'pspiessLetsplayBundle::layout.html.twig' %}
+
+{% block title %}Preise{% endblock %}
+
+{% block nav %}
+    {{ knp_menu_render('pspiessLetsplayBundle:MenuBuilder:mainMenu', {'currentClass': 'active', 'template': 'pspiessLetsplayBundle:Menu:knp_menu.html.twig'}) }}
+{% endblock %}
 
 {% block body -%}
-    <h1>Field list</h1>
+<div class="page-content-area">
+    <div class="page-header">
+        <h1>
+            Spielfelder
+            <small><i class="ace-icon fa fa-angle-double-right"></i> Alle verf&uuml;gbaren Spielfelder</small>
+            <div class="col-md-2 pull-right">
+                <a class="btn btn-success" href="{{ path('pspiess_letsplay_field_new') }}"> Neu</a>
+            </div>
+        </h1>
+    </div><!-- /.page-header -->
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="row">
+                <div class="col-md-offset-1 col-xs-10">
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                            <tr>
+                                <th>Platznummer</th>
+                                <th>Typ</th>
+                                <th>Pl&auml;tze</th>
+                                <th>Oberfl&auml;che</th>
+                                <th>Wartung</th>
+                                <th>L&auml;nge</th>
+                                <th>Breite</th>
+                                <th>Bemerkung</th>
+                                <th>im Betrieb</th>
+                                <th></th>
+                            </tr>
+                            </tr>
+                        </thead>
 
-    <table class="records_list">
-        <thead>
-            <tr>
-                <th>Fieldnr</th>
-                <th>Type</th>
-                <th>Slots</th>
-                <th>Ground</th>
-                <th>Care</th>
-                <th>Lenght</th>
-                <th>Width</th>
-                <th>Note</th>
-                <th>Created</th>
-                <th>Changed</th>
-                <th>Activation</th>
-                <th>Id</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for entity in entities %}
-            <tr>
-                <td><a href="{{ path('field_show', { 'id': entity.id }) }}">{{ entity.fieldnr }}</a></td>
-                <td>{{ entity.type }}</td>
-                <td>{{ entity.slots }}</td>
-                <td>{{ entity.ground }}</td>
-                <td>{% if entity.care %}{{ entity.care|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{{ entity.lenght }}</td>
-                <td>{{ entity.width }}</td>
-                <td>{{ entity.note }}</td>
-                <td>{% if entity.created %}{{ entity.created|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if entity.changed %}{{ entity.changed|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if entity.activation %}{{ entity.activation|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{{ entity.id }}</td>
-                <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('field_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('field_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-        <ul>
-        <li>
-            <a href="{{ path('field_new') }}">
-                Create a new entry
-            </a>
-        </li>
-    </ul>
-    {% endblock %}
+                        <tbody>
+                            {% for entity in entities %}
+                            <tr>
+                                <td>{{ entity.fieldnr }}</td>
+                                <td>{{ entity.type }}</td>
+                                <td>{{ entity.slots }}</td>
+                                <td>{{ entity.ground }}</td>
+                                <td>{% if entity.care %}{{ entity.care|date('d.m.Y') }}{% endif %}</td>
+                                <td>{{ entity.lenght }} m</td>
+                                <td>{{ entity.width }} m</td>
+                                <td>{{ entity.note }}</td>
+                                <td>{% if entity.activation %}{{ entity.activation|date('d.m.Y') }}{% endif %}</td>
+                                <td>
+                                    <div class="hidden-sm hidden-xs btn-group">
+                                        {{ form_start(deleteForms[entity.id]) }}
+                                        <div class="hidden-sm hidden-xs btn-group">
+                                            <a class="btn btn-xs btn-info" href="{{ path('pspiess_letsplay_field_edit', { 'id': entity.id }) }}">
+                                                <i class="ace-icon fa fa-pencil icon-only"></i>
+                                            </a>
+                                            <button type="submit" class="btn btn-danger btn-xs">
+                                                <i class="ace-icon fa fa-trash-o icon-only"></i>
+                                            </button>
+                                        </div>
+                                            {{ form_end(deleteForms[entity.id]) }}
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div><!-- /.span -->
+            </div><!-- /.row -->
+            <div class="hr hr-18 dotted hr-double"></div>
+        </div>
+    </div>
+</div>
+{% endblock %}

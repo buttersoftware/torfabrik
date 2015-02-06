@@ -10,13 +10,25 @@ class MenuBuilder extends ContainerAware {
     public function mainMenu(FactoryInterface $factory, array $options) {
         $menu = $factory->createItem('root');
         $menu->setChildrenAttribute('class', 'nav navbar-nav');
+        
+        $menu->addChild('Reservierungen', array('route' => 'pspiess_letsplay_booking'))
+                ->setAttribute('icon', 'fa fa-calendar');
 
-        $menu->addChild('Kunden', array('route' => 'pspiess_letsplay_projects'))
+        $menu->addChild('Kunden', array('route' => 'pspiess_letsplay_customer'))
                 ->setAttribute('icon', 'fa fa-users');
-
-        $menu->addChild('Felder', array('route' => 'pspiess_letsplay_employees'))
+        
+        $menu->addChild('Felder', array('route' => 'pspiess_letsplay_field'))
                 ->setAttribute('icon', 'fa fa-square');
-
+        
+        $menu->addChild('Preise', array('route' => 'pspiess_letsplay_price'))
+                ->setAttribute('icon', 'fa fa-eur');
+        
+        $menu->addChild('Rechnungen', array('route' => 'pspiess_letsplay_invoice'))
+                ->setAttribute('icon', 'fa fa-list-alt');
+        
+        $menu->addChild('Kassenabschluss', array('route' => 'pspiess_letsplay_cashingup'))
+                ->setAttribute('icon', 'fa fa-list-alt')->actsLikeFirst();
+        
         return $menu;
     }
 

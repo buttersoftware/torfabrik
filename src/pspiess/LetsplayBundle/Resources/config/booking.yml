@@ -1,0 +1,32 @@
+pspiess_letsplay_booking:
+    pattern:  /admin/booking
+    defaults: { _controller: pspiessLetsplayBundle:Booking:index }
+    
+pspiess_letsplay_booking_new:
+    pattern:  /admin/booking/new
+    defaults: { _controller: pspiessLetsplayBundle:Booking:new }
+    
+pspiess_letsplay_booking_create:
+    pattern:  /admin/booking/create
+    defaults: { _controller: pspiessLetsplayBundle:Booking:create }
+    
+pspiess_letsplay_booking_add:
+    pattern:  /admin/booking/add
+    defaults: { _controller: pspiessLetsplayBundle:Booking:addReservation }
+
+pspiess_letsplay_booking_update:
+    pattern:  /admin/booking/update
+    defaults: { _controller: pspiessLetsplayBundle:Booking:updateReservation }
+    
+pspiess_letsplay_booking_delete:
+    pattern:  /admin/booking/delete
+    defaults: { _controller: pspiessLetsplayBundle:Booking:deleteReservation }
+    
+pspiess_letsplay_booking_cancel:
+    pattern:  /admin/booking/cancel
+    defaults: { _controller: pspiessLetsplayBundle:Booking:cancelReservation }
+    
+pspiess_letsplay_booking_calendar:
+    pattern:  /admin/booking/calendar
+    defaults: { _controller: pspiessLetsplayBundle:Booking:showCalendar, _format: json }
+    requirements: { _format: (xml|json), _method: GET }

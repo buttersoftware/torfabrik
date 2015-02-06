@@ -1,4 +1,10 @@
-{% extends '::base.html.twig' %}
+{% extends 'pspiessLetsplayBundle::layout.html.twig' %}
+
+{% block title %}Preise{% endblock %}
+
+{% block nav %}
+    {{ knp_menu_render('pspiessLetsplayBundle:MenuBuilder:mainMenu', {'currentClass': 'active', 'template': 'pspiessLetsplayBundle:Menu:knp_menu.html.twig'}) }}
+{% endblock %}
 
 {% block body -%}
 <h1>Price</h1>
@@ -42,12 +48,12 @@
 
 <ul class="record_actions">
     <li>
-        <a href="{{ path('price') }}">
+        <a href="{{ path('pspiess_letsplay_price') }}">
             Back to the list
         </a>
     </li>
     <li>
-        <a href="{{ path('price_edit', { 'id': entity.id }) }}">
+        <a href="{{ path('pspiess_letsplay_price_edit', { 'id': entity.id }) }}">
             Edit
         </a>
     </li>

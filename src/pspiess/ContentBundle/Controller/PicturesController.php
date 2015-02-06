@@ -15,8 +15,7 @@ use pspiess\ContentBundle\Form\PicturesType;
  *
  * @Route("/pictures")
  */
-class PicturesController extends Controller
-{
+class PicturesController extends Controller {
 
     /**
      * Lists all Pictures entities.
@@ -25,8 +24,7 @@ class PicturesController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function indexAction()
-    {
+    public function indexAction() {
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('pspiessContentBundle:Pictures')->findAll();
@@ -35,6 +33,7 @@ class PicturesController extends Controller
             'entities' => $entities,
         );
     }
+
     /**
      * Creates a new Pictures entity.
      *
@@ -42,10 +41,9 @@ class PicturesController extends Controller
      * @Method("POST")
      * @Template("pspiessContentBundle:Pictures:new.html.twig")
      */
-    public function createAction(Request $request)
-    {
+    public function createAction(Request $request) {
         $entity = new Pictures();
-        
+
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
@@ -53,30 +51,29 @@ class PicturesController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
-            
+
             return $this->redirect($this->generateUrl('pictures', array('id' => $entity->getId())));
         }
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
     /**
-    * Creates a form to create a Pictures entity.
-    *
-    * @param Pictures $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
-    private function createCreateForm(Pictures $entity)
-    {
+     * Creates a form to create a Pictures entity.
+     *
+     * @param Pictures $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createCreateForm(Pictures $entity) {
         $form = $this->createForm(new PicturesType(), $entity, array(
             'action' => $this->generateUrl('pictures_create'),
             'method' => 'POST',
         ));
-        
+
         $form->add('erstellen', 'submit', array('attr' => array('class' => 'btn btn-success')));
 
 
@@ -90,14 +87,13 @@ class PicturesController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function newAction()
-    {
+    public function newAction() {
         $entity = new Pictures();
-        $form   = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity);
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
@@ -108,8 +104,7 @@ class PicturesController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function showAction($id)
-    {
+    public function showAction($id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('pspiessContentBundle:Pictures')->find($id);
@@ -121,7 +116,7 @@ class PicturesController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
+            'entity' => $entity,
             'delete_form' => $deleteForm->createView(),
         );
     }
@@ -133,8 +128,7 @@ class PicturesController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function editAction($id)
-    {
+    public function editAction($id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('pspiessContentBundle:Pictures')->find($id);
@@ -147,21 +141,20 @@ class PicturesController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
 
     /**
-    * Creates a form to edit a Pictures entity.
-    *
-    * @param Pictures $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
-    private function createEditForm(Pictures $entity)
-    {
+     * Creates a form to edit a Pictures entity.
+     *
+     * @param Pictures $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createEditForm(Pictures $entity) {
         $form = $this->createForm(new PicturesType(), $entity, array(
             'action' => $this->generateUrl('pictures_update', array('id' => $entity->getId())),
             'method' => 'PUT',
@@ -171,6 +164,7 @@ class PicturesController extends Controller
 
         return $form;
     }
+
     /**
      * Edits an existing Pictures entity.
      *
@@ -178,8 +172,7 @@ class PicturesController extends Controller
      * @Method("PUT")
      * @Template("pspiessContentBundle:Pictures:edit.html.twig")
      */
-    public function updateAction(Request $request, $id)
-    {
+    public function updateAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('pspiessContentBundle:Pictures')->find($id);
@@ -199,8 +192,8 @@ class PicturesController extends Controller
         }
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
@@ -211,28 +204,19 @@ class PicturesController extends Controller
      * @Route("/{id}", name="pictures_delete")
      * @Method("DELETE")
      */
-    public function deleteAction(Request $request, $id)
-    {
+    public function deleteAction(Request $request, $id) {
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
-        
-        //\Doctrine\Common\Util\Debug::dump($request);
-        
-        print_r($form->getErrors());
-        //return;
-        //if ($form->isValid()) { // Need a FIX becouse CSRF token the form is not valid
-            
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('pspiessContentBundle:Pictures')->find($id);
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('pspiessContentBundle:Pictures')->find($id);
 
-            if (!$entity) {
-                throw $this->createNotFoundException('Datensatz nicht gefunden.');
-            }
+        if (!$entity) {
+            throw $this->createNotFoundException('Datensatz nicht gefunden.');
+        }
 
-            $em->remove($entity);
-            $em->flush();
-        //}
-        
+        $em->remove($entity);
+        $em->flush();
+
         return $this->redirect($this->generateUrl('pictures'));
     }
 
@@ -243,13 +227,13 @@ class PicturesController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($id)
-    {
+    private function createDeleteForm($id) {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('pictures_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('erstellen', 'submit', array('attr' => array('class' => 'btn btn-danger'), 'label' => 'löschen'))
-            ->getForm()
+                        ->setAction($this->generateUrl('pictures_delete', array('id' => $id)))
+                        ->setMethod('DELETE')
+                        ->add('erstellen', 'submit', array('attr' => array('class' => 'btn btn-danger'), 'label' => 'löschen'))
+                        ->getForm()
         ;
     }
+
 }

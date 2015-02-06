@@ -1,0 +1,23 @@
+pspiess_letsplay_field:
+    pattern:  /admin/field
+    defaults: { _controller: pspiessLetsplayBundle:Field:index }
+    
+pspiess_letsplay_field_new:
+    pattern:  /admin/field/new
+    defaults: { _controller: pspiessLetsplayBundle:Field:new }
+    
+pspiess_letsplay_field_create:
+    pattern:  /admin/field/create
+    defaults: { _controller: pspiessLetsplayBundle:Field:create }
+    
+pspiess_letsplay_field_edit:
+    pattern:  /admin/field/edit/{id}
+    defaults: { _controller: pspiessLetsplayBundle:Field:edit }
+    
+pspiess_letsplay_field_update:
+    pattern:  /admin/field/update/{id}
+    defaults: { _controller: pspiessLetsplayBundle:Field:update }
+    
+pspiess_letsplay_field_delete:
+    pattern:  /admin/field/delete/{id}
+    defaults: { _controller: pspiessLetsplayBundle:Field:delete }

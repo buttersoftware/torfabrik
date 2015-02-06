@@ -1,0 +1,24 @@
+pspiess_letsplay_cashingup:
+    pattern:  /admin/cashingup
+    defaults: { _controller: pspiessLetsplayBundle:Cashingup:index }
+    
+pspiess_letsplay_cashingup_new:
+    pattern:  /admin/cashingup/new
+    defaults: { _controller: pspiessLetsplayBundle:Cashingup:new }
+    
+pspiess_letsplay_cashingup_create:
+    pattern:  /admin/cashingup/create
+    defaults: { _controller: pspiessLetsplayBundle:Cashingup:create }
+    
+pspiess_letsplay_cashingup_add:
+    pattern:  /admin/cashingup/add
+    defaults: { _controller: pspiessLetsplayBundle:Cashingup:addReservation }
+
+pspiess_letsplay_cashingup_update:
+    pattern:  /admin/cashingup/update
+    defaults: { _controller: pspiessLetsplayBundle:Cashingup:updateReservation }
+    
+pspiess_letsplay_cashingup_delete:
+    pattern:  /admin/cashingup/delete
+    defaults: { _controller: pspiessLetsplayBundle:Cashingup:deleteReservation }
+  

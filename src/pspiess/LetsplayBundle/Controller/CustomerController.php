@@ -9,14 +9,15 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use pspiess\LetsplayBundle\Entity\Customer;
 use pspiess\LetsplayBundle\Form\CustomerType;
+use Symfony\Component\HttpFoundation\Response;
+
 
 /**
  * Customer controller.
  *
  * @Route("/customer")
  */
-class CustomerController extends Controller
-{
+class CustomerController extends Controller {
 
     /**
      * Lists all Customer entities.
@@ -25,16 +26,47 @@ class CustomerController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function indexAction()
-    {
+    public function indexAction() {
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('pspiessLetsplayBundle:Customer')->findAll();
 
+        $deleteForms = array();
+
+        foreach ($entities as $entity) {
+            $deleteForms[$entity->getId()] = $this->createDeleteForm($entity->getId())->createView();
+        }
+
         return array(
             'entities' => $entities,
+            'deleteForms' => $deleteForms,
         );
     }
+
+    /**
+     * Lists all customer entities for Calendar.
+     *
+     * @Route("/", name="customer_getAllCalendar")
+     * @Method("GET")
+     * @Template()
+     */
+    public function getAllCustomerAction() {
+        $em = $this->getDoctrine()->getManager();
+
+        $customer = $em->getRepository('pspiessLetsplayBundle:Customer')->findAll();
+
+        $rows = array();
+        foreach ($customer as $obj) {
+            $rows[] = array('label' => $obj->getName().', '. $obj->getFirstname(), 
+                'value' => $obj->getId());
+        }
+
+        $serializedEntity = $this->container->get('serializer')->serialize($rows, 'json');
+        $response = new Response($serializedEntity);
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+    }
+
     /**
      * Creates a new Customer entity.
      *
@@ -42,41 +74,39 @@ class CustomerController extends Controller
      * @Method("POST")
      * @Template("pspiessLetsplayBundle:Customer:new.html.twig")
      */
-    public function createAction(Request $request)
-    {
+    public function createAction(Request $request) {
         $entity = new Customer();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
-
+        
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('customer_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('pspiess_letsplay_customer_edit', array('id' => $entity->getId())));
         }
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
     /**
-    * Creates a form to create a Customer entity.
-    *
-    * @param Customer $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
-    private function createCreateForm(Customer $entity)
-    {
+     * Creates a form to create a Customer entity.
+     *
+     * @param Customer $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createCreateForm(Customer $entity) {
         $form = $this->createForm(new CustomerType(), $entity, array(
-            'action' => $this->generateUrl('customer_create'),
+            'action' => $this->generateUrl('pspiess_letsplay_customer_create'),
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', 'submit', array('label' => 'anlegen', 'attr' => array('class' => 'btn btn-success')));
 
         return $form;
     }
@@ -88,14 +118,13 @@ class CustomerController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function newAction()
-    {
+    public function newAction() {
         $entity = new Customer();
-        $form   = $this->createCreateForm($entity);
-
+        $form = $this->createCreateForm($entity);
+        
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
@@ -106,8 +135,7 @@ class CustomerController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function showAction($id)
-    {
+    public function showAction($id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('pspiessLetsplayBundle:Customer')->find($id);
@@ -119,7 +147,7 @@ class CustomerController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
+            'entity' => $entity,
             'delete_form' => $deleteForm->createView(),
         );
     }
@@ -131,8 +159,7 @@ class CustomerController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function editAction($id)
-    {
+    public function editAction($id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('pspiessLetsplayBundle:Customer')->find($id);
@@ -145,23 +172,22 @@ class CustomerController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
 
     /**
-    * Creates a form to edit a Customer entity.
-    *
-    * @param Customer $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
-    private function createEditForm(Customer $entity)
-    {
+     * Creates a form to edit a Customer entity.
+     *
+     * @param Customer $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createEditForm(Customer $entity) {
         $form = $this->createForm(new CustomerType(), $entity, array(
-            'action' => $this->generateUrl('customer_update', array('id' => $entity->getId())),
+            'action' => $this->generateUrl('pspiess_letsplay_customer_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
@@ -169,6 +195,7 @@ class CustomerController extends Controller
 
         return $form;
     }
+
     /**
      * Edits an existing Customer entity.
      *
@@ -176,8 +203,7 @@ class CustomerController extends Controller
      * @Method("PUT")
      * @Template("pspiessLetsplayBundle:Customer:edit.html.twig")
      */
-    public function updateAction(Request $request, $id)
-    {
+    public function updateAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('pspiessLetsplayBundle:Customer')->find($id);
@@ -193,23 +219,23 @@ class CustomerController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('customer_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('pspiess_letsplay_customer_edit', array('id' => $id)));
         }
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
+
     /**
      * Deletes a Customer entity.
      *
      * @Route("/{id}", name="customer_delete")
      * @Method("DELETE")
      */
-    public function deleteAction(Request $request, $id)
-    {
+    public function deleteAction(Request $request, $id) {
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
@@ -225,7 +251,7 @@ class CustomerController extends Controller
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('customer'));
+        return $this->redirect($this->generateUrl('pspiess_letsplay_customer'));
     }
 
     /**
@@ -235,13 +261,14 @@ class CustomerController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($id)
-    {
+    private function createDeleteForm($id) {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('customer_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
+                        ->setAction($this->generateUrl('pspiess_letsplay_customer_delete', array('id' => $id)))
+                        ->setMethod('DELETE')
+//                        ->add('submit', 'submit', array('label' => 'Delete'))
+                        ->add('id', 'hidden')
+                        ->getForm()
         ;
     }
+
 }
