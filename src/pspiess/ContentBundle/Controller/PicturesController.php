@@ -215,9 +215,6 @@ class PicturesController extends Controller
     {
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
-        
-        //\Doctrine\Common\Util\Debug::dump($request);
-        
         //return;
         //if ($form->isValid()) { // Need a FIX becouse CSRF token the form is not valid
             
