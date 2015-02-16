@@ -110,11 +110,11 @@ class BookingController extends Controller {
             $booking->setStart($dStartDate);
             $booking->setEnd($dEndDate);
 
-            $em->persist($booking);
-            $em->flush();
-
             $dEndDate->modify($sSerial);
         }
+        
+        $em->persist($booking);
+        $em->flush();
 
         $serializedEntity = $this->container->get('serializer')->serialize($booking->getId(), 'json');
         $response = new Response($serializedEntity);
