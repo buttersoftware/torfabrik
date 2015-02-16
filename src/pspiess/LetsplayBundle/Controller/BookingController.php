@@ -12,6 +12,7 @@ use pspiess\LetsplayBundle\Form\BookingType;
 use JMS\Serializer\SerializerBuilder;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\HttpFoundation\Response;
+use \pspiess\LetsplayBundle\Service\BookingModel;
 
 /**
  * Booking controller.
@@ -30,7 +31,7 @@ class BookingController extends Controller {
     public function indexAction() {
 
         $em = $this->getDoctrine()->getManager();
-
+        
         $entities = $em->getRepository('pspiessLetsplayBundle:Customer')->findAll();
 
         return array(
@@ -42,10 +43,11 @@ class BookingController extends Controller {
      * Lists all Booking entities for Calendar.
      * @Method("GET")
      */
-    public function showCalendarAction($iField = 0) {
+    public function showCalendarAction() {
         $em = $this->getDoctrine()->getManager();
 
-        $entBooking = $em->getRepository('pspiessLetsplayBundle:Booking')->findAll();
+//        $entBooking = $em->getRepository('pspiessLetsplayBundle:Booking')->GetBookingByFieldId(28);
+        $entBooking = $em->getRepository('pspiessLetsplayBundle:Booking')->findall();
 
         $rows = array();
         foreach ($entBooking as $obj) {
@@ -89,55 +91,17 @@ class BookingController extends Controller {
      * Add a Reservation to the Calendar
      */
     public function addReservationAction() {
-        $em = $this->getDoctrine()->getManager();
         $request = $this->get('request');
         $data = $request->request->all();
         
-        $sSerial = $this->GetSerialOption($data['serial']);
-        $dSerialDate = new \DateTime($data['serial_date']);
-        $dStartDate = new \DateTime($data['start']);
-        $dEndDate = new \DateTime($data['end']);
+        $BookingModel = new BookingModel($this->getDoctrine()->getManager());
+        $booking = $BookingModel->addReservation($data);
+        //$this->get('app.booking')->addReservation($data);
         
-        $customer = $em->getRepository('pspiessLetsplayBundle:Customer')->find($data["customerid"]);
-        $field = $em->getRepository('pspiessLetsplayBundle:Field')->find($data["fieldid"]);
-        
-        for ($dDate = $dStartDate; $dDate < $dSerialDate; $dDate->modify($sSerial)) {
-            $booking = new Booking();
-
-            $booking->setCustomer($customer);
-            $booking->setField($field);
-            $booking->setTitle($data["title"]);
-            $booking->setStart($dStartDate);
-            $booking->setEnd($dEndDate);
-
-            $dEndDate->modify($sSerial);
-        }
-        
-        $em->persist($booking);
-        $em->flush();
-
         $serializedEntity = $this->container->get('serializer')->serialize($booking->getId(), 'json');
         $response = new Response($serializedEntity);
         $response->headers->set('Content-Type', 'application/json');
         return $response;
-    }
-
-    private function GetSerialOption($data) {
-        switch ($data) {
-            case 0:
-                $sSerial = '+1 day';
-                break;
-            case 1:
-                $sSerial = '+7 day';
-                break;
-            case 2:
-                $sSerial = '+14 day';
-                break;
-            case 3:
-                $sSerial = '+1 month';
-                break;
-        }
-        return $sSerial;
     }
 
     /**
