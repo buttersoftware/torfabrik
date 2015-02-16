@@ -5,3 +5,8 @@ services:
             - @service_container
         tags:
             - { name: knp_menu.voter }
+            
+    pspiess.letsplay.menu.builder:
+        class:  pspiess\LetsplayBundle\Menu\MenuBuilder
+        arguments:
+            - '@doctrine.orm.entity_manager'

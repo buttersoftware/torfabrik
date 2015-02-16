@@ -7,28 +7,40 @@ use Symfony\Component\DependencyInjection\ContainerAware;
 
 class MenuBuilder extends ContainerAware {
 
+//    private $EntityManager;
+//
+//    public function __construct(EntityManager $EntityManager) {
+//        $this->EntityManager = $EntityManager;
+//    }
+
     public function mainMenu(FactoryInterface $factory, array $options) {
         $menu = $factory->createItem('root');
         $menu->setChildrenAttribute('class', 'nav navbar-nav');
-        
+
         $menu->addChild('Reservierungen', array('route' => 'pspiess_letsplay_booking'))
                 ->setAttribute('icon', 'fa fa-calendar');
 
         $menu->addChild('Kunden', array('route' => 'pspiess_letsplay_customer'))
                 ->setAttribute('icon', 'fa fa-users');
-        
+
         $menu->addChild('Felder', array('route' => 'pspiess_letsplay_field'))
                 ->setAttribute('icon', 'fa fa-square');
-        
+
         $menu->addChild('Preise', array('route' => 'pspiess_letsplay_price'))
                 ->setAttribute('icon', 'fa fa-eur');
-        
+
         $menu->addChild('Rechnungen', array('route' => 'pspiess_letsplay_invoice'))
                 ->setAttribute('icon', 'fa fa-list-alt');
-        
+
         $menu->addChild('Kassenabschluss', array('route' => 'pspiess_letsplay_cashingup'))
                 ->setAttribute('icon', 'fa fa-list-alt')->actsLikeFirst();
-        
+
+        $em = $this->container->get('doctrine.orm.entity_manager');
+        $entPayoffice = $em->getRepository('pspiessLetsplayBundle:Payoffice')->findAll();
+
+        $menu->addChild('Kasse', array('route' => 'pspiess_letsplay_cashingup'))
+                ->setAttribute('icon', 'fa fa-list-alt')->actsLikeFirst();
+
         return $menu;
     }
 
