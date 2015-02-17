@@ -94,25 +94,25 @@ class Payofficepos {
 
 
     /**
-     * Set invoice
+     * Set payoffice
      *
-     * @param \pspiess\LetsplayBundle\Entity\Payoffice $invoice
+     * @param \pspiess\LetsplayBundle\Entity\Payoffice $payoffice
      * @return Payofficepos
      */
-    public function setInvoice(\pspiess\LetsplayBundle\Entity\Payoffice $invoice = null)
+    public function setPayoffice(\pspiess\LetsplayBundle\Entity\Payoffice $payoffice = null)
     {
-        $this->invoice = $invoice;
+        $this->payoffice = $payoffice;
 
         return $this;
     }
 
     /**
-     * Get invoice
+     * Get payoffice
      *
      * @return \pspiess\LetsplayBundle\Entity\Payoffice 
      */
-    public function getInvoice()
+    public function getPayoffice()
     {
-        return $this->invoice;
+        return $this->payoffice;
     }
 }

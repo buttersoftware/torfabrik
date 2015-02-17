@@ -9,6 +9,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use pspiess\LetsplayBundle\Entity\Invoice;
 use pspiess\LetsplayBundle\Entity\Invoicepos;
+use pspiess\LetsplayBundle\Entity\Payoffice;
+use pspiess\LetsplayBundle\Entity\Payofficepos;
 use pspiess\LetsplayBundle\Form\InvoiceType;
 
 /**
@@ -67,14 +69,29 @@ class InvoiceController extends Controller {
                 $entity->addInvoicepos($entInvoice);
             }
             
-            $em->persist($entity);
+            $entPayofficepos = new Payofficepos();
+            $entPayofficepos->setAmount($entity->getPaidPrice());
+            $entPayofficepos->setDate(new \DateTime);
+            
+            $entPayoffice = $em->getRepository('pspiessLetsplayBundle:Payoffice')->findAll();
+            if ($entPayoffice == null) {
+                $entPayoffice = new Payoffice();
+                $entPayoffice->setOpened(new \DateTime);
+            }
+            $entPayoffice->addPayofficepo($entPayofficepos);
+            $em->persist($entPayoffice);
             $em->flush();
             
-            $entBooking = $em->getRepository('pspiessLetsplayBundle:Booking')->find($entity->getBookingId());
-            $em->persist($entBooking->setInvoiceId($entity->getId()));
-            $em->flush();
-            
-            return $this->redirect($this->generateUrl('pspiess_letsplay_invoice_show', array('id' => $entity->getId())));
+//            
+//            $em->persist($entity);
+//            $em->flush();
+//            
+//            $entBooking = $em->getRepository('pspiessLetsplayBundle:Booking')->find($entity->getBookingId());
+//            
+//            $em->persist($entBooking->setInvoiceId($entity->getId()));
+//            $em->flush();
+//            
+//            return $this->redirect($this->generateUrl('pspiess_letsplay_invoice_show', array('id' => $entity->getId())));
         }
 
         return array(

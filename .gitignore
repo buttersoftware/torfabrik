@@ -32,3 +32,4 @@ composer.lock
 composer.lock
 src/pspiess/LetsplayBundle/Entity/Field.php~
 /src/pspiess/Acme/
+nbproject/private/private.xml

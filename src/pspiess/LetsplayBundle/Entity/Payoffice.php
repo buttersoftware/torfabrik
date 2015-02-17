@@ -52,14 +52,13 @@ class Payoffice {
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="opened", type="datetime")
+     * @ORM\Column(name="opened", type="datetime", nullable=true)
      */
     private $opened;
 
     /**
      * @var \DateTime
-     *
-     * @ORM\Column(name="closed", type="datetime")
+     * @ORM\Column(name="closed", type="datetime", nullable=true)
      */
     private $closed;
 
@@ -116,7 +115,6 @@ class Payoffice {
 
     /**
      * Set opened
-     *
      * @param \DateTime $opened
      * @return Payoffice
      */
@@ -137,7 +135,6 @@ class Payoffice {
 
     /**
      * Set closed
-     *
      * @param \DateTime $closed
      * @return Payoffice
      */

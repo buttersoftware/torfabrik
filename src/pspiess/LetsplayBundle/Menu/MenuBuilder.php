@@ -37,6 +37,9 @@ class MenuBuilder extends ContainerAware {
 
         $em = $this->container->get('doctrine.orm.entity_manager');
         $entPayoffice = $em->getRepository('pspiessLetsplayBundle:Payoffice')->findAll();
+        foreach ($entPayoffice as $entity) {
+            $entity->GetPayofficepos()->getAmount();
+        }
 
         $menu->addChild('Kasse', array('route' => 'pspiess_letsplay_cashingup'))
                 ->setAttribute('icon', 'fa fa-list-alt')->actsLikeFirst();
