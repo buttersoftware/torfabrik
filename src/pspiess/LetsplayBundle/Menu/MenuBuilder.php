@@ -7,12 +7,6 @@ use Symfony\Component\DependencyInjection\ContainerAware;
 
 class MenuBuilder extends ContainerAware {
 
-//    private $EntityManager;
-//
-//    public function __construct(EntityManager $EntityManager) {
-//        $this->EntityManager = $EntityManager;
-//    }
-
     public function mainMenu(FactoryInterface $factory, array $options) {
         $menu = $factory->createItem('root');
         $menu->setChildrenAttribute('class', 'nav navbar-nav');
@@ -35,16 +29,22 @@ class MenuBuilder extends ContainerAware {
         $menu->addChild('Kassenabschluss', array('route' => 'pspiess_letsplay_cashingup'))
                 ->setAttribute('icon', 'fa fa-list-alt')->actsLikeFirst();
 
-        $em = $this->container->get('doctrine.orm.entity_manager');
-        $entPayoffice = $em->getRepository('pspiessLetsplayBundle:Payoffice')->findAll();
-        foreach ($entPayoffice as $entity) {
-            $entity->GetPayofficepos()->getAmount();
-        }
-
-        $menu->addChild('Kasse', array('route' => 'pspiess_letsplay_cashingup'))
+        $menu->addChild('Kassenumsatz: ' . $this->GetAmountofPayoffice() . ' €', array('route' => 'pspiess_letsplay_cashingup'))
                 ->setAttribute('icon', 'fa fa-list-alt')->actsLikeFirst();
 
         return $menu;
+    }
+
+    private function GetAmountofPayoffice() {
+        $em = $this->container->get('doctrine.orm.entity_manager');
+        //Todo: need to check the user!
+        $entPayoffice = $em->getRepository('pspiessLetsplayBundle:Payoffice')->find(1);
+
+        $dAmount = 0;
+        foreach ($entPayoffice->getPayofficepos() as $obj) {
+            $dAmount = $obj->getAmount();
+        }
+        return $dAmount;
     }
 
     public function userMenu(FactoryInterface $factory, array $options) {

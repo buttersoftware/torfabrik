@@ -31,3 +31,9 @@ Beispiel:
     }
 //Wichtig für JavaScript Routes
 https://github.com/FriendsOfSymfony/FOSJsRoutingBundle/blob/master/Resources/doc/index.md
+
+
+$entPayoffice = $em->getRepository('pspiessLetsplayBundle:Payoffice')->find(1);
+    --> Gibt die Entity zurück mit den child entities
+$entPayoffice2 = $em->getRepository('pspiessLetsplayBundle:Payoffice')->findall();
+    --> Gibt ein Array mit Entities zurück!

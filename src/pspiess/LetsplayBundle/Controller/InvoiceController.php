@@ -73,12 +73,13 @@ class InvoiceController extends Controller {
             $entPayofficepos->setAmount($entity->getPaidPrice());
             $entPayofficepos->setDate(new \DateTime);
             
-            $entPayoffice = $em->getRepository('pspiessLetsplayBundle:Payoffice')->findAll();
+            //Todo need to check for the user
+            $entPayoffice = $em->getRepository('pspiessLetsplayBundle:Payoffice')->find(1);
             if ($entPayoffice == null) {
                 $entPayoffice = new Payoffice();
                 $entPayoffice->setOpened(new \DateTime);
             }
-            $entPayoffice->addPayofficepo($entPayofficepos);
+            $entPayoffice->addPayofficepos($entPayofficepos);
             $em->persist($entPayoffice);
             $em->flush();
             

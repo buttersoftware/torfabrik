@@ -2,7 +2,6 @@
 
 namespace pspiess\LetsplayBundle\Entity;
 
-use Doctrine\ORM\Repository;
 Use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -160,10 +159,10 @@ class Payoffice {
      * @param \pspiess\LetsplayBundle\Entity\Payofficepos $payofficepos
      * @return Payoffice
      */
-    public function addPayofficepo(\pspiess\LetsplayBundle\Entity\Payofficepos $payofficepos)
+    public function addPayofficepos(\pspiess\LetsplayBundle\Entity\Payofficepos $payofficepos)
     {
         $this->payofficepos[] = $payofficepos;
-
+        $payofficepos->setPayoffice($this);
         return $this;
     }
 
