@@ -1,0 +1,24 @@
+pspiess_letsplay_payoffice:
+    pattern:  /admin/payoffice
+    defaults: { _controller: pspiessLetsplayBundle:Payoffice:index }
+    
+pspiess_letsplay_payoffice_new:
+    pattern:  /admin/payoffice/new
+    defaults: { _controller: pspiessLetsplayBundle:Payoffice:new }
+    
+pspiess_letsplay_payoffice_create:
+    pattern:  /admin/payoffice/create
+    defaults: { _controller: pspiessLetsplayBundle:Payoffice:create }
+    
+pspiess_letsplay_payoffice_add:
+    pattern:  /admin/payoffice/add
+    defaults: { _controller: pspiessLetsplayBundle:Payoffice:addReservation }
+
+pspiess_letsplay_payoffice_update:
+    pattern:  /admin/payoffice/update
+    defaults: { _controller: pspiessLetsplayBundle:Payoffice:updateReservation }
+    
+pspiess_letsplay_payoffice_delete:
+    pattern:  /admin/payoffice/delete
+    defaults: { _controller: pspiessLetsplayBundle:Payoffice:deleteReservation }
+  

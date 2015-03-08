@@ -38,19 +38,6 @@ class InvoiceController extends Controller {
     }
 
     /**
-     * Lists all Invoice entities.
-     *
-     */
-//    public function GetPreInvoice($iBooking_id) {
-//        $em = $this->getDoctrine()->getManager();
-//        $booking = $em->getRepository('pspiessLetsplayBundle:Booking')->find($iBooking_id);
-//
-//        return array(
-//            'entities' => $booking,
-//        );
-//    }
-
-    /**
      * Creates a new Invoice entity.
      *
      * @Route("/", name="invoice_create")
@@ -69,12 +56,16 @@ class InvoiceController extends Controller {
                 $entity->addInvoicepos($entInvoice);
             }
             
+            $em->persist($entity);
+            $em->flush();
+            
             $entPayofficepos = new Payofficepos();
             $entPayofficepos->setAmount($entity->getPaidPrice());
             $entPayofficepos->setDate(new \DateTime);
+            $entPayofficepos->setInvoice($entity);
             
             //Todo need to check for the user
-            $entPayoffice = $em->getRepository('pspiessLetsplayBundle:Payoffice')->find(1);
+            $entPayoffice = $em->getRepository('pspiessLetsplayBundle:Payoffice')->getOnePayoffice();
             if ($entPayoffice == null) {
                 $entPayoffice = new Payoffice();
                 $entPayoffice->setOpened(new \DateTime);
@@ -82,23 +73,9 @@ class InvoiceController extends Controller {
             $entPayoffice->addPayofficepos($entPayofficepos);
             $em->persist($entPayoffice);
             $em->flush();
-            
-//            
-//            $em->persist($entity);
-//            $em->flush();
-//            
-//            $entBooking = $em->getRepository('pspiessLetsplayBundle:Booking')->find($entity->getBookingId());
-//            
-//            $em->persist($entBooking->setInvoiceId($entity->getId()));
-//            $em->flush();
-//            
-//            return $this->redirect($this->generateUrl('pspiess_letsplay_invoice_show', array('id' => $entity->getId())));
         }
-
-        return array(
-            'entity' => $entity,
-            'form' => $form->createView(),
-        );
+        
+        return $this->redirect($this->generateUrl('pspiess_letsplay_invoice_show', array('id' => $entity->getId())));
     }
 
     /**
@@ -201,18 +178,15 @@ class InvoiceController extends Controller {
             $entInvoice->addInvoicepos($entInvoicepos);
         }
 
-//        echo ($decTotalTime / 2). ' Stunden gespielt';
-//        echo (string)$decTotalPrice. '€ Gesamtpreis';
-
         $entInvoice->setTotalPrice($decTotalPrice);
         $entInvoice->setTotalPricenet($decTotalPrice / (19 / 100 + 1));
         $entInvoice->setTax($entInvoice->getTotalPrice() - $entInvoice->getTotalPricenet());
         $entInvoice->setPaidPrice($decTotalPrice);
 
-        $em->persist($entInvoice);
-        //$em->flush($entInvoice); // ohne flusch gibt es keine verknüpfung in der Form... warum?
+//        $em->persist($entInvoice);
+//        $em->flush($entInvoice); // ohne flush gibt es keine verknüpfung in der Form... warum?
         $form = $this->createCreateForm($entInvoice);
-//        $form = $this->createEditForm($entInvoice);
+        
         return array(
             'entity' => $entInvoice,
             'data' => 'TEST',
@@ -306,7 +280,6 @@ class InvoiceController extends Controller {
             throw $this->createNotFoundException('Unable to find Invoice entity.');
         }
 
-//        $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 

@@ -1,0 +1,59 @@
+{% extends 'pspiessLetsplayBundle::layout.html.twig' %}
+
+{% block title %}Preise{% endblock %}
+
+{% block nav %}
+    {{ knp_menu_render('pspiessLetsplayBundle:MenuBuilder:mainMenu', {'currentClass': 'active', 'template': 'pspiessLetsplayBundle:Menu:knp_menu.html.twig'}) }}
+{% endblock %}
+
+{% block body -%}
+    <div class="page-content-area">
+        <div class="page-header">
+            <h1>
+                Umsatz
+                {% for row in payoffice %}
+                    <small><i class="ace-icon fa fa-angle-double-right"></i>Kasse geöffnet seit: {% if row.opened %}{{ row.opened|date('d.m.Y H:i:s') }}{% endif %}</small>
+                    <div class="col-md-2 pull-right">
+                        <a class="btn btn-success" href="{{ path('pspiess_letsplay_cashingup_new') }}"> Kasse schließen</a>
+                    </div>
+                {% endfor %}
+                {% if payoffice is empty %}
+                    <small><i class="ace-icon fa fa-angle-double-right"></i>Die Kasse ist geschlossen!</small>
+                    <div class="col-md-2 pull-right">
+{#                        <a class="btn btn-success" href="{{ path('pspiess_letsplay_cashingup_new') }}"> Kasse schließen</a>#}
+                    </div>
+                {% endif %}
+            </h1>
+        </div><!-- /.page-header -->
+        <div class="col-xs-12">
+            <div class="row">
+                <div class="col-md-offset-1 col-xs-10">
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Buchungsdatum</th>
+                                <th>Rechnungsnummer</th>
+{#                                <th>Kunde</th>
+                                <th>Betrag</th>#}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for row in payoffice %}
+                                {% for pos in row.payofficepos %}
+                                    <tr>
+                                        <td>{% if pos.date %}{{ pos.date|date('d.m.Y H:i:s') }}{% endif %}</td>
+{#                                        {% for invoice in pos.invoice %}
+                                            <td>{{ invoice.id }}</td>
+                                        {% endfor %}#}
+                                        <td>{{ pos.amount|number_format(2, ',', '.') }} <i class="fa fa-eur fa-1x"></i></td>
+                                    </tr>
+                                {% endfor %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div><!-- /.span -->
+            </div><!-- /.row -->
+            <div class="hr hr-18 dotted hr-double"></div>
+        </div>
+    </div>
+{% endblock %}

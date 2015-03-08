@@ -12,4 +12,18 @@ use Doctrine\ORM\EntityRepository;
  */
 class PayofficeposRepository extends EntityRepository
 {
+    
+        public function getPayofficepos() {
+        $em = $this->getEntityManager();
+        $query = $em->createQueryBuilder()
+                ->select('p', 'i')
+                ->from('pspiessLetsplayBundle:Payoffice', 'p')
+                ->leftJoin('p.invoice_id', 'i');
+        try {
+            return $query->getQuery()->getSingleResult();
+        } catch (\Doctrine\ORM\NoResultException $e) {
+            return null;
+        }
+    }
+    
 }

@@ -801,4 +801,37 @@ class Customer {
         return $this->firstname.', '.$this->name;
     }
 
+
+    /**
+     * Add bookings
+     *
+     * @param \pspiess\LetsplayBundle\Entity\Booking $bookings
+     * @return Customer
+     */
+    public function addBooking(\pspiess\LetsplayBundle\Entity\Booking $bookings)
+    {
+        $this->bookings[] = $bookings;
+
+        return $this;
+    }
+
+    /**
+     * Remove bookings
+     *
+     * @param \pspiess\LetsplayBundle\Entity\Booking $bookings
+     */
+    public function removeBooking(\pspiess\LetsplayBundle\Entity\Booking $bookings)
+    {
+        $this->bookings->removeElement($bookings);
+    }
+
+    /**
+     * Get bookings
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getBookings()
+    {
+        return $this->bookings;
+    }
 }

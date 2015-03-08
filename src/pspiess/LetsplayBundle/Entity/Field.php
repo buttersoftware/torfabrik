@@ -442,4 +442,14 @@ class Field {
     {
         return $this->booking;
     }
+
+    /**
+     * Get bookings
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getBookings()
+    {
+        return $this->bookings;
+    }
 }

@@ -19,11 +19,16 @@ class Invoice {
      * @ORM\OneToMany(targetEntity="Invoicepos", mappedBy="invoice", cascade={"persist", "remove"})
      */
     protected $invoicepos;
-
+   
     public function __construct() {
         $this->invoicepos = new ArrayCollection();
     }
 
+    /**
+     * @ORM\OneToOne(targetEntity="Payofficepos", mappedBy="invoice")
+     **/
+    private $payofficepos;
+    
     /**
      * @var integer
      *
@@ -797,5 +802,28 @@ class Invoice {
     public function getBookingId()
     {
         return $this->bookingId;
+    }
+
+    /**
+     * Set payofficepos
+     *
+     * @param \pspiess\LetsplayBundle\Entity\Payofficepos $payofficepos
+     * @return Invoice
+     */
+    public function setPayofficepos(\pspiess\LetsplayBundle\Entity\Payofficepos $payofficepos = null)
+    {
+        $this->payofficepos = $payofficepos;
+
+        return $this;
+    }
+
+    /**
+     * Get payofficepos
+     *
+     * @return \pspiess\LetsplayBundle\Entity\Payofficepos 
+     */
+    public function getPayofficepos()
+    {
+        return $this->payofficepos;
     }
 }

@@ -21,7 +21,7 @@ class BookingModel {
     }
 
     /**
-     * Get BookingModel service *
+     * This service add a reservation to the database
      * @return \pspiess\LetsplayBundle\Service\BookingModel
      */
     public function addReservation($data) {
@@ -33,7 +33,7 @@ class BookingModel {
         $customer = $this->EntityManager->getRepository('pspiessLetsplayBundle:Customer')->find($data["customerid"]);
         $field = $this->EntityManager->getRepository('pspiessLetsplayBundle:Field')->find($data["fieldid"]);
 
-        for ($dDate = $dStartDate; $dDate < $dSerialDate; $dDate->modify($sSerial)) {
+        for ($dDate = $dStartDate; $dDate->format('Y-m-d') <= $dSerialDate->format('Y-m-d'); $dDate->modify($sSerial)) {
             $booking = new Booking();
 
             $booking->setCustomer($customer);

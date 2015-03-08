@@ -16,6 +16,8 @@ class MenuBuilder extends ContainerAware {
 
         $menu->addChild('Kunden', array('route' => 'pspiess_letsplay_customer'))
                 ->setAttribute('icon', 'fa fa-users');
+//        $menu['Kunden']->addChild('Profile', array('uri' => '#'))->setAttribute('divider_append', true);
+//        $menu['Kunden']->addChild('Logout', array('uri' => '#'));
 
         $menu->addChild('Felder', array('route' => 'pspiess_letsplay_field'))
                 ->setAttribute('icon', 'fa fa-square');
@@ -29,7 +31,7 @@ class MenuBuilder extends ContainerAware {
         $menu->addChild('Kassenabschluss', array('route' => 'pspiess_letsplay_cashingup'))
                 ->setAttribute('icon', 'fa fa-list-alt')->actsLikeFirst();
 
-        $menu->addChild('Kassenumsatz: ' . $this->GetAmountofPayoffice() . ' €', array('route' => 'pspiess_letsplay_cashingup'))
+        $menu->addChild('Umsatz: ' . $this->GetAmountofPayoffice() . ' €', array('route' => 'pspiess_letsplay_payoffice'))
                 ->setAttribute('icon', 'fa fa-list-alt')->actsLikeFirst();
 
         return $menu;
@@ -38,11 +40,13 @@ class MenuBuilder extends ContainerAware {
     private function GetAmountofPayoffice() {
         $em = $this->container->get('doctrine.orm.entity_manager');
         //Todo: need to check the user!
-        $entPayoffice = $em->getRepository('pspiessLetsplayBundle:Payoffice')->find(1);
-
+        $entPayoffice = $em->getRepository('pspiessLetsplayBundle:Payoffice')->getOnePayoffice();
+        
         $dAmount = 0;
-        foreach ($entPayoffice->getPayofficepos() as $obj) {
-            $dAmount = $obj->getAmount();
+        if ($entPayoffice != null) {
+            foreach ($entPayoffice->getPayofficepos() as $obj) {
+                $dAmount = $dAmount + $obj->getAmount();
+            }
         }
         return $dAmount;
     }

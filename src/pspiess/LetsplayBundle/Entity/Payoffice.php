@@ -185,4 +185,17 @@ class Payoffice {
     {
         return $this->payofficepos;
     }
+
+    /**
+     * Add payofficepos
+     *
+     * @param \pspiess\LetsplayBundle\Entity\Payofficepos $payofficepos
+     * @return Payoffice
+     */
+    public function addPayofficepo(\pspiess\LetsplayBundle\Entity\Payofficepos $payofficepos)
+    {
+        $this->payofficepos[] = $payofficepos;
+        $payofficepos->setPayofficepos($this);
+        return $this;
+    }
 }

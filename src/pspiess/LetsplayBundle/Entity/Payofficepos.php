@@ -12,6 +12,13 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Payofficepos {
 
+    /** 
+     * @ORM\OneToOne(targetEntity="Invoice", inversedBy="payofficepos") 
+     * @ORM\JoinColumn(name="invoice_id", referencedColumnName="id")
+     */
+   protected $invoice;  
+
+   
     /**
      * @ORM\ManyToOne(targetEntity="Payoffice", inversedBy="payofficepos")
      * @ORM\JoinColumn(name="payoffice_id", referencedColumnName="id")
@@ -114,5 +121,28 @@ class Payofficepos {
     public function getPayoffice()
     {
         return $this->payoffice;
+    }
+
+    /**
+     * Set invoice
+     *
+     * @param \pspiess\LetsplayBundle\Entity\Payofficepos $invoice
+     * @return Payofficepos
+     */
+    public function setInvoice(\pspiess\LetsplayBundle\Entity\Invoice $invoice = null)
+    {
+        $this->invoice = $invoice;
+//        $invoice->setInvoice($this);
+        return $this;
+    }
+
+    /**
+     * Get invoice
+     *
+     * @return \pspiess\LetsplayBundle\Entity\Payofficepos 
+     */
+    public function getInvoice()
+    {
+        return $this->invoice;
     }
 }

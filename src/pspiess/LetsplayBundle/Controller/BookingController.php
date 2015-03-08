@@ -96,7 +96,6 @@ class BookingController extends Controller {
         
         $BookingModel = new BookingModel($this->getDoctrine()->getManager());
         $booking = $BookingModel->addReservation($data);
-        //$this->get('app.booking')->addReservation($data);
         
         $serializedEntity = $this->container->get('serializer')->serialize($booking->getId(), 'json');
         $response = new Response($serializedEntity);

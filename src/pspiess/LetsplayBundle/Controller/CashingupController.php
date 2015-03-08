@@ -91,11 +91,16 @@ class CashingupController extends Controller
     public function newAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $entBooking = $em->getRepository('pspiessLetsplayBundle:Booking')->GetClearedByDate(new \DateTime("now"));
+//        $entBooking = $em->getRepository('pspiessLetsplayBundle:Booking')->GetClearedByDate(new \DateTime("now"));
+//        $entBooking = $em->getRepository('pspiessLetsplayBundle:')->GetClearedByDate(new \DateTime("now"));
+        
+        $entPayofficepos = $em->getRepository('pspiessLetsplayBundle:Payofficepos')->findAll();
+        
+        
         
         
         $entity = new Cashingup();
-        $form   = $this->createCreateForm($entity);
+        $form   = $this->createCreateForm($entPayofficepos);
         
         return array(
             'entity' => $entity,

@@ -11,5 +11,34 @@ use Doctrine\ORM\EntityRepository;
  * repository methods below.
  */
 class PayofficeRepository extends EntityRepository {
+
+    public function getOnePayoffice() {
+        $em = $this->getEntityManager();
+        $query = $em->createQueryBuilder()
+                ->select('p')
+                ->from('pspiessLetsplayBundle:Payoffice', 'p')
+                ->setMaxResults(1)
+                ->orderBy('p.id', 'DESC');
+
+        try {
+            return $query->getQuery()->getSingleResult();
+        } catch (\Doctrine\ORM\NoResultException $e) {
+            return null;
+        }
+    }
     
+    public function getAllPayoffice() {
+        $em = $this->getEntityManager();
+        $query = $em->createQueryBuilder()
+                ->select('p')
+                ->from('pspiessLetsplayBundle:Payoffice', 'p')
+                //->innerJoin('i.invoicepos', 'ip')
+                ->innerJoin('pspiessLetsplayBundle:Payofficepos', 'pos', 'WITH', 'p.id = pos.payoffice')
+                ;
+        try {
+            return $query->getQuery()->getSingleResult();
+        } catch (\Doctrine\ORM\NoResultException $e) {
+            return null;
+        }
+    }
 }
