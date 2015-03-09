@@ -12,15 +12,15 @@
             <h1>
                 Umsatz
                 {% for row in payoffice %}
-                    <small><i class="ace-icon fa fa-angle-double-right"></i>Kasse geöffnet seit: {% if row.opened %}{{ row.opened|date('d.m.Y H:i:s') }}{% endif %}</small>
+                    <small><i class="ace-icon fa fa-angle-double-right"></i> Kasse geöffnet seit: {% if row.opened %}{{ row.opened|date('d.m.Y H:i:s') }}{% endif %}</small>
                     <div class="col-md-2 pull-right">
-                        <a class="btn btn-success" href="{{ path('pspiess_letsplay_cashingup_new') }}"> Kasse schließen</a>
+                        <a class="btn btn-success" href="{{ path('pspiess_letsplay_cashingup_new') }}"> Tagesabschluss durchführen</a>
                     </div>
                 {% endfor %}
                 {% if payoffice is empty %}
-                    <small><i class="ace-icon fa fa-angle-double-right"></i>Die Kasse ist geschlossen!</small>
+                    <small><i class="ace-icon fa fa-angle-double-right"></i> Die Kasse ist geschlossen!</small>
                     <div class="col-md-2 pull-right">
-{#                        <a class="btn btn-success" href="{{ path('pspiess_letsplay_cashingup_new') }}"> Kasse schließen</a>#}
+                        <a class="btn btn-success" href="{{ path('pspiess_letsplay_payoffice_new') }}"> Kasse eröffnen</a>
                     </div>
                 {% endif %}
             </h1>
@@ -32,9 +32,7 @@
                         <thead>
                             <tr>
                                 <th>Buchungsdatum</th>
-                                <th>Rechnungsnummer</th>
-{#                                <th>Kunde</th>
-                                <th>Betrag</th>#}
+                                <th>Umsatz</th>
                             </tr>
                         </thead>
                         <tbody>

@@ -15,8 +15,7 @@ use pspiess\LetsplayBundle\Form\CashingupType;
  *
  * @Route("/cashingup")
  */
-class CashingupController extends Controller
-{
+class CashingupController extends Controller {
 
     /**
      * Lists all Cashingup entities.
@@ -25,8 +24,7 @@ class CashingupController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function indexAction()
-    {
+    public function indexAction() {
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('pspiessLetsplayBundle:Cashingup')->findAll();
@@ -35,6 +33,7 @@ class CashingupController extends Controller
             'entities' => $entities,
         );
     }
+
     /**
      * Creates a new Cashingup entity.
      *
@@ -42,8 +41,7 @@ class CashingupController extends Controller
      * @Method("POST")
      * @Template("pspiessLetsplayBundle:Cashingup:new.html.twig")
      */
-    public function createAction(Request $request)
-    {
+    public function createAction(Request $request) {
         $entity = new Cashingup();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -51,17 +49,30 @@ class CashingupController extends Controller
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
+
+            $arrPayofficepos = $em->getRepository('pspiessLetsplayBundle:Payofficepos')->GetPayofficeposByDate($entity->getDaydate());
+            foreach ($arrPayofficepos as $entPayofficepos) {
+                $em->remove($entPayofficepos);
+            }
+
+            if ($em->getRepository('pspiessLetsplayBundle:Payofficepos')->findAll() == null) {
+                $arrPayoffice = $em->getRepository('pspiessLetsplayBundle:Payoffice')->findAll();
+                foreach ($arrPayoffice as $entPayoffice) {
+                    $em->remove($entPayoffice);
+                }
+            }
+
             $em->flush();
 
-            return $this->redirect($this->generateUrl('cashingup_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('pspiess_letsplay_payoffice'));
         }
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
-
+    
     /**
      * Creates a form to create a Cashingup entity.
      *
@@ -69,8 +80,7 @@ class CashingupController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Cashingup $entity)
-    {
+    private function createCreateForm(Cashingup $entity) {
         $form = $this->createForm(new CashingupType(), $entity, array(
             'action' => $this->generateUrl('pspiess_letsplay_cashingup_create'),
             'method' => 'POST',
@@ -88,23 +98,22 @@ class CashingupController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function newAction()
-    {
+    public function newAction() {
         $em = $this->getDoctrine()->getManager();
-//        $entBooking = $em->getRepository('pspiessLetsplayBundle:Booking')->GetClearedByDate(new \DateTime("now"));
-//        $entBooking = $em->getRepository('pspiessLetsplayBundle:')->GetClearedByDate(new \DateTime("now"));
-        
-        $entPayofficepos = $em->getRepository('pspiessLetsplayBundle:Payofficepos')->findAll();
-        
-        
-        
-        
-        $entity = new Cashingup();
-        $form   = $this->createCreateForm($entPayofficepos);
-        
+
+        $arrPayofficepos = $em->getRepository('pspiessLetsplayBundle:Payofficepos')->GetOnePayofficeposByDate();
+
+        $entCachingup = new Cashingup();
+        foreach ($arrPayofficepos as $row) {
+            $entCachingup->setNominal($row['total']);
+            $entCachingup->setDaydate(new \DateTime($row['date']));
+        }
+
+        $form = $this->createCreateForm($entCachingup);
+
         return array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
+            'entity' => $entCachingup,
+            'form' => $form->createView(),
         );
     }
 
@@ -115,8 +124,7 @@ class CashingupController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function showAction($id)
-    {
+    public function showAction($id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('pspiessLetsplayBundle:Cashingup')->find($id);
@@ -127,7 +135,7 @@ class CashingupController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
+            'entity' => $entity,
             'delete_form' => $deleteForm->createView(),
         );
     }
@@ -139,8 +147,7 @@ class CashingupController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function editAction($id)
-    {
+    public function editAction($id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('pspiessLetsplayBundle:Cashingup')->find($id);
@@ -153,21 +160,20 @@ class CashingupController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
 
     /**
-    * Creates a form to edit a Cashingup entity.
-    *
-    * @param Cashingup $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
-    private function createEditForm(Cashingup $entity)
-    {
+     * Creates a form to edit a Cashingup entity.
+     *
+     * @param Cashingup $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createEditForm(Cashingup $entity) {
         $form = $this->createForm(new CashingupType(), $entity, array(
             'action' => $this->generateUrl('cashingup_update', array('id' => $entity->getId())),
             'method' => 'PUT',
@@ -177,6 +183,7 @@ class CashingupController extends Controller
 
         return $form;
     }
+
     /**
      * Edits an existing Cashingup entity.
      *
@@ -184,8 +191,7 @@ class CashingupController extends Controller
      * @Method("PUT")
      * @Template("pspiessLetsplayBundle:Cashingup:edit.html.twig")
      */
-    public function updateAction(Request $request, $id)
-    {
+    public function updateAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('pspiessLetsplayBundle:Cashingup')->find($id);
@@ -205,19 +211,19 @@ class CashingupController extends Controller
         }
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
+
     /**
      * Deletes a Cashingup entity.
      *
      * @Route("/{id}", name="cashingup_delete")
      * @Method("DELETE")
      */
-    public function deleteAction(Request $request, $id)
-    {
+    public function deleteAction(Request $request, $id) {
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
@@ -243,13 +249,13 @@ class CashingupController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($id)
-    {
+    private function createDeleteForm($id) {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('cashingup_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
+                        ->setAction($this->generateUrl('cashingup_delete', array('id' => $id)))
+                        ->setMethod('DELETE')
+                        ->add('submit', 'submit', array('label' => 'Delete'))
+                        ->getForm()
         ;
     }
+
 }

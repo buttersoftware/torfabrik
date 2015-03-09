@@ -2,7 +2,6 @@
 
 namespace pspiess\LetsplayBundle\Entity;
 
-use Doctrine\ORM\Repository;
 Use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -52,14 +51,13 @@ class Payoffice {
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="opened", type="datetime")
+     * @ORM\Column(name="opened", type="datetime", nullable=true)
      */
     private $opened;
 
     /**
      * @var \DateTime
-     *
-     * @ORM\Column(name="closed", type="datetime")
+     * @ORM\Column(name="closed", type="datetime", nullable=true)
      */
     private $closed;
 
@@ -116,7 +114,6 @@ class Payoffice {
 
     /**
      * Set opened
-     *
      * @param \DateTime $opened
      * @return Payoffice
      */
@@ -137,7 +134,6 @@ class Payoffice {
 
     /**
      * Set closed
-     *
      * @param \DateTime $closed
      * @return Payoffice
      */
@@ -156,4 +152,50 @@ class Payoffice {
         return $this->closed;
     }
 
+
+    /**
+     * Add payofficepos
+     *
+     * @param \pspiess\LetsplayBundle\Entity\Payofficepos $payofficepos
+     * @return Payoffice
+     */
+    public function addPayofficepos(\pspiess\LetsplayBundle\Entity\Payofficepos $payofficepos)
+    {
+        $this->payofficepos[] = $payofficepos;
+        $payofficepos->setPayoffice($this);
+        return $this;
+    }
+
+    /**
+     * Remove payofficepos
+     *
+     * @param \pspiess\LetsplayBundle\Entity\Payofficepos $payofficepos
+     */
+    public function removePayofficepo(\pspiess\LetsplayBundle\Entity\Payofficepos $payofficepos)
+    {
+        $this->payofficepos->removeElement($payofficepos);
+    }
+
+    /**
+     * Get payofficepos
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPayofficepos()
+    {
+        return $this->payofficepos;
+    }
+
+    /**
+     * Add payofficepos
+     *
+     * @param \pspiess\LetsplayBundle\Entity\Payofficepos $payofficepos
+     * @return Payoffice
+     */
+    public function addPayofficepo(\pspiess\LetsplayBundle\Entity\Payofficepos $payofficepos)
+    {
+        $this->payofficepos[] = $payofficepos;
+        $payofficepos->setPayofficepos($this);
+        return $this;
+    }
 }
