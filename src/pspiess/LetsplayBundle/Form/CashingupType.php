@@ -17,7 +17,7 @@ class CashingupType extends AbstractType
         $builder
             ->add('nominal', 'money', array('label' => 'SOLL', 'attr' => array('class' => '')))
             ->add('actual', 'money', array('label' => 'Ist', 'attr' => array('class' => '')))
-            ->add('daydate', 'date', array('label' => 'Tagesdatum', 'data' => new \DateTime("now")))
+            ->add('daydate', 'date', array('label' => 'Tagesdatum'))
             ->add('note', 'textarea', array('label' => 'Bemerkung', 'attr' => array('class' => '')))
         ;
     }
