@@ -33,7 +33,7 @@ class BookingController extends Controller {
         $em = $this->getDoctrine()->getManager();
         
         $entities = $em->getRepository('pspiessLetsplayBundle:Customer')->findAll();
-
+        
         return array(
             'entities' => $entities,
         );
@@ -41,13 +41,13 @@ class BookingController extends Controller {
 
     /**
      * Lists all Booking entities for Calendar.
-     * @Method("GET")
+     * @Route("/booking/{id}", name="pspiess_letsplay_booking_calendar", options={"expose"=true})
      */
-    public function showCalendarAction() {
+    public function showCalendarAction($id) {
         $em = $this->getDoctrine()->getManager();
-
-//        $entBooking = $em->getRepository('pspiessLetsplayBundle:Booking')->GetBookingByFieldId(28);
-        $entBooking = $em->getRepository('pspiessLetsplayBundle:Booking')->findall();
+        
+        //only actual date? parameter...
+        $entBooking = $em->getRepository('pspiessLetsplayBundle:Booking')->findBy(array('field' => $id));
 
         $rows = array();
         foreach ($entBooking as $obj) {
@@ -127,7 +127,7 @@ class BookingController extends Controller {
             $em->persist($booking);
             $em->flush();
 
-            $serializedEntity = $this->container->get('serializer')->serialize($booking, 'json');
+            $serializedEntity = $this->container->get('serializer')->serialize('', 'json');
             $response = new Response($serializedEntity);
             $response->headers->set('Content-Type', 'application/json');
             return $response;
@@ -151,7 +151,7 @@ class BookingController extends Controller {
         $em->persist($booking);
         $em->flush();
 
-        $serializedEntity = $this->container->get('serializer')->serialize($booking, 'json');
+        $serializedEntity = $this->container->get('serializer')->serialize('', 'json');
         $response = new Response($serializedEntity);
         $response->headers->set('Content-Type', 'application/json');
         return $response;
@@ -170,7 +170,7 @@ class BookingController extends Controller {
         $em->remove($booking);
         $em->flush();
 
-        $serializedEntity = $this->container->get('serializer')->serialize($booking, 'json');
+        $serializedEntity = $this->container->get('serializer')->serialize($booking->getId(), 'json');
         $response = new Response($serializedEntity);
         $response->headers->set('Content-Type', 'application/json');
         return $response;
