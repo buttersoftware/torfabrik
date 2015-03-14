@@ -25,7 +25,10 @@ pspiess_letsplay_customer_update:
     pattern:  /admin/customer/update/{id}
     defaults: { _controller: pspiessLetsplayBundle:Customer:update }
    
-
 pspiess_letsplay_customer_delete:
     pattern:  /admin/customer/delete/{id}
     defaults: { _controller: pspiessLetsplayBundle:Customer:delete }
+    
+pspiess_letsplay_customer_customerdelete:
+    pattern:  /admin/customer/deleteCustomer/{id}
+    defaults: { _controller: pspiessLetsplayBundle:Customer:deleteCustomer }

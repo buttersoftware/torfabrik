@@ -11,7 +11,6 @@ use pspiess\LetsplayBundle\Entity\Customer;
 use pspiess\LetsplayBundle\Form\CustomerType;
 use Symfony\Component\HttpFoundation\Response;
 
-
 /**
  * Customer controller.
  *
@@ -26,23 +25,37 @@ class CustomerController extends Controller {
      * @Method("GET")
      * @Template()
      */
-    public function indexAction() {
+    public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
-
-        $entities = $em->getRepository('pspiessLetsplayBundle:Customer')->findAll();
-
-        $deleteForms = array();
-
-        foreach ($entities as $entity) {
-            $deleteForms[$entity->getId()] = $this->createDeleteForm($entity->getId())->createView();
-        }
-
-        return array(
-            'entities' => $entities,
-            'deleteForms' => $deleteForms,
+        $paginator = $this->get('knp_paginator');
+        
+//        $repository = $this->getDoctrine()->getRepository('pspiessLetsplayBundle:Customer');
+        
+        $dql = "SELECT c FROM pspiessLetsplayBundle:Customer c";
+        $entCustomer = $em->createQuery($dql);
+ 
+        $entities = $paginator->paginate(
+                $entCustomer,
+                $request->query->get('page', 1) /* page number */, 
+                20/* limit per page */
         );
-    }
 
+        return array( 'entities' => $entities );
+    }
+    
+    /**
+     * Lists all Customer entities.
+     * 
+     * @Route("/", name="customer_customerdelete")
+     * @Template("pspiessLetsplayBundle:Customer:delete.html.twig")
+     * @Method("GET")
+     */
+    public function deleteCustomerAction($id) {
+        $deleteForms[$id] = $this->createDeleteForm($id)->createView();
+        return array('deleteForms' => $deleteForms, 'id' => $id,);
+    }
+    
+    
     /**
      * Lists all customer entities for Calendar.
      *
@@ -57,7 +70,7 @@ class CustomerController extends Controller {
 
         $rows = array();
         foreach ($customer as $obj) {
-            $rows[] = array('label' => $obj->getName().', '. $obj->getFirstname(), 
+            $rows[] = array('label' => $obj->getName() . ', ' . $obj->getFirstname(),
                 'value' => $obj->getId());
         }
 
@@ -78,7 +91,7 @@ class CustomerController extends Controller {
         $entity = new Customer();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
-        
+
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
@@ -121,7 +134,7 @@ class CustomerController extends Controller {
     public function newAction() {
         $entity = new Customer();
         $form = $this->createCreateForm($entity);
-        
+
         return array(
             'entity' => $entity,
             'form' => $form->createView(),

@@ -1,0 +1,12 @@
+<div class="hidden-sm hidden-xs btn-group">
+    {{ form_start(deleteForms[id]) }}
+    <div class="hidden-sm hidden-xs btn-group">
+        <a class="btn btn-xs btn-info" href="{{ path('pspiess_letsplay_customer_edit', { 'id': id }) }}">
+            <i class="ace-icon fa fa-pencil icon-only"></i>
+        </a>
+        <button type="submit" class="btn btn-danger btn-xs">
+            <i class="ace-icon fa fa-trash-o icon-only"></i>
+        </button>
+    </div>
+    {{ form_end(deleteForms[id]) }}
+</div>
