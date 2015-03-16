@@ -44,7 +44,7 @@ class Payofficepos {
     /**
      * @var float
      *
-     * @ORM\Column(name="amount", type="float")
+     * @ORM\Column(name="amount", type="decimal", precision=6, scale=2)
      */
     private $amount;
 

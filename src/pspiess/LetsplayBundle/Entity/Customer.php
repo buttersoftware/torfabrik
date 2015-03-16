@@ -129,7 +129,7 @@ class Customer {
     /**
      * @var string
      *
-     * @ORM\Column(type="decimal", nullable=true, name="discount")
+     * @ORM\Column(type="decimal", nullable=true, name="discount", precision=6, scale=2)
      */
     private $discount;
 

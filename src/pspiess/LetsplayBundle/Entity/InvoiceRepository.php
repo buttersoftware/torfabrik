@@ -18,8 +18,11 @@ class InvoiceRepository extends EntityRepository {
                 'SELECT MAX(i.invoiceNumber)  + 1 AS NEXTINVOICENUMBER FROM pspiessLetsplayBundle:Invoice i'
             )
             ->getResult();
-        
-        return $arrInvice[0]['NEXTINVOICENUMBER'];
+        if ($arrInvice[0]['NEXTINVOICENUMBER'] == null) {
+            return 1;
+        } else {
+            return $arrInvice[0]['NEXTINVOICENUMBER'];
+        }
     }
 
 }

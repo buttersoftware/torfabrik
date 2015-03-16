@@ -51,7 +51,7 @@ class Invoicepos
     /**
      * @var string
      *
-     * @ORM\Column(name="discount", type="decimal", nullable=true) 
+     * @ORM\Column(name="discount", type="decimal", precision=6, scale=2, nullable=true) 
      */
     private $discount;
 
@@ -65,21 +65,21 @@ class Invoicepos
     /**
      * @var string
      *
-     * @ORM\Column(name="price", type="decimal")
+     * @ORM\Column(name="price", type="decimal", precision=6, scale=2)
      */
     private $price;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="total_price", type="decimal")
+     * @ORM\Column(name="total_price", type="decimal", precision=6, scale=2)
      */
     private $totalPrice;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="tax", type="decimal")
+     * @ORM\Column(name="tax", type="decimal", precision=6, scale=2)
      */
     private $tax;
 

@@ -37,7 +37,7 @@ class Price {
     /**
      * @var decimal
      *
-     * @ORM\Column(type="decimal", nullable=true, name="price", precision=9, scale=2)
+     * @ORM\Column(type="decimal", nullable=true, name="price", precision=6, scale=2)
      */
     private $price;
 

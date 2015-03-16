@@ -41,14 +41,14 @@ class Cashingup
     /**
      * @var string
      *
-     * @ORM\Column(name="nominal", type="decimal")
+     * @ORM\Column(name="nominal", type="decimal", precision=6, scale=2)
      */
     private $nominal;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="actual", type="decimal")
+     * @ORM\Column(name="actual", type="decimal", precision=6, scale=2)
      */
     private $actual;
 

@@ -51,7 +51,8 @@ class InvoiceController extends Controller {
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();   
-
+            
+            $entity->setInvoiceNumber($em->getRepository('pspiessLetsplayBundle:Invoice')->getNextInviceNumber());
             foreach ($entity->getInvoicepos() as $entInvoice) {
                 $entity->addInvoicepos($entInvoice);
             }

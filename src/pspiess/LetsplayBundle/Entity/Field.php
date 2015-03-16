@@ -76,14 +76,14 @@ class Field {
     /**
      * @var string
      *
-     * @ORM\Column(type="decimal", nullable=true, name="lenght")
+     * @ORM\Column(type="decimal", nullable=true, name="lenght", precision=6, scale=2)
      */
     private $lenght;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="decimal", nullable=true, name="width")
+     * @ORM\Column(type="decimal", nullable=true, name="width", precision=6, scale=2)
      */
     private $width;
 

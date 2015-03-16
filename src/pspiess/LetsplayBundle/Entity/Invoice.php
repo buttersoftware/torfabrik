@@ -163,28 +163,28 @@ class Invoice {
     /**
      * @var float
      *
-     * @ORM\Column(name="total_price", type="decimal")
+     * @ORM\Column(name="total_price", type="decimal", precision=6, scale=2)
      */
     private $totalPrice;
 
     /**
      * @var float
      *
-     * @ORM\Column(name="paid_price", type="decimal")
+     * @ORM\Column(name="paid_price", type="decimal", precision=6, scale=2)
      */
     private $paidPrice;
 
     /**
      * @var float
      *
-     * @ORM\Column(name="total_price_net", type="decimal")
+     * @ORM\Column(name="total_price_net", type="decimal", precision=6, scale=2)
      */
     private $totalPricenet;
 
     /**
      * @var float
      *
-     * @ORM\Column(name="tax", type="decimal")
+     * @ORM\Column(name="tax", type="decimal", precision=6, scale=2)
      */
     private $tax;
 
