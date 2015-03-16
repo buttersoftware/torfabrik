@@ -100,7 +100,7 @@ class Invoice {
     /**
      * @var string
      *
-     * @ORM\Column(name="company_country", type="string", length=255)
+     * @ORM\Column(name="company_country", type="string", length=255, nullable=true)
      */
     private $companyCountry;
 
@@ -142,7 +142,7 @@ class Invoice {
     /**
      * @var string
      *
-     * @ORM\Column(name="customer_country", type="string", length=255)
+     * @ORM\Column(name="customer_country", type="string", length=255, nullable=true)
      */
     private $customerCountry;
 

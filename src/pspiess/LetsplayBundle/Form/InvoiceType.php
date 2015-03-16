@@ -26,7 +26,7 @@ class InvoiceType extends AbstractType {
                 ->add('companyStreet', 'text', array('label' => 'Stra&szlig;e', 'attr' => array('class' => '')))
                 ->add('companyZip', 'text', array('label' => 'PLZ', 'attr' => array('class' => '')))
                 ->add('companyLocation', 'text', array('label' => 'Ort', 'attr' => array('class' => '')))
-                ->add('companyCountry', 'text', array('label' => 'Land', 'attr' => array('class' => '')))
+                ->add('companyCountry', 'text', array('label' => 'Land', 'attr' => array('class' => ''), 'required' => false))
                 ->add('companyPhone', 'text', array('label' => 'Telefon', 'attr' => array('class' => '')))
                 ->add('customerNumber', 'text', array('label' => 'Kundennummer', 'attr' => array()))
                 ->add('payment', 'choice', array('label' => 'Zahlung', 'attr' => array('class' => ''),
@@ -35,7 +35,7 @@ class InvoiceType extends AbstractType {
                 ->add('customerStreet', 'text', array('label' => 'Stra&szlig;e', 'attr' => array('class' => '')))
                 ->add('customerZip', 'text', array('label' => 'PLZ', 'attr' => array('class' => '')))
                 ->add('customerLocation', 'text', array('label' => 'Ort', 'attr' => array('class' => '')))
-                ->add('customerCountry', 'text', array('label' => 'Land', 'attr' => array('class' => '')))
+                ->add('customerCountry', 'text', array('label' => 'Land', 'attr' => array('class' => ''), 'required' => false))
                 ->add('customerPhone', 'text', array('label' => 'Telefon', 'attr' => array('class' => '')))
                 ->add('TotalPrice', 'money', array('label' => 'Bruttopreis', 'attr' => array('class' => '')))
                 ->add('TotalPricenet', 'money', array('label' => 'Nettopreis', 'attr' => array('class' => '')))
