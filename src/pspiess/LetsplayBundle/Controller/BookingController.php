@@ -32,22 +32,22 @@ class BookingController extends Controller {
 
         $em = $this->getDoctrine()->getManager();
         
-        $entities = $em->getRepository('pspiessLetsplayBundle:Customer')->findAll();
+//        $entities = $em->getRepository('pspiessLetsplayBundle:Customer')->findAll();
         
         return array(
-            'entities' => $entities,
+            'entities' => null,
         );
     }
 
     /**
      * Lists all Booking entities for Calendar.
-     * @Route("/booking/{id}", name="pspiess_letsplay_booking_calendar", options={"expose"=true})
+     * @Route("/booking/{id}/{date}", name="pspiess_letsplay_booking_calendar", options={"expose"=true})
      */
-    public function showCalendarAction($id) {
+    public function showCalendarAction($id, $date) {
         $em = $this->getDoctrine()->getManager();
         
         //only actual date? parameter...
-        $entBooking = $em->getRepository('pspiessLetsplayBundle:Booking')->findBy(array('field' => $id));
+        $entBooking = $em->getRepository('pspiessLetsplayBundle:Booking')->GetBooking($id, $date);
 
         $rows = array();
         foreach ($entBooking as $obj) {

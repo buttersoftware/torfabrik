@@ -111,7 +111,7 @@ class InvoiceController extends Controller {
         
         $entInvoice->setBookingId($entBooking->Getid()); //ToDo
         $entInvoice->setInvoiceNumber($em->getRepository('pspiessLetsplayBundle:Invoice')->getNextInviceNumber()); //ToDo
-        $entInvoice->setTaxNumber("123/222/9087"); //ToDo 
+        $entInvoice->setTaxNumber("117/5079/1565"); //ToDo 
         $entInvoice->setCustomerNumber($entBooking->getCustomer()->getCustomernr()); //ToDo 
         $entInvoice->setPayment("Cash"); //ToDo 
         $entInvoice->setDate(new \DateTime("now"));

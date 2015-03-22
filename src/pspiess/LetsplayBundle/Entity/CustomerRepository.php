@@ -12,4 +12,20 @@ use Doctrine\ORM\EntityRepository;
  */
 class CustomerRepository extends EntityRepository
 {
+    
+    /**
+     * @param string search for
+     * 
+     * @return array with Customer entities
+     * 
+     */
+    public function GetCustomerByName($sKeyword = '') {
+        $query = $this->createQueryBuilder('c')
+                ->where($this->createQueryBuilder('c')->expr()->like('c.vorname', ':name'))
+                ->where($this->createQueryBuilder('c')->expr()->like('c.name', ':name'))
+                ->setParameter('name', '%'. $sKeyword . '%')
+                ->getQuery();
+
+        return $query->getResult();
+    }
 }

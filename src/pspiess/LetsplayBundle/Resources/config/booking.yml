@@ -27,8 +27,7 @@ pspiess_letsplay_booking_cancel:
     defaults: { _controller: pspiessLetsplayBundle:Booking:cancelReservation }
     
 pspiess_letsplay_booking_calendar:
-    pattern:  /admin/booking/calendar/{id}
+    pattern:  /admin/booking/calendar/{id}/{date}
     defaults: { _controller: pspiessLetsplayBundle:Booking:showCalendar, _format: json }
     options:
         expose: true
-    requirements: { _format: (xml|json), _method: GET }

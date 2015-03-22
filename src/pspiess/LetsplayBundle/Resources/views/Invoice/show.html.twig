@@ -18,7 +18,7 @@
                         <h3 class="widget-title grey lighter">
                             Kundenrechnung
                         </h3>
-                        
+
                         <!-- #section:pages/invoice.info -->
                         <div class="widget-toolbar no-border invoice-info">
                             <span class="invoice-info-label">Nummer:</span>
@@ -43,12 +43,13 @@
                             <div class="col-sm-6">
 
                                 <div class="col-xs-11 label label-lg label-info arrowed-in arrowed-right">
-                                    <b>Torfabrik Krefeld</b>
+                                    <b>TorFabrik Sport & Event GmbH</b>
                                 </div>
                                 <div class="col-sm-12" style='padding-top:7px'>
                                     <div class="col-sm-6">
                                         <div class="row">
                                             <ul class="list-unstyled spaced">
+                                                <li><i class="ace-icon fa fa-caret-right blue"></i>{{ entity.taxnumber }}</li>
                                                 <li><i class="ace-icon fa fa-caret-right blue"></i>{{ entity.companyStreet }}</li>
                                                 <li><i class="ace-icon fa fa-caret-right blue"></i>{{ entity.companyZip }}</li>
                                                 <li><i class="ace-icon fa fa-caret-right blue"></i>{{ entity.companyLocation }}</li>
@@ -69,13 +70,13 @@
                                     <div class="col-sm-6">
                                         <div>
                                             <ul class="list-unstyled  spaced">
-                                            <ul class="list-unstyled spaced">
-                                                <li><i class="ace-icon fa fa-caret-right blue"></i>{{ entity.customerStreet }}</li>
-                                                <li><i class="ace-icon fa fa-caret-right blue"></i>{{ entity.customerZip }}</li>
-                                                <li><i class="ace-icon fa fa-caret-right blue"></i>{{ entity.customerLocation }}</li>
-                                                <li><i class="ace-icon fa fa-caret-right blue"></i>{{ entity.customerCountry }}</li>
-                                                <li><i class="ace-icon fa fa-caret-right blue"></i>{{ entity.customerPhone }}</li>
-                                            </ul>
+                                                <ul class="list-unstyled spaced">
+                                                    <li><i class="ace-icon fa fa-caret-right blue"></i>{{ entity.customerStreet }}</li>
+                                                    <li><i class="ace-icon fa fa-caret-right blue"></i>{{ entity.customerZip }}</li>
+                                                    <li><i class="ace-icon fa fa-caret-right blue"></i>{{ entity.customerLocation }}</li>
+                                                    <li><i class="ace-icon fa fa-caret-right blue"></i>{{ entity.customerCountry }}</li>
+                                                    <li><i class="ace-icon fa fa-caret-right blue"></i>{{ entity.customerPhone }}</li>
+                                                </ul>
                                             </ul>
                                         </div>
                                     </div><!-- /.col -->
@@ -89,8 +90,9 @@
                                 <thead>
                                     <tr>
                                         <th width="5%">#</th>
-                                        <th width="40%">Produkt</th>
-                                        <th width="45%">Beschreibung</th>
+                                        <th width="30%">Produkt</th>
+                                        <th width="30%">Beschreibung</th>
+                                        <th width="10%"></th>
                                         <th width="10%">Preis</th>
                                     </tr>
                                 </thead>
@@ -100,41 +102,29 @@
                                         <tr>
                                             <td>{{ invoicepos.pos }}</td>
                                             <td>{{ invoicepos.product }}</td>
-                                            <td>{{ invoicepos.description }}</td>
+                                            <td colspan="2">{{ invoicepos.description }}</td>
                                             <td>{{ invoicepos.totalPrice|number_format(2, ',', '.') }} &euro;</td>
                                         </tr>
                                     {% endfor %}
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <td class="clear" colspan="3"></td>
-                                        <td><span class="red">{{ entity.TotalPrice|number_format(2, ',', '.') }} &euro;</span></td>
+                                        <td colspan="3"></td>
+                                        <td class="info">Mehrwertssteuer: </td>
+                                        <td class="info"><span class="red">{{ entity.tax|number_format(2, ',', '.') }} &euro;</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3"></td>
+                                        <td class="info">Bruttobetrag: </td>
+                                        <td class="info"><span class="red">{{ entity.TotalPrice|number_format(2, ',', '.') }} &euro;</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3"></td>
+                                        <td class="success">Bezahlung: {{ entity.payment }} </td>
+                                        <td class="success"><span class="red">{{ entity.TotalPrice|number_format(2, ',', '.') }} &euro;</span></td>
                                     </tr>
                                 </tfoot>
                             </table>
-                        </div>
-
-                        <div class="hr hr8 hr-double hr-dotted"></div>
-
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <div class="entity-group">
-                                    <div class="">
-                                        <span class="red">Bezahlung: {{ entity.payment }}</span>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <div class="entity-group">
-                                    <div class="">
-                                        <span class="red">{{ entity.TotalPrice|number_format(2, ',', '.') }} &euro;</span>
-
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                         <div class="hr hr8 hr-double hr-dotted"></div>
                         <div class="entity-group">

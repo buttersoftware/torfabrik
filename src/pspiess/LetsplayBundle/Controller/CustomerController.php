@@ -67,11 +67,17 @@ class CustomerController extends Controller {
         $em = $this->getDoctrine()->getManager();
 
         $customer = $em->getRepository('pspiessLetsplayBundle:Customer')->findAll();
-
+//        $customer = $em->getRepository('pspiessLetsplayBundle:Customer')->GetCustomerByName($keyword);
+        
+//        $dql = "SELECT c FROM pspiessLetsplayBundle:Customer c";
+//        $customer = $em->createQuery($dql);
+        
         $rows = array();
+        
+//        $rows[] = array('label' => $customer->getName() . ', ' . $customer->getFirstname(), 'value' => $customer->getId());
+        
         foreach ($customer as $obj) {
-            $rows[] = array('label' => $obj->getName() . ', ' . $obj->getFirstname(),
-                'value' => $obj->getId());
+            $rows[] = array('label' => $obj->getName() . ', ' . $obj->getFirstname(), 'value' => $obj->getId());
         }
 
         $serializedEntity = $this->container->get('serializer')->serialize($rows, 'json');

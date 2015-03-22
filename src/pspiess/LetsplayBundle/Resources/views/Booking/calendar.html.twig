@@ -6,21 +6,24 @@
         var serial = $('#serial').val();
         var serial_date = $('#serial_date').val();
         if (title !== "") { // if the title exists run script
+            console.log({"title": title, "start": start, "end": end, "customerid": customerid, "fieldid": fieldid, "serial": serial, "serial_date": serial_date});
             $.ajax({
                 url: '{{ path('pspiess_letsplay_booking_add') }}',
                 data: {"title": title, "start": start, "end": end, "customerid": customerid, "fieldid": fieldid, "serial": serial, "serial_date": serial_date},
                 type: 'post',
                 success: function (result) {
                     console.log(result);
-                    $(sCalendar).fullCalendar('renderEvent', {
+                    $(sCalendar).fullCalendar('refetchEvents');
+                    {#$(sCalendar).fullCalendar('renderEvent', {
                         id: result,
                         title: title,
                         start: start,
                         end: end, //alle werte die neu dazugekommen sind auch id !!!
-                    }, true);
+                    }, true);#}
                     $(".title").val(""); // clear title field
                 },
                 error: function (jqXHR, exception) {
+                    console.log(exception);
                 },
             })
         }
@@ -31,6 +34,7 @@
             title: "Reservierung hinzufügen",
             title_html: true,
             width: 500,
+            minHeight: 500,
             buttons: [
                 {text: "neuer Kunde",
                     "class": "btn btn-primary btn-xs",
@@ -62,8 +66,7 @@
                     "class": "btn btn-success btn-xs",
                     "id": "add_reservation",
                     click: function () {
-                        UpdateCalendar(start, end, fieldid, calendar, id),
-                                $(this).dialog("close");
+                        UpdateCalendar(start, end, fieldid, calendar, id), $(this).dialog("close");
                     }
                 },
                 {text: "abrechnen",

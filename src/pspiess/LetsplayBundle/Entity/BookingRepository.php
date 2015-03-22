@@ -29,5 +29,17 @@ class BookingRepository extends EntityRepository {
                 ->getQuery();
         return $query->getResult();
     }
+    
+    public function GetBooking($iFieldId, $dDate) {
+        
+        $query = $this->createQueryBuilder('b')
+            ->where('b.field = :fieldid')
+            ->andWhere($this->createQueryBuilder('b')->expr()->like('b.start', ':date'))
+            ->setParameter('fieldid', $iFieldId)
+            ->setParameter('date', $dDate . '%')
+            ->getQuery();
+
+        return $query->getResult();
+    }
 
 }
