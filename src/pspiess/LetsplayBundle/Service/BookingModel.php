@@ -26,9 +26,14 @@ class BookingModel {
      */
     public function addReservation($data) {
         $sSerial = $this->GetSerialOption($data['serial']);
-        $dSerialDate = new \DateTime($data['serial_date']);
         $dStartDate = new \DateTime($data['start']);
         $dEndDate = new \DateTime($data['end']);
+        
+        if ($data['serial_date'] == '0' || $data['serial_date'] == '') {
+            $dSerialDate = new \DateTime($dStartDate->format('Y-m-d'));
+        } else {
+            $dSerialDate = new \DateTime($data['serial_date']);
+        }
 
         $customer = $this->EntityManager->getRepository('pspiessLetsplayBundle:Customer')->find($data["customerid"]);
         $field = $this->EntityManager->getRepository('pspiessLetsplayBundle:Field')->find($data["fieldid"]);
