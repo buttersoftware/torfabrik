@@ -29,11 +29,12 @@ class CustomerController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $paginator = $this->get('knp_paginator');
         
-//        $repository = $this->getDoctrine()->getRepository('pspiessLetsplayBundle:Customer');
+        $repository = $this->getDoctrine()->getRepository('pspiessLetsplayBundle:Customer');
         
-        $dql = "SELECT c FROM pspiessLetsplayBundle:Customer c";
-        $entCustomer = $em->createQuery($dql);
- 
+//        $dql = "SELECT c FROM pspiessLetsplayBundle:Customer c";
+//        $entCustomer = $em->createQuery($dql);
+        
+        $entCustomer = $this->getDoctrine()->getRepository('pspiessLetsplayBundle:Customer')->GetCustomerByName($request->query->get('keyword', ''));
         $entities = $paginator->paginate(
                 $entCustomer,
                 $request->query->get('page', 1) /* page number */, 

@@ -21,8 +21,8 @@ class CustomerRepository extends EntityRepository
      */
     public function GetCustomerByName($sKeyword = '') {
         $query = $this->createQueryBuilder('c')
-                ->where($this->createQueryBuilder('c')->expr()->like('c.vorname', ':name'))
-                ->where($this->createQueryBuilder('c')->expr()->like('c.name', ':name'))
+                ->where($this->createQueryBuilder('c')->expr()->like('c.firstname', ':name'))
+                ->orWhere($this->createQueryBuilder('c')->expr()->like('c.name', ':name'))
                 ->setParameter('name', '%'. $sKeyword . '%')
                 ->getQuery();
 

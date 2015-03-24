@@ -4,7 +4,6 @@
 
 {% block stylesheets %}
     {{ parent()}}
-
     <!-- page specific plugin styles -->
     <link href="{{ asset('resources/css/jquery-ui.min.css')}}" rel="stylesheet">
     <link href="{{ asset('resources/css/jquery-ui.custom.min.css')}}" rel="stylesheet">
@@ -17,95 +16,82 @@
 {% endblock %}
 
 {% block body -%}
-
     <!-- /section:settings.box -->
     <div class="page-content-area">
         <div class="page-header">
-            <h1>
+            <!--<h1>
                 Reservierungsübersicht
                 <small>
                     <i class="ace-icon fa fa-angle-double-right"></i>
                     alle Reservierungen
                 </small>
-            </h1>
-
-        </div><!-- /.page-header -->
-        <div class="col-lg-12">
-            <div class="col-lg-3">
+            </h1>-->
+        </div>
+        <div class="col-lg-12" style="padding-bottom:5px;">
+            <div class="col-lg-6">
+                <div class="btn-group">
+                    <button type="button" id="previousday" class="btn btn-white btn-sm btn-primary"><i class="ace-icon fa fa-angle-double-left"> Tag</i></button>
+                    <button type="button" id="previousweek" class="btn btn-white btn-sm btn-primary"><i class="ace-icon fa fa-angle-double-left"> Woche</i></button>
+                    <button type="button" id="previousmonth" class="btn btn-white btn-sm btn-primary"><i class="ace-icon fa fa-angle-double-left"> Monat</i></button>
+                    <button type="button" id="previousmonth" class="btn btn-white btn-sm btn-primary"><i class="ace-icon fa fa-calendar"></i></button>
+                    <!--<div class="input-group">
+                        <input class="form-control date-picker input-sm" style="width:20px" id="chose_date" type="text" data-date-format="dd.mm.yyyy" />
+                        <span class="input-group-addon">
+                            <i class="ace-icon fa fa-calendar"></i>
+                        </span>
+                    </div>-->
+                    <button type="button" id="nextmonth" class="btn btn-white btn-sm btn-primary"><i class="ace-icon fa fa-angle-double-right"> Monat</i></button>
+                    <button type="button" id="nextweek" class="btn btn-white btn-sm btn-primary"><i class="ace-icon fa fa-angle-double-right"> Woche</i></button>
+                    <button type="button" id="nextday" class="btn btn-white btn-sm btn-primary"><i class="ace-icon fa fa-angle-double-right"> Tag</i></button>
+                </div>
+            </div>
+            <div class="col-lg-6">
                 <span class="label label-lg label-info">reserviert</span>
                 <span class="label label-lg label-danger">nicht bezahlt</span>
                 <span class="label label-lg label-success">bezahlt</span>
                 <span class="label label-lg label-warning">storniert</span>
             </div>
         </div>
-        <div class="col-lg-12"></div>
-        {#<div class="progress" id="pleasewait">
-          <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
-            <span class="sr-only">45% Complete</span>
-          </div>
-        </div>#}
         <div class="col-xs-12">
-            <!-- PAGE CONTENT BEGINS -->
             <div class="col-lg-3">
                 <span class="label label-lg label-info arrowed-right">Platz 1</span>
                 <span class="label label-lg label-yellow arrowed-in">5er Court</span>
                 <div class="space"></div>
-                <div id="calendar1" style="height: 500px"></div>
-                <!-- #section:plugins/data-time.calendar -->
+                <div id="load1" style="position:fixed; z-index: 2000; padding-top: 10%; padding-left: 10%;" class="ajax-loading-overlay">
+                    <i class="ajax-loading-icon fa fa-spin fa-spinner fa-5x orange"></i> 
+                </div>
+                <div id="calendar1" class="calendar" style="height: 500px"></div>
                 <div></div>
-                <!-- /section:plugins/data-time.calendar -->
             </div>
             <div class="col-sm-3">
                 <span class="label label-lg label-info arrowed-right">Platz 2</span>
                 <span class="label label-lg label-yellow arrowed-in">5er Court</span>
                 <div class="space"></div>
-                <!-- #section:plugins/data-time.calendar -->
-                <div id="calendar2"></div>
-
-                <!-- /section:plugins/data-time.calendar -->
+                <div id="load2" style="position:fixed; z-index: 2000; padding-top: 10%; padding-left: 10%;" class="ajax-loading-overlay">
+                    <i class="ajax-loading-icon fa fa-spin fa-spinner fa-5x orange"></i> 
+                </div>
+                <div id="calendar2" class="calendar"></div>
             </div>
             <div class="col-sm-3">
                 <span class="label label-lg label-info arrowed-right">Platz 3</span>
                 <span class="label label-lg label-yellow arrowed-in">4er Court</span>
                 <div class="space"></div>
-                <!-- #section:plugins/data-time.calendar -->
-                <div id="calendar3"></div>
-
-                <!-- /section:plugins/data-time.calendar -->
+                <div id="load3" style="position:fixed; z-index: 2000; padding-top: 10%; padding-left: 10%;" class="ajax-loading-overlay">
+                    <i class="ajax-loading-icon fa fa-spin fa-spinner fa-5x orange"></i> 
+                </div>
+                <div id="calendar3" class="calendar"></div>
             </div>
             <div class="col-sm-3">
                 <span class="label label-lg label-info arrowed-right">Platz 4</span>
                 <span class="label label-lg label-yellow arrowed-in">4er Court</span>
                 <div class="space"></div>
-                <!-- #section:plugins/data-time.calendar -->
-                <div id="calendar4"></div>
-
-                <!-- /section:plugins/data-time.calendar -->
-            </div>
-            <!-- PAGE CONTENT ENDS -->
-        </div><!-- /.col -->
-    </div><!-- /.page-content-area -->
-
-    {#<div class="popup"><h3>Neu Reservierung hinzufügen</h3>
-        <h3 class="header blue lighter smaller">Kunde :</h3>
-        <div class="row">
-            <form>
-                <div class="col-sm-6 col-md-8">
-                    <input id="customer" class="title input-xxlarge" type="text" class="form-control"/>
-                    <input type="hidden" name="customer_id" id="customer_id" />
-                    <select name=mytextarea>
-                        <option name=one value=one> einmalig </option>
-                        <option name=two value=two> jede Woche </option>
-                        <option name=three value=three> jede 2te Woche </option>
-                        <option name=three value=three> jeden Monat </option>
-                    </select>
-                    <div class="space-4"></div>
-                    <a href="#" class="submitForm btn btn-success">reservieren</a>
-                    <a href="{{ path('pspiess_letsplay_customer_new') }}" class="submitForm btn btn-info">neuer Kunde</a>
+                <div id="load4" style="position:fixed; z-index: 2000; padding-top: 10%; padding-left: 10%;" class="ajax-loading-overlay">
+                    <i class="ajax-loading-icon fa fa-spin fa-spinner fa-5x orange"></i> 
                 </div>
-            </form>
-        </div>
-    </div>#}
+                <div id="calendar4" class="calendar"></div>
+            </div>
+        </div><!-- /.col -->
+    </div>
     <div id="dialog-message" class="hide">
         <form>
             <div class="col-md-12">
@@ -132,13 +118,7 @@
                 </div>
             </div>
         </form>
-    </div><!-- #dialog-message -->
-    {#
-                <div class="space-4"></div>
-                <a href="#" class="submitForm btn btn-success">reservieren</a>
-                <a href="{{ path('pspiess_letsplay_customer_new') }}" class="submitForm btn btn-info">neuer Kunde</a>#}
-
-    {#<a href="#" id="id-btn-dialog1" class="btn btn-purple btn-sm">Modal Dialog</a>#}
+    </div>
 {% endblock %}
 
 {% block javascripts %}
@@ -179,267 +159,314 @@
                 todayHighlight: true,
                 format: 'dd.mm.yyyy',
             })
+            $('#chose_date').datepicker({
+                autoclose: true,
+                todayHighlight: true,
+                format: 'dd.mm.yyyy',
+            })
                     //show datepicker when clicking on the icon
-                .next().on(ace.click_event, function () {
+                    .next().on(ace.click_event, function () {
                 $(this).prev().focus();
             });
-            $('body').on('click', 'button.fc-prev-button', function () {
+
+            $('#nextday').click(function () {
+                $('.calendar').fullCalendar('incrementDate', {days: 1});
             });
-            $('.fc-button-next span').click(function () {
-                alert('nextis clicked, do something');
+            $('#nextweek').click(function () {
+                $('.calendar').fullCalendar('incrementDate', {days: 7});
             });
+            $('#nextmonth').click(function () {
+                $('.calendar').fullCalendar('incrementDate', {months: 1});
+            });
+
+            $('#previousday').click(function () {
+                $('.calendar').fullCalendar('incrementDate', {days: -1});
+            });
+            $('#previousweek').click(function () {
+                $('.calendar').fullCalendar('incrementDate', {days: -7});
+            });
+            $('#previousmonth').click(function () {
+                $('.calendar').fullCalendar('incrementDate', {months: -1});
+            });
+
             //autocomplete
-                var raw = {{ render(controller('pspiessLetsplayBundle:Customer:getAllCustomer')) }};
-{#                var raw = '';#}
-                var source = [];
-                var mapping = {};
-                for (var i = 0; i < raw.length; ++i) {
-                    source.push(raw[i].label);
-                    mapping[raw[i].label] = raw[i].value;
-                }
+            var raw
+            = {{ render(controller('pspiessLetsplayBundle:Customer:getAllCustomer')) }};
+                    var source = [];
+            var mapping = {};
+            for (var i = 0; i < raw.length; ++i) {
+                source.push(raw[i].label);
+                mapping[raw[i].label] = raw[i].value;
+            }
 
-                $("#customer").autocomplete({
-                    appendTo: "#dialog-message", //problems with z-index
-                    source: source,
-                    select: function (event, ui) {
-                        $('#customer_id').val(mapping[ui.item.value]);
+            $("#customer").autocomplete({
+                appendTo: "#dialog-message", //problems with z-index
+                source: source,
+                select: function (event, ui) {
+                    $('#customer_id').val(mapping[ui.item.value]);
+                    $("#add_reservation").removeAttr("disabled");
+                },
+                change: function (event, ui) {
+                    if (!ui.item) {
+                        $("#add_reservation").attr("disabled", "disabled");
+                        $(this).val('');
+                    } else {
                         $("#add_reservation").removeAttr("disabled");
-                    },
-                    change: function (event, ui) {
-                        if (!ui.item) {
-                            $("#add_reservation").attr("disabled", "disabled");
-                            $(this).val('');
-                        } else {
-                            $("#add_reservation").removeAttr("disabled");
+                    }
+                }
+            });
+
+            var calendar = $('#calendar1').fullCalendar({
+                defaultView: 'agendaDay',
+                lang: 'de',
+                minTime: "10:00:00",
+                //isRTL: true,
+                allDaySlot: false,
+                height: 650,
+                buttonHtml: {
+                    prev: '<i class="ace-icon fa fa-chevron-left"></i>',
+                    next: '<i class="ace-icon fa fa-chevron-right"></i>'
+                },
+                header: {
+                    left: 'title',
+                    center: '',
+                    right: 'today prev,next'
+                },
+                loading: function (bool) {
+                    if (bool) {
+                        $("#load1").show();
+                    }
+                    else {
+                        $("#load1").hide();
+                    }
+                },
+                events: function (start, end, timezone, callback) {
+                    $.ajax({
+                        url: Routing.generate('pspiess_letsplay_booking_calendar', {id: 30, date: start.format("YYYY-MM-DD")}),
+                        type: 'POST',
+                        success: function (response) {
+                            callback(response);
                         }
-                    }
-                });
-
-                var calendar = $('#calendar1').fullCalendar({
-                    defaultView: 'agendaDay',
-                    lang: 'de',
-                    minTime: "10:00:00",
-                    //isRTL: true,
-                    allDaySlot: false,
-                    height: 650,
-                    buttonHtml: {
-                        prev: '<i class="ace-icon fa fa-chevron-left"></i>',
-                        next: '<i class="ace-icon fa fa-chevron-right"></i>'
-                    },
-                    header: {
-                        left: 'title',
-                        center: '',
-                        right: 'today prev,next'
-                    },
-{#                    loading: function (bool) {
-                        if (bool) {
+                    });
+                },
+                droppable: true, // this allows things to be dropped onto the calendar !!!
+                selectable: true,
+                selectHelper: true,
+                select: function (start, end) {
+                    showDialog(start.format("YYYY-MM-DD HH:mm:ss"), end.format("YYYY-MM-DD HH:mm:ss"), 30, '#calendar1');
+                },
+                editable: true,
+                eventDrop: function (event, delta) {
+                    $.ajax({
+                        url: '{{ path('pspiess_letsplay_booking_update') }}',
+                        data: {"start": event.start.format("YYYY-MM-DD HH:mm:ss"), "end": event.end.format("YYYY-MM-DD HH:mm:ss"), "id": event.id},
+                        type: "POST",
+                        success: function (json) {
                         }
-                        else {
-                        } 
-                    },#}
-                    events: function (start, end, timezone, callback) {
-                        $.ajax({
-                            url: Routing.generate('pspiess_letsplay_booking_calendar', {id: 30, date: start.format("YYYY-MM-DD")}),
-                            type: 'POST',
-                            success: function (response) {
-                                callback(response);
-                            }
-                        });
-                    },
-                    droppable: true, // this allows things to be dropped onto the calendar !!!
-                    selectable: true,
-                    selectHelper: true,
-                    select: function (start, end) {
-                        showDialog(start.format("YYYY-MM-DD HH:mm:ss"), end.format("YYYY-MM-DD HH:mm:ss"), 30, '#calendar1');
-                    },
-                    editable: true,
-                    eventDrop: function (event, delta) {
-                        $.ajax({
-                            url: '{{ path('pspiess_letsplay_booking_update') }}',
-                            data: {"start": event.start.format("YYYY-MM-DD HH:mm:ss"), "end": event.end.format("YYYY-MM-DD HH:mm:ss"), "id": event.id},
-                            type: "POST",
-                            success: function (json) {
-                            }
-                        });
-                    },
-                    eventResize: function (event) {
-                        $.ajax({
-                            url: '{{ path('pspiess_letsplay_booking_update') }}',
-                            data: {"start": event.start.format("YYYY-MM-DD HH:mm:ss"), "end": event.end.format("YYYY-MM-DD HH:mm:ss"), "id": event.id},
-                            type: "POST",
-                            success: function (json) {
-                            }
-                        });
-                    },
-                    eventClick: function (calEvent, jsEvent, view) {
-                        showChangeDialog(calEvent.start.format("YYYY-MM-DD HH:mm:ss"), calEvent.end.format("YYYY-MM-DD HH:mm:ss"), 30, calendar, calEvent.id);
-                    }
-                });
+                    });
+                },
+                eventResize: function (event) {
+                    $.ajax({
+                        url: '{{ path('pspiess_letsplay_booking_update') }}',
+                        data: {"start": event.start.format("YYYY-MM-DD HH:mm:ss"), "end": event.end.format("YYYY-MM-DD HH:mm:ss"), "id": event.id},
+                        type: "POST",
+                        success: function (json) {
+                        }
+                    });
+                },
+                eventClick: function (calEvent, jsEvent, view) {
+                    showChangeDialog(calEvent.start.format("YYYY-MM-DD HH:mm:ss"), calEvent.end.format("YYYY-MM-DD HH:mm:ss"), 30, calendar, calEvent.id);
+                }
+            });
 
-                var calendar1 = $('#calendar2').fullCalendar({
-                    defaultView: 'agendaDay',
-                    lang: 'de',
-                    minTime: "10:00:00",
-                    //isRTL: true,
-                    allDaySlot: false,
-                    height: 650,
-                    buttonHtml: {
-                        prev: '<i class="ace-icon fa fa-chevron-left"></i>',
-                        next: '<i class="ace-icon fa fa-chevron-right"></i>'
-                    },
-                    header: {
-                        left: 'title',
-                        center: '',
-                        right: 'today prev,next'
-                    },
-                    events: function (start, end, timezone, callback) {
-                        $.ajax({
-                            url: Routing.generate('pspiess_letsplay_booking_calendar', {id: 31, date: start.format("YYYY-MM-DD")}),
-                            type: 'POST',
-                            success: function (response) {
-                                callback(response);
-                            }
-                        });
-                    },
-                    droppable: true, // this allows things to be dropped onto the calendar !!!
-                    selectable: true,
-                    selectHelper: true,
-                    select: function (start, end) {
-                        showDialog(start.format("YYYY-MM-DD HH:mm:ss"), end.format("YYYY-MM-DD HH:mm:ss"), 31, '#calendar2');
-                    },
-                    editable: true,
-                            eventDrop: function (event, delta) {
-                                $.ajax({
-                                    url: '{{ path('pspiess_letsplay_booking_update') }}',
-                                    data: {"start": event.start.format("YYYY-MM-DD HH:mm:ss"), "end": event.end.format("YYYY-MM-DD HH:mm:ss"), "id": event.id},
-                                    type: "POST",
-                                    success: function (json) {
-                                    }
-                                });
-                            },
-                    eventResize: function (event) {
-                        $.ajax({
-                            url: '{{ path('pspiess_letsplay_booking_update') }}',
-                            data: {"start": event.start.format("YYYY-MM-DD HH:mm:ss"), "end": event.end.format("YYYY-MM-DD HH:mm:ss"), "id": event.id},
-                            type: "POST",
-                            success: function (json) {
-                            }
-                        });
-                    },
-                    eventClick: function (calEvent, jsEvent, view) {
-                        showChangeDialog(calEvent.start.format("YYYY-MM-DD HH:mm:ss"), calEvent.end.format("YYYY-MM-DD HH:mm:ss"), 31, calendar1, calEvent.id);
+            var calendar1 = $('#calendar2').fullCalendar({
+                defaultView: 'agendaDay',
+                lang: 'de',
+                minTime: "10:00:00",
+                //isRTL: true,
+                allDaySlot: false,
+                height: 650,
+                buttonHtml: {
+                    prev: '<i class="ace-icon fa fa-chevron-left"></i>',
+                    next: '<i class="ace-icon fa fa-chevron-right"></i>'
+                },
+                header: {
+                    left: 'title',
+                    center: '',
+                    right: 'today prev,next'
+                },
+                loading: function (bool) {
+                    if (bool) {
+                        $("#load2").show();
                     }
-                });
+                    else {
+                        $("#load2").hide();
+                    }
+                },
+                events: function (start, end, timezone, callback) {
+                    $.ajax({
+                        url: Routing.generate('pspiess_letsplay_booking_calendar', {id: 31, date: start.format("YYYY-MM-DD")}),
+                        type: 'POST',
+                        success: function (response) {
+                            callback(response);
+                        }
+                    });
+                },
+                droppable: true, // this allows things to be dropped onto the calendar !!!
+                selectable: true,
+                selectHelper: true,
+                select: function (start, end) {
+                    showDialog(start.format("YYYY-MM-DD HH:mm:ss"), end.format("YYYY-MM-DD HH:mm:ss"), 31, '#calendar2');
+                },
+                editable: true,
+                eventDrop: function (event, delta) {
+                    $.ajax({
+                        url: '{{ path('pspiess_letsplay_booking_update') }}',
+                        data: {"start": event.start.format("YYYY-MM-DD HH:mm:ss"), "end": event.end.format("YYYY-MM-DD HH:mm:ss"), "id": event.id},
+                        type: "POST",
+                        success: function (json) {
+                        }
+                    });
+                },
+                eventResize: function (event) {
+                    $.ajax({
+                        url: '{{ path('pspiess_letsplay_booking_update') }}',
+                        data: {"start": event.start.format("YYYY-MM-DD HH:mm:ss"), "end": event.end.format("YYYY-MM-DD HH:mm:ss"), "id": event.id},
+                        type: "POST",
+                        success: function (json) {
+                        }
+                    });
+                },
+                eventClick: function (calEvent, jsEvent, view) {
+                    showChangeDialog(calEvent.start.format("YYYY-MM-DD HH:mm:ss"), calEvent.end.format("YYYY-MM-DD HH:mm:ss"), 31, calendar1, calEvent.id);
+                }
+            });
 
-                var calendar2 = $('#calendar3').fullCalendar({
-                    defaultView: 'agendaDay',
-                    lang: 'de',
-                    minTime: "10:00:00",
-                    //isRTL: true,
-                    allDaySlot: false,
-                    height: 650,
-                    buttonHtml: {
-                        prev: '<i class="ace-icon fa fa-chevron-left"></i>',
-                        next: '<i class="ace-icon fa fa-chevron-right"></i>'
-                    },
-                    header: {
-                        left: 'title',
-                        center: '',
-                        right: 'today prev,next'
-                    },
-                    events: function (start, end, timezone, callback) {
-                        $.ajax({
-                            url: Routing.generate('pspiess_letsplay_booking_calendar', {id: 28, date: start.format("YYYY-MM-DD")}),
-                            type: 'POST',
-                            success: function (response) {
-                                callback(response);
-                            }
-                        });
-                    },
-                    droppable: true, // this allows things to be dropped onto the calendar !!!
-                    selectable: true,
-                    selectHelper: true,
-                    select: function (start, end) {
-                        showDialog(start.format("YYYY-MM-DD HH:mm:ss"), end.format("YYYY-MM-DD HH:mm:ss"), 28, '#calendar3');
-                    },
-                    editable: true,
-                            eventDrop: function (event, delta) {
-                                $.ajax({
-                                    url: '{{ path('pspiess_letsplay_booking_update') }}',
-                                    data: {"start": event.start.format("YYYY-MM-DD HH:mm:ss"), "end": event.end.format("YYYY-MM-DD HH:mm:ss"), "id": event.id},
-                                    type: "POST",
-                                    success: function (json) {
-                                    }
-                                });
-                            },
-                    eventResize: function (event) {
-                        $.ajax({
-                            url: '{{ path('pspiess_letsplay_booking_update') }}',
-                            data: {"start": event.start.format("YYYY-MM-DD HH:mm:ss"), "end": event.end.format("YYYY-MM-DD HH:mm:ss"), "id": event.id},
-                            type: "POST",
-                            success: function (json) {
-                            }
-                        });
-                    },
-                    eventClick: function (calEvent, jsEvent, view) {
-                        showChangeDialog(calEvent.start.format("YYYY-MM-DD HH:mm:ss"), calEvent.end.format("YYYY-MM-DD HH:mm:ss"), 28, calendar2, calEvent.id);
+            var calendar2 = $('#calendar3').fullCalendar({
+                defaultView: 'agendaDay',
+                lang: 'de',
+                minTime: "10:00:00",
+                //isRTL: true,
+                allDaySlot: false,
+                height: 650,
+                buttonHtml: {
+                    prev: '<i class="ace-icon fa fa-chevron-left"></i>',
+                    next: '<i class="ace-icon fa fa-chevron-right"></i>'
+                },
+                header: {
+                    left: 'title',
+                    center: '',
+                    right: 'today prev,next'
+                },
+                loading: function (bool) {
+                    if (bool) {
+                        $("#load3").show();
                     }
-                });
-                var calendar3 = $('#calendar4').fullCalendar({
-                    defaultView: 'agendaDay',
-                    lang: 'de',
-                    minTime: "10:00:00",
-                    //isRTL: true,
-                    allDaySlot: false,
-                    height: 650,
-                    buttonHtml: {
-                        prev: '<i class="ace-icon fa fa-chevron-left"></i>',
-                        next: '<i class="ace-icon fa fa-chevron-right"></i>'
-                    },
-                    header: {
-                        left: 'title',
-                        center: '',
-                        right: 'today prev,next'
-                    },
-                    events: function (start, end, timezone, callback) {
-                        $.ajax({
-                            url: Routing.generate('pspiess_letsplay_booking_calendar', {id: 29, date: start.format("YYYY-MM-DD")}),
-                            type: 'POST',
-                            success: function (response) {
-                                callback(response);
-                            }
-                        });
-                    },
-                    editable: true,
-                    droppable: true, // this allows things to be dropped onto the calendar !!!
-                    selectable: true,
-                    selectHelper: true,
-                    select: function (start, end) {
-                        showDialog(start.format("YYYY-MM-DD HH:mm:ss"), end.format("YYYY-MM-DD HH:mm:ss"), 29, '#calendar4');
-                    },
-                    editable: true,
-                            eventDrop: function (event, delta) {
-                                $.ajax({
-                                    url: '{{ path('pspiess_letsplay_booking_update') }}',
-                                    data: {"start": event.start.format("YYYY-MM-DD HH:mm:ss"), "end": event.end.format("YYYY-MM-DD HH:mm:ss"), "id": event.id},
-                                    type: "POST",
-                                    success: function (json) {
-                                    }
-                                });
-                            },
-                    eventResize: function (event) {
-                        $.ajax({
-                            url: '{{ path('pspiess_letsplay_booking_update') }}',
-                            data: {"start": event.start.format("YYYY-MM-DD HH:mm:ss"), "end": event.end.format("YYYY-MM-DD HH:mm:ss"), "id": event.id},
-                            type: "POST",
-                            success: function (json) {
-                            }
-                        });
-                    },
-                    eventClick: function (calEvent, jsEvent, view) {
-                        showChangeDialog(calEvent.start.format("YYYY-MM-DD HH:mm:ss"), calEvent.end.format("YYYY-MM-DD HH:mm:ss"), 29, calendar3, calEvent.id);
+                    else {
+                        $("#load3").hide();
                     }
-                });
-            })
+                },
+                events: function (start, end, timezone, callback) {
+                    $.ajax({
+                        url: Routing.generate('pspiess_letsplay_booking_calendar', {id: 28, date: start.format("YYYY-MM-DD")}),
+                        type: 'POST',
+                        success: function (response) {
+                            callback(response);
+                        }
+                    });
+                },
+                droppable: true, // this allows things to be dropped onto the calendar !!!
+                selectable: true,
+                selectHelper: true,
+                select: function (start, end) {
+                    showDialog(start.format("YYYY-MM-DD HH:mm:ss"), end.format("YYYY-MM-DD HH:mm:ss"), 28, '#calendar3');
+                },
+                editable: true,
+                eventDrop: function (event, delta) {
+                    $.ajax({
+                        url: '{{ path('pspiess_letsplay_booking_update') }}',
+                        data: {"start": event.start.format("YYYY-MM-DD HH:mm:ss"), "end": event.end.format("YYYY-MM-DD HH:mm:ss"), "id": event.id},
+                        type: "POST",
+                        success: function (json) {
+                        }
+                    });
+                },
+                eventResize: function (event) {
+                    $.ajax({
+                        url: '{{ path('pspiess_letsplay_booking_update') }}',
+                        data: {"start": event.start.format("YYYY-MM-DD HH:mm:ss"), "end": event.end.format("YYYY-MM-DD HH:mm:ss"), "id": event.id},
+                        type: "POST",
+                        success: function (json) {
+                        }
+                    });
+                },
+                eventClick: function (calEvent, jsEvent, view) {
+                    showChangeDialog(calEvent.start.format("YYYY-MM-DD HH:mm:ss"), calEvent.end.format("YYYY-MM-DD HH:mm:ss"), 28, calendar2, calEvent.id);
+                }
+            });
+            var calendar3 = $('#calendar4').fullCalendar({
+                defaultView: 'agendaDay',
+                lang: 'de',
+                minTime: "10:00:00",
+                //isRTL: true,
+                allDaySlot: false,
+                height: 650,
+                buttonHtml: {
+                    prev: '<i class="ace-icon fa fa-chevron-left"></i>',
+                    next: '<i class="ace-icon fa fa-chevron-right"></i>'
+                },
+                header: {
+                    left: 'title',
+                    center: '',
+                    right: 'today prev,next'
+                },
+                loading: function (bool) {
+                    if (bool) {
+                        $("#load4").show();
+                    }
+                    else {
+                        $("#load4").hide();
+                    }
+                },
+                events: function (start, end, timezone, callback) {
+                    $.ajax({
+                        url: Routing.generate('pspiess_letsplay_booking_calendar', {id: 29, date: start.format("YYYY-MM-DD")}),
+                        type: 'POST',
+                        success: function (response) {
+                            callback(response);
+                        }
+                    });
+                },
+                editable: true,
+                droppable: true, // this allows things to be dropped onto the calendar !!!
+                selectable: true,
+                selectHelper: true,
+                select: function (start, end) {
+                    showDialog(start.format("YYYY-MM-DD HH:mm:ss"), end.format("YYYY-MM-DD HH:mm:ss"), 29, '#calendar4');
+                },
+                editable: true,
+                        eventDrop: function (event, delta) {
+                            $.ajax({
+                                url: '{{ path('pspiess_letsplay_booking_update') }}',
+                                data: {"start": event.start.format("YYYY-MM-DD HH:mm:ss"), "end": event.end.format("YYYY-MM-DD HH:mm:ss"), "id": event.id},
+                                type: "POST",
+                                success: function (json) {
+                                }
+                            });
+                        },
+                eventResize: function (event) {
+                    $.ajax({
+                        url: '{{ path('pspiess_letsplay_booking_update') }}',
+                        data: {"start": event.start.format("YYYY-MM-DD HH:mm:ss"), "end": event.end.format("YYYY-MM-DD HH:mm:ss"), "id": event.id},
+                        type: "POST",
+                        success: function (json) {
+                        }
+                    });
+                },
+                eventClick: function (calEvent, jsEvent, view) {
+                    showChangeDialog(calEvent.start.format("YYYY-MM-DD HH:mm:ss"), calEvent.end.format("YYYY-MM-DD HH:mm:ss"), 29, calendar3, calEvent.id);
+                }
+            });
+        })
     </script>
 {% endblock %}
