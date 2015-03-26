@@ -110,7 +110,12 @@
                                 <tfoot>
                                     <tr>
                                         <td colspan="3"></td>
-                                        <td class="info">Mehrwertssteuer: </td>
+                                        <td class="info">Nettopreis: </td>
+                                        <td class="info"><span class="red">{{ entity.totalPricenet|number_format(2, ',', '.') }} &euro;</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3"></td>
+                                        <td class="info">19 % Mehrwertssteuer: </td>
                                         <td class="info"><span class="red">{{ entity.tax|number_format(2, ',', '.') }} &euro;</span></td>
                                     </tr>
                                     <tr>

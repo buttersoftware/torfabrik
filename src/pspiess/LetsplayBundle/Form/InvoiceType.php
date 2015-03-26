@@ -39,7 +39,7 @@ class InvoiceType extends AbstractType {
                 ->add('customerPhone', 'text', array('label' => 'Telefon', 'attr' => array('class' => '')))
                 ->add('TotalPrice', 'money', array('label' => 'Bruttopreis', 'attr' => array('class' => '')))
                 ->add('TotalPricenet', 'money', array('label' => 'Nettopreis', 'attr' => array('class' => '')))
-                ->add('tax', 'money', array('label' => 'Mehrwertssteuer', 'attr' => array('class' => '')))
+                ->add('tax', 'money', array('label' => '19% Mehrwertssteuer', 'attr' => array('class' => '')))
                 ->add('PaidPrice', 'money', array('label' => 'Bereits bezahlt', 'attr' => array('class' => '')))
                 ->add('note', 'textarea', array('label' => 'Bemerkung', 'attr' => array('class' => '')))
                 ->add('taxNumber', 'text', array('label' => 'Steuernummer', 'attr' => array('class' => '')))

@@ -75,8 +75,6 @@ class CustomerController extends Controller {
         
         $rows = array();
         
-//        $rows[] = array('label' => $customer->getName() . ', ' . $customer->getFirstname(), 'value' => $customer->getId());
-        
         foreach ($customer as $obj) {
             $rows[] = array('label' => $obj->getName() . ', ' . $obj->getFirstname(), 'value' => $obj->getId());
         }
@@ -101,6 +99,9 @@ class CustomerController extends Controller {
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            
+            $entity->setCustomernr($em->getRepository('pspiessLetsplayBundle:Customer')->getCustomerNumber());
+            
             $em->persist($entity);
             $em->flush();
 

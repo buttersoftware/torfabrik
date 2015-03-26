@@ -46,6 +46,7 @@ class InvoiceController extends Controller {
      */
     public function createAction(Request $request) {
         $entity = new Invoice();
+        
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
@@ -58,6 +59,12 @@ class InvoiceController extends Controller {
             }
             
             $em->persist($entity);
+            $em->flush();
+            
+            $entBooking = $em->getRepository('pspiessLetsplayBundle:Booking')->find($entity->getBookingId());
+            $entBooking->setInvoiceId($entity->getId());
+            
+            $em->persist($entBooking);
             $em->flush();
             
             $entPayofficepos = new Payofficepos();
