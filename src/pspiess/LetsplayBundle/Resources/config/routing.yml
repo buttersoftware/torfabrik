@@ -33,6 +33,11 @@ pspiess_letsplay_field:
     resource: "@pspiessLetsplayBundle/Resources/config/field.yml"
     prefix:   /
     
+pspiess_letsplay_category:
+    resource: "@pspiessLetsplayBundle/Controller/"
+    resource: "@pspiessLetsplayBundle/Resources/config/category.yml"
+    prefix:   /
+    
 pspiess_letsplay:
     pattern:  /admin/
     defaults: { _controller: pspiessLetsplayBundle:Default:index }

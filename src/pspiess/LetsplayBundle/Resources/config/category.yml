@@ -1,0 +1,23 @@
+pspiess_letsplay_category:
+    pattern:  /admin/category
+    defaults: { _controller: pspiessLetsplayBundle:Category:index }
+    
+pspiess_letsplay_category_new:
+    pattern:  /admin/category/new
+    defaults: { _controller: pspiessLetsplayBundle:Category:new }
+    
+pspiess_letsplay_category_create:
+    pattern:  /admin/category/create
+    defaults: { _controller: pspiessLetsplayBundle:Category:create }
+    
+pspiess_letsplay_category_edit:
+    pattern:  /admin/category/edit/{id}
+    defaults: { _controller: pspiessLetsplayBundle:Category:edit }
+    
+pspiess_letsplay_category_update:
+    pattern:  /admin/category/update/{id}
+    defaults: { _controller: pspiessLetsplayBundle:Category:update }
+    
+pspiess_letsplay_category_delete:
+    pattern:  /admin/category/delete/{id}
+    defaults: { _controller: pspiessLetsplayBundle:Category:delete }

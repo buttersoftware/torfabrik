@@ -14,6 +14,12 @@ use Doctrine\ORM\Mapping as ORM;
 class Booking {
 
     /**
+     * @ORM\OneToOne(targetEntity="Category", inversedBy="booking") 
+     * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
+     */
+    protected $category;
+
+    /**
      * @var integer
      *
      * @ORM\Column(type="integer", name="id")
@@ -71,7 +77,7 @@ class Booking {
      * 
      */
     private $customerId;
-    
+
     /**
      * @var integer
      * @ORM\Column(type="integer", name="cancellation", options={"default" = "0"}, nullable=true)
@@ -90,7 +96,7 @@ class Booking {
      * @ORM\JoinColumn(name="customer_id", referencedColumnName="id")
      */
     private $customer;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="pspiess\LetsplayBundle\Entity\Field", inversedBy="bookings")
      * @ORM\JoinColumn(name="field_id", referencedColumnName="id")
@@ -102,7 +108,7 @@ class Booking {
      * @ORM\Column(type="integer", name="invoice_id", nullable=true)
      */
     private $InvoiceId;
-    
+
     /**
      * Get id
      *
@@ -174,7 +180,7 @@ class Booking {
     public function getBookingdate() {
         return $this->bookingdate;
     }
-    
+
     /**
      * Get title
      *
@@ -183,7 +189,7 @@ class Booking {
     public function getTitle() {
         return $this->title;
     }
-    
+
     /**
      * Set start
      *
@@ -328,8 +334,7 @@ class Booking {
      * @param \pspiess\LetsplayBundle\Entity\Field $field
      * @return Booking
      */
-    public function setField(\pspiess\LetsplayBundle\Entity\Field $field = null)
-    {
+    public function setField(\pspiess\LetsplayBundle\Entity\Field $field = null) {
         $this->field = $field;
 
         return $this;
@@ -340,8 +345,7 @@ class Booking {
      *
      * @return \pspiess\LetsplayBundle\Entity\Field 
      */
-    public function getField()
-    {
+    public function getField() {
         return $this->field;
     }
 
@@ -351,8 +355,7 @@ class Booking {
      * @param integer $cancellation
      * @return Booking
      */
-    public function setCancellation($cancellation)
-    {
+    public function setCancellation($cancellation) {
         $this->cancellation = $cancellation;
 
         return $this;
@@ -363,8 +366,7 @@ class Booking {
      *
      * @return integer 
      */
-    public function getCancellation()
-    {
+    public function getCancellation() {
         return $this->cancellation;
     }
 
@@ -374,8 +376,7 @@ class Booking {
      * @param integer $invoiceId
      * @return Booking
      */
-    public function setInvoiceId($invoiceId)
-    {
+    public function setInvoiceId($invoiceId) {
         $this->InvoiceId = $invoiceId;
 
         return $this;
@@ -386,8 +387,31 @@ class Booking {
      *
      * @return integer 
      */
-    public function getInvoiceId()
-    {
+    public function getInvoiceId() {
         return $this->InvoiceId;
+    }
+
+
+    /**
+     * Set category
+     *
+     * @param \pspiess\LetsplayBundle\Entity\Category $category
+     * @return Booking
+     */
+    public function setCategory(\pspiess\LetsplayBundle\Entity\Category $category = null)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Get category
+     *
+     * @return \pspiess\LetsplayBundle\Entity\Category 
+     */
+    public function getCategory()
+    {
+        return $this->category;
     }
 }

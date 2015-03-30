@@ -28,22 +28,20 @@ class CustomerController extends Controller {
     public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
         $paginator = $this->get('knp_paginator');
-        
+
         $repository = $this->getDoctrine()->getRepository('pspiessLetsplayBundle:Customer');
-        
+
 //        $dql = "SELECT c FROM pspiessLetsplayBundle:Customer c";
 //        $entCustomer = $em->createQuery($dql);
-        
+
         $entCustomer = $this->getDoctrine()->getRepository('pspiessLetsplayBundle:Customer')->GetCustomerByName($request->query->get('keyword', ''));
         $entities = $paginator->paginate(
-                $entCustomer,
-                $request->query->get('page', 1) /* page number */, 
-                20/* limit per page */
+                $entCustomer, $request->query->get('page', 1) /* page number */, 20/* limit per page */
         );
 
-        return array( 'entities' => $entities );
+        return array('entities' => $entities);
     }
-    
+
     /**
      * Lists all Customer entities.
      * 
@@ -55,8 +53,7 @@ class CustomerController extends Controller {
         $deleteForms[$id] = $this->createDeleteForm($id)->createView();
         return array('deleteForms' => $deleteForms, 'id' => $id,);
     }
-    
-    
+
     /**
      * Lists all customer entities for Calendar.
      *
@@ -69,12 +66,11 @@ class CustomerController extends Controller {
 
         $customer = $em->getRepository('pspiessLetsplayBundle:Customer')->findAll();
 //        $customer = $em->getRepository('pspiessLetsplayBundle:Customer')->GetCustomerByName($keyword);
-        
 //        $dql = "SELECT c FROM pspiessLetsplayBundle:Customer c";
 //        $customer = $em->createQuery($dql);
-        
+
         $rows = array();
-        
+
         foreach ($customer as $obj) {
             $rows[] = array('label' => $obj->getName() . ', ' . $obj->getFirstname(), 'value' => $obj->getId());
         }
@@ -99,9 +95,9 @@ class CustomerController extends Controller {
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            
+
             $entity->setCustomernr($em->getRepository('pspiessLetsplayBundle:Customer')->getCustomerNumber());
-            
+
             $em->persist($entity);
             $em->flush();
 
@@ -239,8 +235,9 @@ class CustomerController extends Controller {
 
         if ($editForm->isValid()) {
             $em->flush();
-
             return $this->redirect($this->generateUrl('pspiess_letsplay_customer_edit', array('id' => $id)));
+        }else {
+            print_r($editForm->getErrorsAsString());
         }
 
         return array(

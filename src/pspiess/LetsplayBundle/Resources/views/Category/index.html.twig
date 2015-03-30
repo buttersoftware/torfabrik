@@ -1,0 +1,63 @@
+{% extends 'pspiessLetsplayBundle::layout.html.twig' %}
+
+{% block title %}Kategorien{% endblock %}
+
+{% block nav %}
+    {{ knp_menu_render('pspiessLetsplayBundle:MenuBuilder:mainMenu', {'currentClass': 'active', 'template': 'pspiessLetsplayBundle:Menu:knp_menu.html.twig'}) }}
+{% endblock %}
+
+{% block body -%}
+
+<div class="page-content-area">
+    <div class="page-header">
+        <h1>
+            Kategorie
+            <small><i class="ace-icon fa fa-angle-double-right"></i> Alle Kategorien für die Buchungen</small>
+            <div class="col-md-2 pull-right">
+                <a class="btn btn-success" href="{{ path('pspiess_letsplay_category_new') }}"> Neu</a>
+            </div>
+        </h1>
+    </div><!-- /.page-header -->
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="row">
+                <div class="col-md-offset-1 col-xs-10">
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Kürzel</th>
+                                <th>Bezeichnung</th>
+                                <th>Bemerkung</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {% for entity in entities %}
+                            <tr>
+                                <td>{{ entity.acronym }} </td>
+                                <td>{{ entity.description }} </td>
+                                <td>{{ entity.note }}</td>
+                                <td>
+                                    <div class="hidden-sm hidden-xs btn-group">
+                                        {{ form_start(deleteForms[entity.id], {'attr': {'id': 'edit-form'}}) }}
+                                        <div class="hidden-sm hidden-xs btn-group">
+                                            <a class="btn btn-xs btn-info" href="{{ path('pspiess_letsplay_category_edit', { 'id': entity.id }) }}">
+                                                <i class="ace-icon fa fa-pencil icon-only"></i>
+                                            </a>
+                                            <button type="submit" class="btn btn-danger btn-xs">
+                                                <i class="ace-icon fa fa-trash-o icon-only"></i>
+                                            </button>
+                                        </div>
+                                            {{ form_end(deleteForms[entity.id]) }}
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div><!-- /.span -->
+            </div><!-- /.row -->
+            <div class="hr hr-18 dotted hr-double"></div>
+        </div>
+{% endblock %}
