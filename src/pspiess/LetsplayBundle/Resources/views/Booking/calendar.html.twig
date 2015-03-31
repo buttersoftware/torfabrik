@@ -5,11 +5,12 @@
         var customerid = $('#customer_id').val();
         var serial = $('#serial').val();
         var serial_date = $('#serial_date').val();
+        var categoryid = $('#category_id').val();
         if (title !== "") { // if the title exists run script
-            console.log({"title": title, "start": start, "end": end, "customerid": customerid, "fieldid": fieldid, "serial": serial, "serial_date": serial_date});
+            //console.log({"title": title, "start": start, "end": end, "customerid": customerid, "fieldid": fieldid, "serial": serial, "serial_date": serial_date});
             $.ajax({
                 url: '{{ path('pspiess_letsplay_booking_add') }}',
-                data: {"title": title, "start": start, "end": end, "customerid": customerid, "fieldid": fieldid, "serial": serial, "serial_date": serial_date},
+                data: {"title": title, "start": start, "end": end, "customerid": customerid, "fieldid": fieldid, "serial": serial, "serial_date": serial_date, "categoryid": categoryid,},
                 type: 'post',
                 success: function (result) {
                     console.log(result);
@@ -97,11 +98,14 @@
     function UpdateCalendar(start, end, fieldid, calendar, id) {
         var title = $(".title").val(); // gets title value
         var customerid = $('#customer_id').val();
+        var categoryid = $('#category_id').val();
         $.ajax({
             url: '{{ path('pspiess_letsplay_booking_update') }}',
-            data: {"start": start, "end": end, "id": id, "customerid": customerid, "title": title},
+            data: {"start": start, "end": end, "id": id, "customerid": customerid, "title": title, "categoryid": categoryid},
             type: "POST",
-            success: function (json) {}
+            success: function (json) {
+                $(calendar).fullCalendar('refetchEvents');
+            }
         });
     }
     function DeleteReservation(id, calendar, start, end) {

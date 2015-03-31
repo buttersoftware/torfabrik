@@ -31,11 +31,10 @@ class BookingController extends Controller {
     public function indexAction() {
 
         $em = $this->getDoctrine()->getManager();
-        
-//        $entities = $em->getRepository('pspiessLetsplayBundle:Customer')->findAll();
-        
+
+        $category = $em->getRepository('pspiessLetsplayBundle:Category')->findAll();
         return array(
-            'entities' => null,
+            'category' => $category,
         );
     }
 
@@ -44,19 +43,25 @@ class BookingController extends Controller {
      * @Route("/booking/{id}/{date}", name="pspiess_letsplay_booking_calendar", options={"expose"=true})
      */
     public function showCalendarAction($id, $date) {
+        $sCategory = '';
+        $iCategoryId = 0;
         $em = $this->getDoctrine()->getManager();
-        
-        //only actual date? parameter...
+
         $entBooking = $em->getRepository('pspiessLetsplayBundle:Booking')->GetBooking($id, $date);
 
         $rows = array();
         foreach ($entBooking as $obj) {
+            if ($obj->getCategory()) {
+                $sCategory = ' - ' . $obj->getCategory()->getAcronym();
+                $iCategoryId = $obj->getCategory()->getId();
+            }
             $rows[] = array(
                 'id' => $obj->getId(),
-                'title' => $obj->getCustomer()->getName() . ', ' . $obj->getCustomer()->getFirstname(),
+                'title' => $obj->getCustomer()->getName() . ', ' . $obj->getCustomer()->getFirstname() . $sCategory,
                 'start' => $obj->getStart()->format('Y-m-d H:i:s'),
                 'end' => $obj->getEnd()->format('Y-m-d H:i:s'),
                 'className' => $this->GetStatus($obj),
+                'categoryid' => $iCategoryId
             );
         }
 
@@ -93,10 +98,10 @@ class BookingController extends Controller {
     public function addReservationAction() {
         $request = $this->get('request');
         $data = $request->request->all();
-        
+
         $BookingModel = new BookingModel($this->getDoctrine()->getManager());
         $booking = $BookingModel->addReservation($data);
-        
+
         $serializedEntity = $this->container->get('serializer')->serialize($booking->getId(), 'json');
         $response = new Response($serializedEntity);
         $response->headers->set('Content-Type', 'application/json');
@@ -118,12 +123,14 @@ class BookingController extends Controller {
             $booking->setStart(new \DateTime($data["start"]));
             $booking->setEnd(new \DateTime($data["end"]));
 
-            if (isset($data["customerid"])) {
+            if (isset($data["title"])) {
                 $booking->setTitle($data["title"]);
                 $customer = $em->getRepository('pspiessLetsplayBundle:Customer')->find($data["customerid"]);
+                $category = $em->getRepository('pspiessLetsplayBundle:Category')->find($data["categoryid"]);
                 $booking->setCustomer($customer);
+                $booking->setCategory($category);
             }
-
+            
             $em->persist($booking);
             $em->flush();
 

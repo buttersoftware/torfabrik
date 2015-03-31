@@ -7,33 +7,30 @@
 {% endblock %}
 
 {% block body -%}
-
-<div class="page-content-area">
-    <div class="page-header">
-        <h1>
-            Kategorie
-            <small><i class="ace-icon fa fa-angle-double-right"></i> Alle Kategorien für die Buchungen</small>
-            <div class="col-md-2 pull-right">
-                <a class="btn btn-success" href="{{ path('pspiess_letsplay_category_new') }}"> Neu</a>
-            </div>
-        </h1>
-    </div><!-- /.page-header -->
-    <div class="row">
+    <div class="page-content-area">
+        <div class="page-header">
+            <h1>
+                Kategorie
+                <small><i class="ace-icon fa fa-angle-double-right"></i> Alle Kategorien für die Buchungen</small>
+                <div class="col-md-2 pull-right">
+                    <a class="btn btn-success" href="{{ path('pspiess_letsplay_category_new') }}"> Neu</a>
+                </div>
+            </h1>
+        </div><!-- /.page-header -->
         <div class="col-xs-12">
-            <div class="row">
-                <div class="col-md-offset-1 col-xs-10">
-                    <table class="table table-striped table-bordered table-hover">
-                        <thead>
-                            <tr>
-                                <th>Kürzel</th>
-                                <th>Bezeichnung</th>
-                                <th>Bemerkung</th>
-                                <th></th>
-                            </tr>
-                        </thead>
+            <div class="col-md-offset-1 col-xs-10">
+                <table class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Kürzel</th>
+                            <th>Bezeichnung</th>
+                            <th>Bemerkung</th>
+                            <th></th>
+                        </tr>
+                    </thead>
 
-                        <tbody>
-                            {% for entity in entities %}
+                    <tbody>
+                        {% for entity in entities %}
                             <tr>
                                 <td>{{ entity.acronym }} </td>
                                 <td>{{ entity.description }} </td>
@@ -49,15 +46,14 @@
                                                 <i class="ace-icon fa fa-trash-o icon-only"></i>
                                             </button>
                                         </div>
-                                            {{ form_end(deleteForms[entity.id]) }}
+                                        {{ form_end(deleteForms[entity.id]) }}
                                     </div>
                                 </td>
                             </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div><!-- /.span -->
-            </div><!-- /.row -->
-            <div class="hr hr-18 dotted hr-double"></div>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div><!-- /.span -->
         </div>
+    </div>
 {% endblock %}

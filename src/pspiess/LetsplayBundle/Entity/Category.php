@@ -14,7 +14,7 @@ Use Gedmo\Mapping\Annotation as Gedmo;
 class Category
 {
     /**
-     * @ORM\OneToOne(targetEntity="Booking", mappedBy="category")
+     * @ORM\OneToMany(targetEntity="Booking", mappedBy="category")
      **/
     private $booking;
     
@@ -209,5 +209,35 @@ class Category
     public function getBooking()
     {
         return $this->booking;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->booking = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add booking
+     *
+     * @param \pspiess\LetsplayBundle\Entity\Booking $booking
+     * @return Category
+     */
+    public function addBooking(\pspiess\LetsplayBundle\Entity\Booking $booking)
+    {
+        $this->booking[] = $booking;
+
+        return $this;
+    }
+
+    /**
+     * Remove booking
+     *
+     * @param \pspiess\LetsplayBundle\Entity\Booking $booking
+     */
+    public function removeBooking(\pspiess\LetsplayBundle\Entity\Booking $booking)
+    {
+        $this->booking->removeElement($booking);
     }
 }

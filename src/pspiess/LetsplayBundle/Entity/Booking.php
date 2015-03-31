@@ -14,10 +14,22 @@ use Doctrine\ORM\Mapping as ORM;
 class Booking {
 
     /**
-     * @ORM\OneToOne(targetEntity="Category", inversedBy="booking") 
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="booking") 
      * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      */
     protected $category;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="pspiess\LetsplayBundle\Entity\Customer", inversedBy="bookings")
+     * @ORM\JoinColumn(name="customer_id", referencedColumnName="id")
+     */
+    private $customer;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="pspiess\LetsplayBundle\Entity\Field", inversedBy="bookings")
+     * @ORM\JoinColumn(name="field_id", referencedColumnName="id")
+     */
+    private $field;
 
     /**
      * @var integer
@@ -90,18 +102,6 @@ class Booking {
      * @ORM\Column(type="text", nullable=true, name="note")
      */
     private $note;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="pspiess\LetsplayBundle\Entity\Customer", inversedBy="bookings")
-     * @ORM\JoinColumn(name="customer_id", referencedColumnName="id")
-     */
-    private $customer;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="pspiess\LetsplayBundle\Entity\Field", inversedBy="bookings")
-     * @ORM\JoinColumn(name="field_id", referencedColumnName="id")
-     */
-    private $field;
 
     /**
      * @var integer

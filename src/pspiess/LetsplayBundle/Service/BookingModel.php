@@ -14,8 +14,9 @@ use pspiess\LetsplayBundle\Entity\Booking;
  * Service to persist Booking Data
  */
 class BookingModel {
-    
+
     private $EntityManager;
+
     public function __construct($EntityManager) {
         $this->EntityManager = $EntityManager;
     }
@@ -28,7 +29,7 @@ class BookingModel {
         $sSerial = $this->GetSerialOption($data['serial']);
         $dStartDate = new \DateTime($data['start']);
         $dEndDate = new \DateTime($data['end']);
-        
+
         if ($data['serial_date'] == '0' || $data['serial_date'] == '') {
             $dSerialDate = new \DateTime($dStartDate->format('Y-m-d'));
         } else {
@@ -37,6 +38,7 @@ class BookingModel {
 
         $customer = $this->EntityManager->getRepository('pspiessLetsplayBundle:Customer')->find($data["customerid"]);
         $field = $this->EntityManager->getRepository('pspiessLetsplayBundle:Field')->find($data["fieldid"]);
+        $category = $this->EntityManager->getRepository('pspiessLetsplayBundle:Category')->find($data["categoryid"]);
 
         for ($dDate = $dStartDate; $dDate->format('Y-m-d') <= $dSerialDate->format('Y-m-d'); $dDate->modify($sSerial)) {
             $booking = new Booking();
@@ -44,12 +46,13 @@ class BookingModel {
             $booking->setCustomer($customer);
             $booking->setField($field);
             $booking->setTitle($data["title"]);
+            $booking->setCategory($category);
             $booking->setStart($dStartDate);
             $booking->setEnd($dEndDate);
-            
+
             $this->EntityManager->persist($booking);
             $this->EntityManager->flush();
-            
+
             $dEndDate->modify($sSerial);
         }
 
