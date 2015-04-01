@@ -30,7 +30,7 @@ class CustomerType extends AbstractType {
                 ->add('fax', 'text', array('label' => 'Fax', 'attr' => array('class' => ''), 'required' => false))
                 ->add('note', 'text', array('label' => 'Bemerkung', 'attr' => array('class' => ''), 'required' => false))
                 ->add('discount', 'text', array('label' => 'Rabatt', 'attr' => array('class' => ''), 'required' => false))
-                ->add('birthday', 'date', array('years' => range(1950, 1995), 'empty_value' => array('year' => 'Jahr', 'month' => 'Monat', 'day' => 'Tag'), 
+                ->add('birthday', 'date', array('years' => range(1950, 2005), 'empty_value' => array('year' => 'Jahr', 'month' => 'Monat', 'day' => 'Tag'), 
                     'label' => 'Geburtstag', 'attr' => array('class' => ''), 'required' => false))
                 ->add('sex', 'choice', array('label' => 'Geschlecht', 'attr' => array('class' => ''),
                     'choices' => array('M' => 'männlich', 'W' => 'weiblich'),
@@ -43,7 +43,11 @@ class CustomerType extends AbstractType {
                 ->add('bank', 'text', array('label' => 'Bank', 'attr' => array('class' => ''), 'required' => false))
                 ->add('bankOwner', 'text', array('label' => 'Inhaber', 'attr' => array('class' => ''), 'required' => false))
 //                ->add('path', 'hidden', array('label' => 'Inhaber', 'attr' => array('class' => ''), 'required' => false))
-                ->add('picture', 'file', array('label' => 'Bild', 'required' => false));
+                ->add('picture', 'file', array('label' => 'Bild', 'required' => false))
+                ->add('blocked', 'choice', array('label' => 'gesperrt', 'attr' => array('class' => ''),
+                    'choices' => array('1' => 'Ja', '0' => 'Nein'),
+                    'preferred_choices' => array('0'), 'required' => false))
+                ;
     }
 
     /**

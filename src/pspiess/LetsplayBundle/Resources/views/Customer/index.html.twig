@@ -53,7 +53,7 @@
                     </thead>
                     <tbody>
                         {% for entity in entities %}
-                            <tr>
+                            <tr class="{% if entity.blocked == 1 %} danger {% endif %}">
                                 <td>{{ entity.name }}</td>
                                 <td>{{ entity.firstname }}</td>
                                 <td>{{ entity.street }}</td>

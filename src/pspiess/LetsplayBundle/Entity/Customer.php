@@ -17,6 +17,15 @@ use Doctrine\Common\Collections\ArrayCollection;
 class Customer {
 
     /**
+     * @ORM\OneToMany(targetEntity="pspiess\LetsplayBundle\Entity\Booking", mappedBy="customer")
+     */
+    private $bookings;
+
+    public function __construct() {
+        $this->bookings = new ArrayCollection();
+    }
+    
+    /**
      * @var integer
      *
      * @ORM\Column(type="integer", name="id")
@@ -196,15 +205,13 @@ class Customer {
      * @ORM\Column(type="datetime", nullable=true, name="changed")
      */
     private $changed;
-
+    
     /**
-     * @ORM\OneToMany(targetEntity="pspiess\LetsplayBundle\Entity\Booking", mappedBy="customer")
+     * @var integer
+     *
+     * @ORM\Column(type="integer", nullable=true, name="blocked")
      */
-    private $bookings;
-
-    public function __construct() {
-        $this->bookings = new ArrayCollection();
-    }
+    private $blocked;
 
     /**
      * Get id
@@ -833,5 +840,28 @@ class Customer {
     public function getBookings()
     {
         return $this->bookings;
+    }
+
+    /**
+     * Set blocked
+     *
+     * @param integer $blocked
+     * @return Customer
+     */
+    public function setBlocked($blocked)
+    {
+        $this->blocked = $blocked;
+
+        return $this;
+    }
+
+    /**
+     * Get blocked
+     *
+     * @return integer 
+     */
+    public function getBlocked()
+    {
+        return $this->blocked;
     }
 }

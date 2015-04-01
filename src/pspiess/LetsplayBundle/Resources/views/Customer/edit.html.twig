@@ -9,162 +9,169 @@
 
 {% block body -%}
 
-<div class="page-content-area">
-    <div class="col-xs-12 col-sm-6">
-        <div class="widget-box">
-            <div class="widget-header">
-                <h4 class="widget-title">Ausgew&auml;lten Kunden anpassen</h4>
-            </div>
-            <div class="widget-body">
-                <div class="widget-main">
-                    {{ form_start(edit_form, {attr: {class: 'form-horizontal'}}) }}
-                    <div class="form-group">
-                        <div class="col-xs-12 col-sm-5 col-md-offset-2">
-                            <div>
-                            {% if edit_form.vars.value.path is not null %}
-                                <span class="profile-picture">
-                                    <img id="avatar" class="editable img-responsive" alt="{{ edit_form.vars.value.name }}"
-                                         src="{{ asset('resources/images/customer/' ~ edit_form.vars.value.id ~ '/' ~ edit_form.vars.value.path) }}" />
-                                </span>
-                            {% endif %}
-                                <div class="space-4"></div>
+    <div class="page-content-area">
+        <div class="col-xs-12 col-sm-6">
+            <div class="widget-box">
+                <div class="widget-header">
+                    <h4 class="widget-title">Ausgew&auml;lten Kunden anpassen</h4>
+                </div>
+                <div class="widget-body">
+                    <div class="widget-main">
+                        {{ form_start(edit_form, {attr: {class: 'form-horizontal'}}) }}
+                        <div class="form-group">
+                            <div class="col-xs-12 col-sm-5 col-md-offset-2">
+                                <div>
+                                    {% if edit_form.vars.value.path is not null %}
+                                        <span class="profile-picture">
+                                            <img id="avatar" class="editable img-responsive" alt="{{ edit_form.vars.value.name }}"
+                                                 src="{{ asset('resources/images/customer/' ~ edit_form.vars.value.id ~ '/' ~ edit_form.vars.value.path) }}" />
+                                        </span>
+                                    {% endif %}
+                                    <div class="space-4"></div>
+                                </div>
+                            </div>
+                            {#                        {{ form_label(edit_form.customernr, null, {'label_attr': {'class': 'col-sm-2'}}) }}
+                                                    <div class="col-sm-3">
+                                                        {{ form_widget (edit_form.customernr) }} 
+                                                    </div>#}
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(edit_form.picture, null, {'label_attr': {'class': 'col-sm-2'}}) }}
+                            <div class="col-sm-7">
+                                {{ form_widget(edit_form.picture) }} 
+                            </div>
+                        </div>              
+                        <div class="form-group">
+                            {{ form_label(edit_form.title, null, {'label_attr': {'class': 'col-sm-2'}}) }}
+                            <div class="col-sm-2">
+                                {{ form_widget (edit_form.title) }}
+                            </div>
+                            {{ form_label(edit_form.sex, null, {'label_attr': {'class': 'col-sm-5'}}) }}
+                            <div class="col-sm-3">
+                                {{ form_widget(edit_form.sex) }} 
                             </div>
                         </div>
-{#                        {{ form_label(edit_form.customernr, null, {'label_attr': {'class': 'col-sm-2'}}) }}
-                        <div class="col-sm-3">
-                            {{ form_widget (edit_form.customernr) }} 
-                        </div>#}
-                    </div>
-                    <div class="form-group">
-                        {{ form_label(edit_form.picture, null, {'label_attr': {'class': 'col-sm-2'}}) }}
-                        <div class="col-sm-7">
-                            {{ form_widget(edit_form.picture) }} 
-                        </div>
-                    </div>              
-                    <div class="form-group">
-                            {{ form_label(edit_form.title, null, {'label_attr': {'class': 'col-sm-2'}}) }}
-                        <div class="col-sm-2">
-                            {{ form_widget (edit_form.title) }}
-                        </div>
-                            {{ form_label(edit_form.sex, null, {'label_attr': {'class': 'col-sm-5'}}) }}
-                        <div class="col-sm-3">
-                            {{ form_widget(edit_form.sex) }} 
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        {{ form_label(edit_form.firstname, null, {'label_attr': {'class': 'col-sm-2'}}) }}
-                        <div class="col-sm-4">
-                            {{ form_widget(edit_form.firstname) }} 
-                        </div>
+                        <div class="form-group">
+                            {{ form_label(edit_form.firstname, null, {'label_attr': {'class': 'col-sm-2'}}) }}
+                            <div class="col-sm-4">
+                                {{ form_widget(edit_form.firstname) }} 
+                            </div>
                             {{ form_label(edit_form.name, null, {'label_attr': {'class': 'col-sm-1'}}) }}
-                        <div class="col-sm-5">
-                            {{ form_widget (edit_form.name) }}
+                            <div class="col-sm-5">
+                                {{ form_widget (edit_form.name) }}
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        {{ form_label(edit_form.birthday, null, {'label_attr': {'class': 'col-sm-2'}}) }}
-                        <div class="col-sm-4">
-                            {{ form_widget (edit_form.birthday) }}
+                        <div class="form-group">
+                            {{ form_label(edit_form.birthday, null, {'label_attr': {'class': 'col-sm-2'}}) }}
+                            <div class="col-sm-4">
+                                {{ form_widget (edit_form.birthday) }}
+                            </div>
+                            {{ form_label(edit_form.blocked, null, {'label_attr': {'class': 'col-sm-3'}}) }}
+                            <div class="col-sm-3">
+                                {{ form_widget (edit_form.blocked) }}
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        {{ form_label(edit_form.addon, null, {'label_attr': {'class': 'col-sm-2'}}) }}
-                        <div class="col-sm-10">
-                            {{ form_widget    (edit_form.addon) }} 
+                        <div class="form-group">
+
                         </div>
-                    </div>
-                    <div class="hr hr-24"></div>
-                    <div class="form-group">
-                        {{ form_label(edit_form.street, null, {'label_attr': {'class': 'col-sm-2'}}) }}
-                        <div class="col-sm-5">
-                            {{ form_widget (edit_form.street) }}
+                        <div class="form-group">
+                            {{ form_label(edit_form.addon, null, {'label_attr': {'class': 'col-sm-2'}}) }}
+                            <div class="col-sm-10">
+                                {{ form_widget    (edit_form.addon) }} 
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        {{ form_label(edit_form.zip, null, {'label_attr': {'class': 'col-sm-2'}}) }}
-                        <div class="col-sm-2">
-                            {{ form_widget (edit_form.zip) }}
+                        <div class="hr hr-24"></div>
+                        <div class="form-group">
+                            {{ form_label(edit_form.street, null, {'label_attr': {'class': 'col-sm-2'}}) }}
+                            <div class="col-sm-5">
+                                {{ form_widget (edit_form.street) }}
+                            </div>
                         </div>
-                        {#{{ form_label(edit_form.location, null, {'label_attr': {'class': 'col-sm-2'}}) }}#}
-                        <div class="col-sm-3">
-                            {{ form_widget    (edit_form.location) }} 
+                        <div class="form-group">
+                            {{ form_label(edit_form.zip, null, {'label_attr': {'class': 'col-sm-2'}}) }}
+                            <div class="col-sm-2">
+                                {{ form_widget (edit_form.zip) }}
+                            </div>
+                            {#{{ form_label(edit_form.location, null, {'label_attr': {'class': 'col-sm-2'}}) }}#}
+                            <div class="col-sm-3">
+                                {{ form_widget    (edit_form.location) }} 
+                            </div>
+                            {{ form_label(edit_form.country, null, {'label_attr': {'class': 'col-sm-1'}}) }}
+                            <div class="col-sm-4">
+                                {{ form_widget (edit_form.country) }}
+                            </div>
                         </div>
-                        {{ form_label(edit_form.country, null, {'label_attr': {'class': 'col-sm-1'}}) }}
-                        <div class="col-sm-4">
-                            {{ form_widget (edit_form.country) }}
+                        <div class="form-group">
+                            {{ form_label(edit_form.phone, null, {'label_attr': {'class': 'col-sm-2'}}) }}
+                            <div class="col-sm-3">
+                                {{ form_widget(edit_form.phone) }} 
+                            </div>
+                            {{ form_label(edit_form.fax, null, {'label_attr': {'class': 'col-sm-1'}}) }}
+                            <div class="col-lg-2">
+                                {{ form_widget (edit_form.fax) }}
+                            </div>
+                            {{ form_label(edit_form.mobile, null, {'label_attr': {'class': 'col-sm-1'}}) }}
+                            <div class="col-sm-3">
+                                {{ form_widget    (edit_form.mobile) }} 
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        {{ form_label(edit_form.phone, null, {'label_attr': {'class': 'col-sm-2'}}) }}
-                        <div class="col-sm-3">
-                            {{ form_widget(edit_form.phone) }} 
+                        <div class="hr hr-24"></div>
+                        <div class="form-group">
+                            {{ form_label(edit_form.bankOwner, null, {'label_attr': {'class': 'col-sm-2'}}) }}
+                            <div class="col-sm-4">
+                                {{ form_widget    (edit_form.bankOwner) }} 
+                            </div>
+                            {{ form_label(edit_form.bank, null, {'label_attr': {'class': 'col-sm-1'}}) }}
+                            <div class="col-sm-5">
+                                {{ form_widget    (edit_form.bank) }} 
+                            </div>
                         </div>
-                        {{ form_label(edit_form.fax, null, {'label_attr': {'class': 'col-sm-1'}}) }}
-                        <div class="col-lg-2">
-                            {{ form_widget (edit_form.fax) }}
+                        <div class="form-group">
+                            {{ form_label(edit_form.bic, null, {'label_attr': {'class': 'col-sm-2'}}) }}
+                            <div class="col-sm-4">
+                                {{ form_widget    (edit_form.bic) }} 
+                            </div>
+                            {{ form_label(edit_form.sepa, null, {'label_attr': {'class': 'col-sm-1'}}) }}
+                            <div class="col-sm-5">
+                                {{ form_widget    (edit_form.sepa) }} 
+                            </div>
                         </div>
-                        {{ form_label(edit_form.mobile, null, {'label_attr': {'class': 'col-sm-1'}}) }}
-                        <div class="col-sm-3">
-                            {{ form_widget    (edit_form.mobile) }} 
+                        <div class="form-group">
+                            {{ form_label(edit_form.discount, null, {'label_attr': {'class': 'col-sm-2'}}) }}
+                            <div class="col-sm-4">
+                                {{ form_widget    (edit_form.discount) }} 
+                            </div>
+                            {{ form_label(edit_form.cashing, null, {'label_attr': {'class': 'col-sm-1'}}) }}
+                            <div class="col-sm-5">
+                                {{ form_widget    (edit_form.cashing) }} 
+                            </div>
                         </div>
-                    </div>
-                    <div class="hr hr-24"></div>
-                    <div class="form-group">
-                        {{ form_label(edit_form.bankOwner, null, {'label_attr': {'class': 'col-sm-2'}}) }}
-                        <div class="col-sm-4">
-                            {{ form_widget    (edit_form.bankOwner) }} 
+                        <div class="form-group">
+                            {{ form_label(edit_form.note, null, {'label_attr': {'class': 'col-sm-2'}}) }}
+                            <div class="col-sm-10">
+                                {{ form_widget(edit_form.note) }} 
+                            </div>
                         </div>
-                        {{ form_label(edit_form.bank, null, {'label_attr': {'class': 'col-sm-1'}}) }}
-                        <div class="col-sm-5">
-                            {{ form_widget    (edit_form.bank) }} 
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        {{ form_label(edit_form.bic, null, {'label_attr': {'class': 'col-sm-2'}}) }}
-                        <div class="col-sm-4">
-                            {{ form_widget    (edit_form.bic) }} 
-                        </div>
-                        {{ form_label(edit_form.sepa, null, {'label_attr': {'class': 'col-sm-1'}}) }}
-                        <div class="col-sm-5">
-                            {{ form_widget    (edit_form.sepa) }} 
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        {{ form_label(edit_form.discount, null, {'label_attr': {'class': 'col-sm-2'}}) }}
-                        <div class="col-sm-4">
-                            {{ form_widget    (edit_form.discount) }} 
-                        </div>
-                        {{ form_label(edit_form.cashing, null, {'label_attr': {'class': 'col-sm-1'}}) }}
-                        <div class="col-sm-5">
-                            {{ form_widget    (edit_form.cashing) }} 
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        {{ form_label(edit_form.note, null, {'label_attr': {'class': 'col-sm-2'}}) }}
-                        <div class="col-sm-10">
-                            {{ form_widget(edit_form.note) }} 
-                        </div>
-                    </div>
-                    <div class="hr hr-24"></div>
-                    <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-1">
-                            <a class="btn btn-info" href="{{ path('pspiess_letsplay_customer') }}">zur&uuml;ck</a>
-                        </div>
-                        <div class="col-sm-offset-1 col-sm-1">
-                           {{ form_widget(edit_form.submit) }}
-                        </div>
-                        {{ form_end(edit_form) }}
-                        <div class="col-sm-offset-1 col-sm-1">
-                        {{ form_start(delete_form) }}
-                            <button type="submit" class="btn btn-danger">
-                                löschen
-                            </button>
-                        {{ form_end(delete_form) }}
+                        <div class="hr hr-24"></div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-1">
+                                <a class="btn btn-info" href="{{ path('pspiess_letsplay_customer') }}">zur&uuml;ck</a>
+                            </div>
+                            <div class="col-sm-offset-1 col-sm-1">
+                                {{ form_widget(edit_form.submit) }}
+                            </div>
+                            {{ form_end(edit_form) }}
+                            <div class="col-sm-offset-1 col-sm-1">
+                                {{ form_start(delete_form) }}
+                                <button type="submit" class="btn btn-danger">
+                                    löschen
+                                </button>
+                                {{ form_end(delete_form) }}
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div><!-- /.span -->
-    </div><!-- /.row -->    
-</div>
+            </div><!-- /.span -->
+        </div><!-- /.row -->    
+    </div>
 {% endblock %}
