@@ -54,6 +54,9 @@ class BookingController extends Controller {
             if ($obj->getCategory()) {
                 $sCategory = ' - ' . $obj->getCategory()->getAcronym();
                 $iCategoryId = $obj->getCategory()->getId();
+            } else {
+                $sCategory = '';
+                $iCategoryId = 0;
             }
             $rows[] = array(
                 'id' => $obj->getId(),

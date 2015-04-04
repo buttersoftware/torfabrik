@@ -179,10 +179,10 @@ class InvoiceController extends Controller {
             $entInvoicepos->setDescription('Sofortrabatt');
             $entInvoicepos->setPos($decTotalTime + 1); //Position
             $entInvoicepos->setQuantity(1);
-            $entInvoicepos->setTotalPrice(($decTotalTime + 1) * $entInvoicepos->getPrice());
-            $entInvoicepos->setDiscount(($decTotalTime + 1) * $entInvoicepos->getPrice());
+            $entInvoicepos->setTotalPrice(($decTotalTime) * $entInvoicepos->getPrice());
+            $entInvoicepos->setDiscount(($decTotalTime) * $entInvoicepos->getPrice());
             $entInvoicepos->setTax(0);
-            $decTotalPrice = (float) $entInvoicepos->getPrice() + $decTotalPrice;
+            $decTotalPrice = (float) $entInvoicepos->getTotalPrice() + $decTotalPrice;
             $entInvoice->addInvoicepos($entInvoicepos);
         }
 
