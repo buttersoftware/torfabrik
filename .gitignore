@@ -34,3 +34,8 @@ src/pspiess/LetsplayBundle/Entity/Field.php~
 /src/pspiess/Acme/
 nbproject/private/private.xml
 src/pspiess/LetsplayBundle/Entity/Cashingup.php~
+src/pspiess/LetsplayBundle/Entity/Category.php~
+nbproject/private/private.xml
+src/pspiess/LetsplayBundle/Entity/Customer.php~
+*.php~
+*.php~

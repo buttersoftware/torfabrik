@@ -62,7 +62,7 @@ class Cashingup
     /**
      * @var string
      *
-     * @ORM\Column(name="note", type="text")
+     * @ORM\Column(name="note", nullable=true, type="text")
      */
     private $note;
 

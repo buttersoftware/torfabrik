@@ -46,32 +46,32 @@ class InvoiceController extends Controller {
      */
     public function createAction(Request $request) {
         $entity = new Invoice();
-        
+
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();   
-            
+            $em = $this->getDoctrine()->getManager();
+
             $entity->setInvoiceNumber($em->getRepository('pspiessLetsplayBundle:Invoice')->getNextInviceNumber());
             foreach ($entity->getInvoicepos() as $entInvoice) {
                 $entity->addInvoicepos($entInvoice);
             }
-            
+
             $em->persist($entity);
             $em->flush();
-            
+
             $entBooking = $em->getRepository('pspiessLetsplayBundle:Booking')->find($entity->getBookingId());
             $entBooking->setInvoiceId($entity->getId());
-            
+
             $em->persist($entBooking);
             $em->flush();
-            
+
             $entPayofficepos = new Payofficepos();
             $entPayofficepos->setAmount($entity->getPaidPrice());
             $entPayofficepos->setDate(new \DateTime);
             $entPayofficepos->setInvoice($entity);
-            
+
             //Todo need to check for the user
             $entPayoffice = $em->getRepository('pspiessLetsplayBundle:Payoffice')->getOnePayoffice();
             if ($entPayoffice == null) {
@@ -82,7 +82,7 @@ class InvoiceController extends Controller {
             $em->persist($entPayoffice);
             $em->flush();
         }
-        
+
         return $this->redirect($this->generateUrl('pspiess_letsplay_invoice_show', array('id' => $entity->getId())));
     }
 
@@ -115,7 +115,7 @@ class InvoiceController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $entBooking = $em->getRepository('pspiessLetsplayBundle:Booking')->find($id);
         $entInvoice = new Invoice();
-        
+
         $entInvoice->setBookingId($entBooking->Getid()); //ToDo
         $entInvoice->setInvoiceNumber($em->getRepository('pspiessLetsplayBundle:Invoice')->getNextInviceNumber()); //ToDo
         $entInvoice->setTaxNumber("117/5079/1565"); //ToDo 
@@ -147,11 +147,10 @@ class InvoiceController extends Controller {
         for ($dDate = $dDateStart; $dDate < $dDateEnd; $dDate->modify("+30 minutes")) {
             $entInvoicepos = new Invoicepos();
 
-            //Standart Preis
             $entInvoicepos->setPrice(20);
             $entInvoicepos->setProduct('Spielzeit - 30 Minuten');
             $entInvoicepos->setDescription("Kein Preis hinterlegt");
-
+            
             foreach ($entBooking->getField()->GetPrice() as $obj) {
                 if ($dDate->format('H:i:s') >= $obj->GetTimefrom()->format('H:i:s') && $dDate->format('H:i:s') <= $obj->GetTimeto()->format('H:i:s') && ((int) $dDate->format('N')) - 1 >= $obj->getWeekDayFrom() && ((int) $dDate->format('N')) - 1 <= $obj->getWeekDayto()) {
                     $entInvoicepos->setPrice($obj->GetPrice() / 2);
@@ -194,7 +193,7 @@ class InvoiceController extends Controller {
 //        $em->persist($entInvoice);
 //        $em->flush($entInvoice); // ohne flush gibt es keine verknüpfung in der Form... warum?
         $form = $this->createCreateForm($entInvoice);
-        
+
         return array(
             'entity' => $entInvoice,
             'data' => 'TEST',
