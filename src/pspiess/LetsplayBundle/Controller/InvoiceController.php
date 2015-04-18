@@ -143,6 +143,7 @@ class InvoiceController extends Controller {
         $dDate = $dDateStart;
         $decTotalTime = 0;
         $decTotalPrice = 0.0;
+        $decDiscount = 0.0;
 
         for ($dDate = $dDateStart; $dDate < $dDateEnd; $dDate->modify("+30 minutes")) {
             $entInvoicepos = new Invoicepos();
@@ -150,19 +151,22 @@ class InvoiceController extends Controller {
             $entInvoicepos->setPrice(20);
             $entInvoicepos->setProduct('Spielzeit - 30 Minuten');
             $entInvoicepos->setDescription("Kein Preis hinterlegt");
-            
+
+            $tempDate = new \DateTime($dDate->format('H:i:s'));
+            $tempDate->modify("+30 minutes");
+                    
             foreach ($entBooking->getField()->GetPrice() as $obj) {
                 if ($dDate->format('H:i:s') >= $obj->GetTimefrom()->format('H:i:s') && $dDate->format('H:i:s') <= $obj->GetTimeto()->format('H:i:s') && ((int) $dDate->format('N')) - 1 >= $obj->getWeekDayFrom() && ((int) $dDate->format('N')) - 1 <= $obj->getWeekDayto()) {
                     $entInvoicepos->setPrice($obj->GetPrice() / 2);
                     $entInvoicepos->setProduct('Spielzeit - 30 Minuten');
-                    $entInvoicepos->setDescription($dDate->format('H:i:s') . ' - ' . $obj->GetIndentifier());
+                    $entInvoicepos->setDescription($dDate->format('H:i') . ' - ' . $tempDate->format('H:i') . ', ' . $obj->GetIndentifier());
                 }
             }
-
+            
+            $decDiscount =  $decDiscount + $this->GetDiscount($entBooking, $decTotalTime);
             $decTotalPrice = (float) $entInvoicepos->getPrice() + $decTotalPrice;
 
             $decTotalTime++;
-//            echo $dDate->format('H:i:s') .'>='. $obj->GetTimefrom()->format('H:i:s') .'&&'. $dDate->format('H:i:s') .'<='. $obj->GetTimeto()->format('H:i:s').'<br>';
             $entInvoicepos->setPos($decTotalTime); //Position
             $entInvoicepos->setQuantity(1);
             $entInvoicepos->setTotalPrice($entInvoicepos->getQuantity() * $entInvoicepos->getPrice());
@@ -170,21 +174,22 @@ class InvoiceController extends Controller {
             $entInvoicepos->setTax(0);
             $entInvoice->addInvoicepos($entInvoicepos);
         }
-
-        if ($entBooking->getCustomer()->getDiscount() > 0) {
+        
+        //GetDiscount
+        if ($decDiscount < 0.0) {
             $entInvoicepos = new Invoicepos();
             $entInvoicepos->setPrice($entBooking->getCustomer()->getDiscount() * (- 1));
             $entInvoicepos->setProduct('Rabatt');
             $entInvoicepos->setDescription('Sofortrabatt');
             $entInvoicepos->setPos($decTotalTime + 1); //Position
             $entInvoicepos->setQuantity(1);
-            $entInvoicepos->setTotalPrice(($decTotalTime) * $entInvoicepos->getPrice());
-            $entInvoicepos->setDiscount(($decTotalTime) * $entInvoicepos->getPrice());
+            $entInvoicepos->setTotalPrice($decDiscount);
+            $entInvoicepos->setDiscount($decDiscount);
             $entInvoicepos->setTax(0);
-            $decTotalPrice = (float) $entInvoicepos->getTotalPrice() + $decTotalPrice;
             $entInvoice->addInvoicepos($entInvoicepos);
+            $decTotalPrice = (float) $entInvoicepos->getTotalPrice() + $decDiscount;
         }
-
+        
         $entInvoice->setTotalPrice($decTotalPrice);
         $entInvoice->setTotalPricenet($decTotalPrice / (19 / 100 + 1));
         $entInvoice->setTax($entInvoice->getTotalPrice() - $entInvoice->getTotalPricenet());
@@ -199,6 +204,20 @@ class InvoiceController extends Controller {
             'data' => 'TEST',
             'form' => $form->createView(),
         );
+    }
+    
+    private function GetDiscount (\pspiess\LetsplayBundle\Entity\Booking $entBooking, $iPosition) {
+        $dTimeDiscountFrom = new \DateTime('now');
+        $dTimeDiscountTo = new \DateTime('now');
+        $dTimeDiscountFrom->setTime(17, 00);
+        $dTimeDiscountTo->setTime(22, 00);
+        
+        if ($entBooking->getCustomer()->getDiscount() > 0 
+        && $entBooking->getStart()->format('H:i:s') >= $dTimeDiscountFrom->format('H:i:s') && $entBooking->getStart()->format('H:i:s') < $dTimeDiscountTo->format('H:i:s') 
+        && ((int) $entBooking->getStart()->format('N')) - 1 >= 0 && ((int) $entBooking->getStart()->format('N')) - 1 <= 4) {
+            return $entBooking->getCustomer()->getDiscount() * (- 1);
+        }
+        return 0.0;
     }
 
     /**

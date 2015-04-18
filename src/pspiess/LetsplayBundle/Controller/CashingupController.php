@@ -72,7 +72,7 @@ class CashingupController extends Controller {
             'form' => $form->createView(),
         );
     }
-    
+
     /**
      * Creates a form to create a Cashingup entity.
      *
@@ -100,15 +100,20 @@ class CashingupController extends Controller {
      */
     public function newAction() {
         $em = $this->getDoctrine()->getManager();
-
-        $arrPayofficepos = $em->getRepository('pspiessLetsplayBundle:Payofficepos')->GetOnePayofficeposByDate();
-
+        
         $entCachingup = new Cashingup();
-        foreach ($arrPayofficepos as $row) {
+        
+        $arrPayofficeposBar = $em->getRepository('pspiessLetsplayBundle:Payofficepos')->GetOnePayofficeposByDate();
+        foreach ($arrPayofficeposBar as $row) {
             $entCachingup->setNominal($row['total']);
-            $entCachingup->setDaydate(new \DateTime($row['date']));
         }
-
+        
+        $arrPayofficeposEc = $em->getRepository('pspiessLetsplayBundle:Payofficepos')->GetOnePayofficeposByDate('EC Karte');
+        foreach ($arrPayofficeposEc as $row) {
+            $entCachingup->setNominalec($row['total']);
+        }
+        
+        $entCachingup->setDaydate(new \DateTime($row['date']));
         $form = $this->createCreateForm($entCachingup);
 
         return array(
@@ -132,11 +137,11 @@ class CashingupController extends Controller {
             throw $this->createNotFoundException('Unable to find Cashingup entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
+//        $deleteForm = $this->createDeleteForm($id);
 
         return array(
             'entity' => $entity,
-            'delete_form' => $deleteForm->createView(),
+//            'delete_form' => $deleteForm->createView(),
         );
     }
 
