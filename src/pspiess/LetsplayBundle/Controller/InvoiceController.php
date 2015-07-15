@@ -187,7 +187,7 @@ class InvoiceController extends Controller {
             $entInvoicepos->setDiscount($decDiscount);
             $entInvoicepos->setTax(0);
             $entInvoice->addInvoicepos($entInvoicepos);
-            $decTotalPrice = (float) $entInvoicepos->getTotalPrice() + $decDiscount;
+            $decTotalPrice = (float) $decTotalPrice + $decDiscount;
         }
         
         $entInvoice->setTotalPrice($decTotalPrice);
