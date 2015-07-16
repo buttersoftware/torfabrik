@@ -1,41 +1,39 @@
-/web/bundles/
-/app/bootstrap.php.cache
+# Cache and logs (Symfony2)
 /app/cache/*
-/app/config/parameters.yml
 /app/logs/*
 !app/cache/.gitkeep
 !app/logs/.gitkeep
-/nbproject/
-/build/
+
+# Cache and logs (Symfony3)
+/var/cache/*
+/var/logs/*
+!var/cache/.gitkeep
+!var/logs/.gitkeep
+
+# Parameters
+/app/config/parameters.yml
+/app/config/parameters.ini
+
+# Managed by Composer
+/app/bootstrap.php.cache
+/var/bootstrap.php.cache
+/bin/*
+!bin/console
+!bin/symfony_requirements
 /vendor/
-/bin/
+
+# Assets and user uploads
+/web/bundles/
+/web/uploads/
+
+# PHPUnit
+/app/phpunit.xml
+/phpunit.xml
+
+# Build data
+/build/
+
+# Composer PHAR
 /composer.phar
-nbproject/private/private.xml
-nbproject/private/private.xml
-app/config/config_1.yml
-.idea/.name
-.idea/deployment.xml
-.idea/encodings.xml
-.idea/misc.xml
-.idea/modules.xml
-.idea/scopes/scope_settings.xml
-.idea/workspace.xml
-.idea/vcs.xml
-.idea/torfabrik.iml
-app/config/config_1.yml
-nbproject/private/private.xml
-nbproject/private/private.xml
-nbproject/private/private.properties
-src/pspiess/LetsplayBundle/Entity/Booking.php~
-src/pspiess/LetsplayBundle/Entity/Invoice.php~
-composer.lock
-composer.lock
-src/pspiess/LetsplayBundle/Entity/Field.php~
-/src/pspiess/Acme/
-nbproject/private/private.xml
-src/pspiess/LetsplayBundle/Entity/Cashingup.php~
-src/pspiess/LetsplayBundle/Entity/Category.php~
-nbproject/private/private.xml
-src/pspiess/LetsplayBundle/Entity/Customer.php~
-*.php~
+
 *.php~
