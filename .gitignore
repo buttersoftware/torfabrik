@@ -30,6 +30,12 @@
 /app/phpunit.xml
 /phpunit.xml
 
+# netbeans
+/nbproject
+
+# phpstorm
+/nbproject
+
 # Build data
 /build/
 
