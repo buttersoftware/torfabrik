@@ -40,7 +40,10 @@
         "twbs/bootstrap": "3.0.*",
         "jquery/jquery":  "1.10.*",
         "jms/serializer-bundle": "~0.13",
-        "friendsofsymfony/jsrouting-bundle": "~1.5"
+        "friendsofsymfony/jsrouting-bundle": "~1.5",
+        "sonata-project/admin-bundle": "~2.3",
+        "knplabs/knp-paginator-bundle": "~2.4",
+        "genemu/form-bundle": "2.2.*"
     },
     "scripts": {
         "post-install-cmd": [
