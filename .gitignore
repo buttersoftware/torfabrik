@@ -33,9 +33,11 @@
 
 # netbeans
 /nbproject/*
+nbproject/private/*
 
 # phpstorm
 /.idea/*
+.idea/symfony2.xml
 
 # Build data
 /build/
