@@ -34,7 +34,7 @@
 /nbproject
 
 # phpstorm
-/nbproject
+/.idea
 
 # Build data
 /build/
