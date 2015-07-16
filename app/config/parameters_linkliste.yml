@@ -1,0 +1,14 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_driver: pdo_mysql
+    database_host: localhost
+    database_port: 53356
+    database_name: gentkow_lln_site
+    database_user: i0159001
+    database_password: VAsD654HT&SktC
+    mailer_transport: gmail
+    mailer_host: 127.0.0.1
+    mailer_user: 
+    mailer_password: 
+    locale: de
+    secret: 06114161b8d82d911a2fc008121724f3888f0930

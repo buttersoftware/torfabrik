@@ -1,6 +1,22 @@
 pspiess_letsplay_customer:
     pattern:  /admin/customer
     defaults: { _controller: pspiessLetsplayBundle:Customer:index }
+    
+pspiess_letsplay_customer_new:
+    pattern:  /admin/customer/new
+    defaults: { _controller: pspiessLetsplayBundle:Customer:new }
+    options:
+        expose: true
+
+pspiess_letsplay_customer_create:
+    pattern:  /admin/customer/create
+    defaults: { _controller: pspiessLetsplayBundle:Customer:create }
+    
+pspiess_letsplay_customer_get:
+    pattern:  /admin/customer/{keyword}
+    defaults: { _controller: pspiessLetsplayBundle:Customer:getCustomer, _format: json }
+    options:
+        expose: true
 
 pspiess_letsplay_customer_getall:
     pattern:  /admin/customer/getall/
@@ -8,16 +24,6 @@ pspiess_letsplay_customer_getall:
     options:
         expose: true
     requirements: { _format: (xml|json), _method: GET }
-    
-pspiess_letsplay_customer_new:
-    pattern:  /admin/customer/new
-    defaults: { _controller: pspiessLetsplayBundle:Customer:new }
-    options:
-        expose: true
-    
-pspiess_letsplay_customer_create:
-    pattern:  /admin/customer/create
-    defaults: { _controller: pspiessLetsplayBundle:Customer:create }
     
 pspiess_letsplay_customer_edit:
     pattern:  /admin/customer/edit/{id}

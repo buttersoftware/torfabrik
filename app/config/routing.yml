@@ -1,8 +1,12 @@
+pspiess_blog:
+    resource: "@pspiessBlogBundle/Resources/config/routing.yml"
+    prefix:   /
+
 fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
     
 pspiess_letsplay:
-    resource: "@pspiessLetsplayBundle/Controller/"
+#    resource: "@pspiessLetsplayBundle/Controller/"
     resource: "@pspiessLetsplayBundle/Resources/config/routing.yml"
     prefix:   /
     

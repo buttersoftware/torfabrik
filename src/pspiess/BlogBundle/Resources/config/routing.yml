@@ -1,0 +1,105 @@
+pspiess_blog_advertise:
+   path:     /advertise
+   defaults: { _controller: pspiessBlogBundle:Main:advertise }
+
+pspiess_blog_impressum:
+   path:     /impressum
+   defaults: { _controller: pspiessBlogBundle:Main:impressum }
+   
+pspiess_blog_partners:
+   path:     /partners
+   defaults: { _controller: pspiessBlogBundle:Main:partners }
+
+login:
+    pattern:  /login
+    defaults: { _controller: pspiessBlogBundle:Security:login }
+    
+login_check:
+    pattern:  /login_check
+    defaults: { _controller: pspiessBlogBundle:Security:logincheck }
+    
+#login_check:
+#    path:  /login_check
+    
+logout:
+    pattern:  /logout
+    defaults: { _controller: pspiessBlogBundle:Security:logout }
+    
+pspiess_blog_homepage:
+    pattern:  /index
+    defaults: { _controller: pspiessBlogBundle:Main:index }
+ 
+#Blog 
+pspiess_blog_blog:
+    pattern:  /blog
+    defaults: { _controller: pspiessBlogBundle:Blog:index }
+    
+pspiess_blog_blog_new:
+    pattern:  /blog/new
+    defaults: { _controller: pspiessBlogBundle:Blog:new }
+    
+pspiess_blog_blog_create:
+    pattern:  /blog/create
+    defaults: { _controller: pspiessBlogBundle:Blog:create }
+    
+pspiess_blog_blog_edit:
+    pattern:  /blog/edit/{id}
+    defaults: { _controller: pspiessBlogBundle:Blog:edit }
+    
+pspiess_blog_blog_update:
+    pattern:  /blog/update/{id}
+    defaults: { _controller: pspiessBlogBundle:Blog:update }
+    
+pspiess_blog_blog_delete:
+    pattern:  /blog/delete/{id}
+    defaults: { _controller: pspiessBlogBundle:Blog:delete }
+
+#Maincategory
+pspiess_blog_maincategory:
+    pattern:  /maincategory
+    defaults: { _controller: pspiessBlogBundle:Maincategory:index }
+    
+pspiess_blog_maincategory_new:
+    pattern:  /maincategory/new
+    defaults: { _controller: pspiessBlogBundle:Maincategory:new }
+    
+pspiess_blog_maincategory_create:
+    pattern:  /maincategory/create
+    defaults: { _controller: pspiessBlogBundle:Maincategory:create }
+    
+pspiess_blog_maincategory_edit:
+    pattern:  /maincategory/edit/{id}
+    defaults: { _controller: pspiessBlogBundle:Maincategory:edit }
+    
+pspiess_blog_maincategory_update:
+    pattern:  /maincategory/update/{id}
+    defaults: { _controller: pspiessBlogBundle:Maincategory:update }
+    
+pspiess_blog_maincategory_delete:
+    pattern:  /maincategory/delete/{id}
+    defaults: { _controller: pspiessBlogBundle:Maincategory:delete }
+    
+#Subcategory
+pspiess_blog_subcategory:
+    pattern:  /subcategory
+    defaults: { _controller: pspiessBlogBundle:Subcategory:index }
+    
+pspiess_blog_subcategory_new:
+    pattern:  /subcategory/new
+    defaults: { _controller: pspiessBlogBundle:Subcategory:new }
+    
+pspiess_blog_subcategory_create:
+    pattern:  /subcategory/create
+    defaults: { _controller: pspiessBlogBundle:Subcategory:create }
+    
+pspiess_blog_subcategory_edit:
+    pattern:  /subcategory/edit/{id}
+    defaults: { _controller: pspiessBlogBundle:Subcategory:edit }
+    
+pspiess_blog_subcategory_update:
+    pattern:  /subcategory/update/{id}
+    defaults: { _controller: pspiessBlogBundle:Subcategory:update }
+    
+pspiess_blog_subcategory_delete:
+    pattern:  /subcategory/delete/{id}
+    defaults: { _controller: pspiessBlogBundle:Subcategory:delete }

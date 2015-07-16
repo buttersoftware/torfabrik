@@ -39,18 +39,32 @@ class Cashingup
     private $changed;
 
     /**
-     * @var string
+     * @var decimal
      *
      * @ORM\Column(name="nominal", type="decimal", precision=6, scale=2)
      */
     private $nominal;
 
     /**
-     * @var string
+     * @var decimal
      *
      * @ORM\Column(name="actual", type="decimal", precision=6, scale=2)
      */
     private $actual;
+    
+    /**
+     * @var decimal
+     *
+     * @ORM\Column(name="nominalec", type="decimal", precision=6, scale=2)
+     */
+    private $nominalec;
+
+    /**
+     * @var decimal
+     *
+     * @ORM\Column(name="actualec", type="decimal", precision=6, scale=2)
+     */
+    private $actualec;
 
     /**
      * @var \DateTime
@@ -213,5 +227,51 @@ class Cashingup
     public function getNote()
     {
         return $this->note;
+    }
+
+    /**
+     * Set nominalec
+     *
+     * @param string $nominalec
+     * @return Cashingup
+     */
+    public function setNominalec($nominalec)
+    {
+        $this->nominalec = $nominalec;
+
+        return $this;
+    }
+
+    /**
+     * Get nominalec
+     *
+     * @return string 
+     */
+    public function getNominalec()
+    {
+        return $this->nominalec;
+    }
+
+    /**
+     * Set actualec
+     *
+     * @param string $actualec
+     * @return Cashingup
+     */
+    public function setActualec($actualec)
+    {
+        $this->actualec = $actualec;
+
+        return $this;
+    }
+
+    /**
+     * Get actualec
+     *
+     * @return string 
+     */
+    public function getActualec()
+    {
+        return $this->actualec;
     }
 }

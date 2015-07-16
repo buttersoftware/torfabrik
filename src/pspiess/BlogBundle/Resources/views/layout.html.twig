@@ -1,0 +1,42 @@
+{% extends '::base_blog.html.twig' %}
+
+{% block title %}Layout{% endblock %}
+
+{% block stylesheets %}
+    <!-- bootstrap & fontawesome -->
+{#        <link href="{{ asset('resources/css/bootstrap.css')}}" rel="stylesheet">#}
+        <link href="{{ asset('resources/css/font-awesome.min.css')}}" rel="stylesheet">
+    <!-- page specific plugin styles -->
+
+    <!-- CSS STYLES -->
+    <link href="{{ asset('resources/css/blog/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{ asset('resources/css/blog/prettyPhoto.css')}}" rel="stylesheet">
+    <link href="{{ asset('resources/css/blog/flexslider.css')}}" rel="stylesheet">
+    <link href="{{ asset('resources/css/blog/animate.css')}}" rel="stylesheet">
+    <link href="{{ asset('resources/css/blog/style.css')}}" rel="stylesheet">
+
+    <!-- Fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Sail' rel='stylesheet' type='text/css'>
+
+{% endblock %}
+
+{% block navigation %}
+{% block nav %}{% endblock %}    
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('resources/js/blog/jquery.min.js')}}" type="text/javascript"></script>
+    <script src="{{ asset('resources/js/blog/bootstrap.min.js')}}" type="text/javascript"></script>
+    <script src="{{ asset('resources/js/blog/parallax.js')}}" type="text/javascript"></script>
+    <script src="{{ asset('resources/js/blog/Vague.js')}}" type="text/javascript"></script>
+    <script src="{{ asset('resources/js/blog/jquery.prettyPhoto.js')}}" type="text/javascript"></script>
+    <script src="{{ asset('resources/js/blog/jquery-ui.min.js')}}" type="text/javascript"></script>
+    <script src="{{ asset('resources/js/blog/jquery.isotope.min.js')}}" type="text/javascript"></script>
+    <script src="{{ asset('resources/js/blog/sorting.js')}}" type="text/javascript"></script>
+    <script src="{{ asset('resources/js/blog/jquery.twitter.js')}}" type="text/javascript"></script>
+    <script src="{{ asset('resources/js/blog/superfish.min.js')}}" type="text/javascript"></script>
+    <script src="{{ asset('resources/js/blog/jquery.flexslider-min.js')}}" type="text/javascript"></script>
+    <script src="{{ asset('resources/js/blog/animate.js')}}" type="text/javascript"></script>
+    <script src="{{ asset('resources/js/blog/myscript.js')}}" type="text/javascript"></script>
+{% endblock %}

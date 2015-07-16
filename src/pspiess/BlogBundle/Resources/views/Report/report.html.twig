@@ -1,0 +1,49 @@
+<link href="{{ asset('resources/css/blog/jquery-ui.min.css') }}" rel="stylesheet">
+<link href="{{ asset('resources/css/blog/jquery-ui.custom.min.css') }}" rel="stylesheet">
+
+<div id="dialog-message" class="hide">
+    <form>
+        <div class="form-group">
+            <input type="text" class="form-control" id="link" placeholder="Link">
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" id="email" placeholder="Email (optional)">
+        </div>
+        <div class="form-group">
+            <select name="problem" class="form-control form-control-custom">
+                <option value="0">Der Link ist falsch.</option>
+                <option value="1">Die Adresse ist falsch.</option>
+                <option value="2">Der Banner ist falsch.</option>
+                <option value="3">Sonstige Probleme.</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <textarea name="report-message " id="report-message" placeholder="Bitte hier Ihre Nachricht eingeben"></textarea>
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript">
+    function showDialog(linkname) {
+        $("#link").val(linkname);
+        $("#report-message").val('');
+        var dialog = $("#dialog-message").removeClass('hide').dialog({
+            modal: true,
+            title: "Ein Problem melden",
+            title_html: true,
+            width: 500,
+            minHeight: 400,
+            buttons: [
+                {
+                    text: "melden",
+                    "class": "btn btn-primary btn-xs",
+                    click: function () {
+                        window.location.href = Routing.generate('pspiess_letsplay_customer_new'),
+                                $(this).dialog("close");
+                    }
+                }
+            ]
+        });
+        $("#add_reservation").attr("disabled", "disabled");
+    }
+</script>

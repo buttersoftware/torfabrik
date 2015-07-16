@@ -1,0 +1,190 @@
+{% extends 'pspiessBlogBundle::layout.html.twig' %}
+
+{% block title %}Linkliste.NRW - Die Welt zu Gast in NRW{% endblock %}
+
+{% block stylesheets %}
+    {{ parent()}}
+    <link href="{{ asset('resources/css/jquery-ui.min.css')}}" rel="stylesheet">
+    <link href="{{ asset('resources/css/jquery-ui.custom.min.css')}}" rel="stylesheet">
+    <link href="{{ asset('resources/css/fullcalendar.css')}}" rel="stylesheet">
+    <link href="{{ asset('resources/css/datepicker.css')}}" rel="stylesheet">
+{% endblock %}
+
+{% block body -%}
+    <div class="page_block">
+        {{ include('pspiessBlogBundle:Elements:header.html.twig') }}
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-sm-12">
+                    <div class="sorting_options clearfix">
+                        <form class="search_form" method="get" action="{{ url('pspiess_blog_homepage') }}">
+                            <div class="col-md-4">
+                                <input type="text" name="keyword" value="{{ keyword }}" onFocus="
+                                        if (this.value == 'Bitte hier Suchbegriff eingeben...')
+                                            this.value = '';" onBlur="" />
+                            </div>
+                            <div class="col-md-4">
+                                <select name="maincategory" class="form-control form-control-custom" onchange="this.form.submit()">
+                                    <option value="">Bitte hier Hauptkategorie auswählen...</option>
+                                    {% for row in maincategory %}
+                                        <option {% if maincategory_selected == row.id %} selected {% endif %} value="{{ row.id }}">{{ row.description }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <select name="subcategory" class="form-control form-control-custom" onchange="this.form.submit()">
+                                    <option value="">Bitte hier Unterkategorie auswählen...</option>
+                                    {% for row in subcategory %}
+                                        <option {% if subcategory_selected == row.id %} selected {% endif %} value="{{ row.id }}">{{ row.description }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+{#
+                    {% for entity in entities|slice(0,1)%}
+                        <div class="col-lg-12 col-sm-12" style="padding-bottom:2px;">
+                            &#123;&#35;<span class="label label-info">exclusiv</span> &#35;&#125;
+                            <span class="label label-success">heute neu</span>
+                            <span class="label label-warning">gestern neu</span>
+                            <span class="label label-danger">vorgestern neu</span>        
+                        </div>
+                    {% endfor %}
+#}
+
+                    <table class="table table-hover table-striped table-condensed">
+                        <tbody>
+                            {% for entity in staticentities %}
+                                <tr class="toggle" id="{{ entity.id }}">
+                                    <td>
+                                        <a href="{{ entity.website }}" target="_blank">
+                                            <img class="banner468" title="{{ entity.blogname }}" onError="this.src='';this.alt='';" class="editable img-responsive" alt="{{ entity.blogname }}" src="{{ asset('resources/images/blog/' ~ entity.id ~ '/' ~ entity.path) }}" />
+                                        </a>
+                                    </td>
+                                    <td> 
+{#                                        <a title="Zus&auml;tzliche Informationen &auml;ndern" id="{{ entity.id }}" class="btn btn-info btn-mini toggle"><i class="icon-plus-sign"></i></a>#}
+                                        <img class="" onError="this.src='';this.alt='';" class="editable img-responsive" alt="{{ entity.blogname }}" src="{{ asset('resources/images/blog/' ~ entity.id ~ '/' ~ entity.faviconpath) }}" />
+                                    </td>
+                                    <td>{{ entity.blogname }}</td>
+
+                                    <td>{{ entity.street }}</td>
+                                    <td>{{ entity.zip }}</td>
+                                    <td>{{ entity.location }}</td>
+                                    <td><a rel="popover400" data-container="body" href="{{ entity.website }}" target="_blank" data-img="https://thumber.de/image/?size=XL3DL&bg=FFFFFF&url={{ entity.thumbnail }}">Webseite</a></td>
+                                    <td><button title="melden" onclick="showDialog('{{ entity.blogname }}')"><span class="glyphicon glyphicon-warning-sign"></span></button></td>
+                                </tr>
+                            {% endfor %}
+                            {% for entity in randomentities %}
+                                <tr class="toggle" id="{{ entity.id }}">
+                                    <td>
+                                        <a href="{{ entity.website }}" target="_blank">
+                                            <img onError="this.src='';this.alt='';" title="{{ entity.blogname }}" class="editable img-responsive" alt="{{ entity.blogname }}" src="{{ asset('resources/images/blog/' ~ entity.id ~ '/' ~ entity.path) }}" />
+                                        </a>
+                                    </td>
+                                    <td> 
+                                        <img onError="this.src='';this.alt='';" class="editable img-responsive" alt="{{ entity.blogname }}" src="{{ asset('resources/images/blog/' ~ entity.id ~ '/' ~ entity.faviconpath) }}" />
+                                    </td>
+                                    <td>{{ entity.blogname }}</td>
+                                    {#                                    <td><a rel="popover" href="{{ entity.website }}" target="_blank" data-img="https://thumber.de/image/?size=XL&url={{ entity.website }}">{{ entity.website }}</a></td>#}
+                                    <td>{{ entity.street }}</td>
+                                    <td>{{ entity.zip }}</td>
+                                    <td>{{ entity.location }}</td>
+                                    <td><a rel="popover300" data-container="body" href="{{ entity.website }}" target="_blank" data-img="https://thumber.de/image/?size=XXL3DL&bg=FFFFFF&url={{ entity.thumbnail }}">Webseite</a></td>
+                                    <td><button title="melden" onclick="showDialog('{{ entity.blogname }}')"><span class="glyphicon glyphicon-warning-sign"></span></button></td>
+{#                                    <td><a rel="popover400" data-container="body" href="{{ entity.website }}" target="_blank" data-img="https://thumber.de/image/?size=XL3DL&bg=FFFFFF&url={{ entity.website }}">Webseite</a></td>#}
+                                </tr>
+                            {% endfor %}
+                            {% for entity in entities %}
+                                <tr class="toggle
+                                    {% if entity.date|date('d.m.Y') == "now"|date('d.m.Y') %}
+                                        success
+                                    {% elseif entity.date|date('d.m.Y') == "-1days"|date('d.m.Y') %}
+                                        warning
+                                    {% elseif entity.date|date('d.m.Y') == "-2days"|date('d.m.Y') %}
+                                        danger
+                                    {% endif %}
+                                    " id="{{ entity.id }}" >
+                                    <td>
+                                        {% if entity.date|date('d.m.Y') == "now"|date('d.m.Y') %}
+                                            <span class="label label-success">heute neu</span>
+                                        {% elseif entity.date|date('d.m.Y') == "-1days"|date('d.m.Y') %}
+                                            <span class="label label-warning">gestern neu</span>
+                                        {% elseif entity.date|date('d.m.Y') == "-2days"|date('d.m.Y') %}
+                                            <span class="label label-danger">vorgestern neu</span>
+                                        {% endif %}
+                                        <a href="{{ entity.website }}" target="_blank">
+                                            <img onError="this.src='';this.alt='';" title="{{ entity.blogname }}" class="editable img-responsive" alt="{{ entity.blogname }}" src="{{ asset('resources/images/blog/' ~ entity.id ~ '/' ~ entity.path) }}" />
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <img onError="this.src='';this.alt='';" class="editable img-responsive" alt="{{ entity.blogname }}" src="{{ asset('resources/images/blog/' ~ entity.id ~ '/' ~ entity.faviconpath) }}" />
+                                    </td>
+                                    <td>{{ entity.blogname }}</td>
+                                    {#                                    <td><a rel="popover" href="{{ entity.website }}" target="_blank" data-img="https://thumber.de/image/?size=XL&url={{ entity.website }}">{{ entity.website }}</a></td>#}
+                                    <td>{{ entity.street }}</td>
+                                    <td>{{ entity.zip }}</td>
+                                    <td>{{ entity.location }}</td>
+                                    <td><a rel="popover200" data-container="body" href="{{ entity.website }}" target="_blank" data-img="https://thumber.de/image/?size=XL3DL&bg=FFFFFF&url={{ entity.thumbnail }}">Webseite</a></td>
+                                    <td><button title="melden" onclick="showDialog('{{ entity.blogname }}')"><span class="glyphicon glyphicon-warning-sign"></span></button></td>
+                                </tr>
+                            {% else %}
+                                {% if staticentities == false and randomentities == false %}
+                                <div class="">
+                                    <div class="alert alert-danger">
+                                        <strong>Keine Panik!</strong> Ihr Suchbegriff wurde leider nicht gefunden, bitte versuchen Sie es mit einem anderen.
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    <ul class="navigation">
+                        {{ knp_pagination_render(entities) }}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        {{ include('pspiessBlogBundle:Report:report.html.twig') }}
+        {{ include('pspiessBlogBundle:Elements:footer.html.twig') }}
+
+    {% endblock %}
+
+    {% block javascripts %}
+        {{ parent()}}
+        <script>
+            $('a[rel=popover400]').popover({
+                html: true,
+                trigger: 'hover',
+                placement: 'bottom',
+                content: function () {
+                    return '<img class="popover400" src="' + $(this).data('img') + '" />';
+                }
+            });
+            $('a[rel=popover300]').popover({
+                html: true,
+                trigger: 'hover',
+                placement: 'bottom',
+                content: function () {
+                    return '<img class="popover300" src="' + $(this).data('img') + '" />';
+                }
+            });
+            $('a[rel=popover200]').popover({
+                html: true,
+                trigger: 'hover',
+                placement: 'bottom',
+                content: function () {
+                    return '<img class="popover200" src="' + $(this).data('img') + '" />';
+                }
+            });
+            
+{#            $('button[rel=popover]').popover({
+                html: true,
+                trigger: 'click',
+                placement: 'bottom',
+                content: function () {
+                    return '<img class="popover400" src="' + $(this).data('img') + '" />';
+                }
+            });#}
+        </script>
+    {% endblock %}

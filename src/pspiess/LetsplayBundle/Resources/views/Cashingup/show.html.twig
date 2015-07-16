@@ -1,52 +1,81 @@
-{% extends '::base.html.twig' %}
+{% extends 'pspiessLetsplayBundle::layout.html.twig' %}
+
+{% block title %}Rechnung{% endblock %}
+
+{% block nav %}
+    {{ knp_menu_render('pspiessLetsplayBundle:MenuBuilder:mainMenu', {'currentClass': 'active', 'template': 'pspiessLetsplayBundle:Menu:knp_menu.html.twig'}) }}
+{% endblock %}
 
 {% block body -%}
-    <h1>Cashingup</h1>
+    <div class="page-content-area">
+        <div class="col-xs-12">
+            <!-- PAGE CONTENT BEGINS -->
+            <div class="space-6"></div>
+            <div class="col-sm-10 col-sm-offset-1">
+                <!-- #section:pages/invoice -->
+                <div class="widget-box transparent">
+                    <div class="widget-header widget-header-large">
+                        <h3 class="widget-title grey lighter">
+                            Tagesabschluss
+                        </h3>
 
-    <table class="record_properties">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ entity.id }}</td>
-            </tr>
-            <tr>
-                <th>Created</th>
-                <td>{{ entity.created|date('Y-m-d H:i:s') }}</td>
-            </tr>
-            <tr>
-                <th>Changed</th>
-                <td>{{ entity.changed|date('Y-m-d H:i:s') }}</td>
-            </tr>
-            <tr>
-                <th>Nominal</th>
-                <td>{{ entity.nominal }}</td>
-            </tr>
-            <tr>
-                <th>Actual</th>
-                <td>{{ entity.actual }}</td>
-            </tr>
-            <tr>
-                <th>Daydate</th>
-                <td>{{ entity.daydate|date('Y-m-d H:i:s') }}</td>
-            </tr>
-            <tr>
-                <th>Note</th>
-                <td>{{ entity.note }}</td>
-            </tr>
-        </tbody>
-    </table>
+                        <!-- #section:pages/invoice.info -->
+                        <div class="widget-toolbar no-border invoice-info">
+                            <br />
+                            <span class="invoice-info-label">Datum:</span>
+                            <span class="blue">{{  entity.daydate|date("d.m.Y") }}</span>
+                        </div>
+                        <!-- /section:pages/invoice.info -->
+                    </div>
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('cashingup') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('cashingup_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+                    <div class="widget-body col-md-4">
+                        <div class="widget-main padding-24">
+                        </div><!-- /.col -->
+                        <div class="space"></div>
+
+                        <div>
+                            <table class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th width="50%">Bezahlart SOLL-Ist</th>
+                                        <th width="30%">Betrag</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="success">Umsatz Bar SOLL: </td>
+                                        <td class="success"><span class="red">{{ entity.nominal|number_format(2, ',', '.') }} &euro;</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="success">Umsatz Bar Ist: </td>
+                                        <td class="success"><span class="red">{{ entity.actual|number_format(2, ',', '.') }} &euro;</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="info">Umsatz EC Karte SOLL: </td>
+                                        <td class="info"><span class="red">{{ entity.nominalec|number_format(2, ',', '.') }} &euro;</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="info">Umsatz EC Karte IST: </td>
+                                        <td class="info"><span class="red">{{ entity.actualec|number_format(2, ',', '.') }} &euro;</span></td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+
+                                </tfoot>
+                            </table>
+                        </div>
+                        <div class="hr hr8 hr-double hr-dotted"></div>
+                        <div class="entity-group">
+                            <div class="">
+                                {{ entity.note }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /section:pages/invoice -->
+        </div>
+        <!-- PAGE CONTENT ENDS -->
+    </div><!-- /.col -->
+</div><!-- /.page-content-area -->
 {% endblock %}

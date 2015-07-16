@@ -16,14 +16,18 @@ class AppKernel extends Kernel
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
-            //new FOS\UserBundle\FOSUserBundle(),
-            new pspiess\LetsplayBundle\pspiessLetsplayBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
+            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new Braincrafted\Bundle\BootstrapBundle\BraincraftedBootstrapBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle(),
-            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
-            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
 //            new ADesigns\CalendarBundle\ADesignsCalendarBundle(),
+            //new FOS\UserBundle\FOSUserBundle(),
+            
+            new pspiess\LetsplayBundle\pspiessLetsplayBundle(),
+            new pspiess\BlogBundle\pspiessBlogBundle(),
+            //new Genemu\Bundle\FormBundle\GenemuFormBundle(), //captcha form elements
+            //new pspiess\AppBundle\pspiessAppBundle(), //Only wir content Bundle... Need To Fix
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

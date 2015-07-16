@@ -22,6 +22,7 @@ class CustomerType extends AbstractType {
                 ->add('firstname', 'text', array('label' => 'Vorname', 'attr' => array('class' => ''), 'required' => false))
                 ->add('addon', 'text', array('label' => 'Zusatz', 'attr' => array('class' => ''), 'required' => false))
                 ->add('street', 'text', array('label' => 'Straße', 'attr' => array('class' => ''), 'required' => false))
+                ->add('email', 'email', array('label' => 'Email', 'attr' => array('class' => ''), 'required' => false))
                 ->add('zip', 'text', array('label' => 'PLZ', 'attr' => array('class' => ''), 'required' => false))
                 ->add('location', 'text', array('label' => 'Ort', 'attr' => array('class' => ''), 'required' => false))
                 ->add('country', 'text', array('label' => 'Land', 'attr' => array('class' => ''), 'required' => false))

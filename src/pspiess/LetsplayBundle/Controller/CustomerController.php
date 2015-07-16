@@ -26,7 +26,7 @@ class CustomerController extends Controller {
      * @Template()
      */
     public function indexAction(Request $request) {
-        $em = $this->getDoctrine()->getManager();
+        //$em = $this->getDoctrine()->getManager();
         $paginator = $this->get('knp_paginator');
 
 //        $dql = "SELECT c FROM pspiessLetsplayBundle:Customer c";
@@ -59,17 +59,42 @@ class CustomerController extends Controller {
      * @Method("GET")
      * @Template()
      */
-    public function getAllCustomerAction() {
+    public function getAllCustomerAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
 
-        $customer = $em->getRepository('pspiessLetsplayBundle:Customer')->findAll();
-//        $customer = $em->getRepository('pspiessLetsplayBundle:Customer')->GetCustomerByName($keyword);
+//        $customer = $em->getRepository('pspiessLetsplayBundle:Customer')->findAll();
+        $customer = $em->getRepository('pspiessLetsplayBundle:Customer')->GetCustomerByName($request->query->get('keyword'));
 //        $dql = "SELECT c FROM pspiessLetsplayBundle:Customer c";
 //        $customer = $em->createQuery($dql);
 
         $rows = array();
 
         foreach ($customer as $obj) {
+            $rows[] = array('label' => $obj->getName() . ', ' . $obj->getFirstname(), 'value' => $obj->getId());
+        }
+
+        $serializedEntity = $this->container->get('serializer')->serialize($rows, 'json');
+        $response = new Response($serializedEntity);
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+    }
+    
+    /**
+     * Lists all customer entities for Calendar.
+     *
+     * @Route("/", name="customer_getAllCalendar")
+     * @Method("GET")
+     * @Template()
+     */
+    public function getCustomerAction($keyword) {
+        $entCustomer = null;
+        if ($keyword != '') {
+            $entCustomer = $this->getDoctrine()->getRepository('pspiessLetsplayBundle:Customer')->GetCustomerByName($keyword);
+        }
+        
+        $rows = array();
+        
+        foreach ($entCustomer as $obj) {
             $rows[] = array('label' => $obj->getName() . ', ' . $obj->getFirstname(), 'value' => $obj->getId());
         }
 

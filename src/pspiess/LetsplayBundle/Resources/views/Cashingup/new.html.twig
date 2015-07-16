@@ -35,6 +35,18 @@
                             </div> <!-- /nested form-group acting like row -->
                         </div><!-- /form-group -->
                         <div class="form-group">
+                            {{ form_label(form.nominalec, null, {'label_attr': {'class': 'col-sm-2'}}) }}
+                            <div class="col-sm-2">
+                                {{ form_widget    (form.nominalec) }} 
+                            </div>
+                            <div class="form-group">
+                                {{ form_label(form.actualec, null, {'label_attr': {'class': 'col-sm-2'}}) }}
+                                <div class="col-sm-2">
+                                    {{ form_widget (form.actualec) }}
+                                </div>
+                            </div> <!-- /nested form-group acting like row -->
+                        </div><!-- /form-group -->
+                        <div class="form-group">
                             {{ form_label(form.note, null, {'label_attr': {'class': 'col-sm-2'}}) }}
                             <div class="col-sm-9">
                                 {{ form_widget    (form.note) }} 

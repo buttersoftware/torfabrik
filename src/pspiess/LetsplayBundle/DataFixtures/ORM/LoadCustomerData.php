@@ -58,9 +58,9 @@ class LoadCustomerData implements FixtureInterface {
         $customer1->setBank('Sparkasse Krefeld');
         $customer1->setBank('Kamilla Azizova');
 
-        $manager->persist($customer);
-        $manager->persist($customer1);
-        $manager->flush();
+//        $manager->persist($customer);
+//        $manager->persist($customer1);
+//        $manager->flush();
     }
 
 }

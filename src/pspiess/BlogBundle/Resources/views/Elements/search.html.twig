@@ -1,0 +1,14 @@
+<form class="search_form" method="get" action="{{ url('pspiess_blog_blog') }}">
+    <div class="col-md-12">
+        <div class="input-group">
+            <input type="text" name="keyword" value="{{ keyword }}" onFocus="
+                    if (this.value == 'Bitte hier Suchbergriff eingeben...')
+                        this.value = '';" onBlur="" />
+            <span class="input-group-btn">
+                <button type="submit" class="btn btn-small">
+                    <i class="ace-icon fa fa-search icon-on-right bigger-110"></i>
+                </button>
+            </span>
+        </div>
+    </div>
+</form>

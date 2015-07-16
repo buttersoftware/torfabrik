@@ -1,0 +1,147 @@
+{% extends 'pspiessBlogBundle::layout.html.twig' %}
+
+{% block title %}Linkliste.NRW - Werbemöglichkeiten{% endblock %}
+
+{% block stylesheets %}
+    {{ parent()}}
+    {#    <link href="{{ asset('resources/css/jquery-ui.min.css')}}" rel="stylesheet">
+        <link href="{{ asset('resources/css/jquery-ui.custom.min.css')}}" rel="stylesheet">#}
+{% endblock %}
+
+{% block body -%}
+    <div class="page_block">
+        {{ include('pspiessBlogBundle:Elements:header.html.twig') }}
+
+        <div class="container">
+            <div class="row">
+                <section class="price_block">
+                    <h2>Werbemöglichkeiten</h2>
+                    <div class="alert alert-success">
+                        Ich biete Ihnen auf meiner Seite mehrere Werbemöglichkeiten an, kostenfreie und kostenpflichtige. 
+                        Bei Interesse senden Sie bitte eine E-Mail mit Ihren Vorstellungen und Kontaktdaten an <strong>info@linkliste-nrw.de</strong>,
+                        ich werde mich dann zeitnah bei Ihnen melden (normalerweise innerhalb eines Tages).
+                    </div>
+                    <div class="price_table_wrapper">
+                        <div class="price_item">
+                            <div class="price_item_wrapper">
+                                <div class="price_item_title"><h6>Basic</h6></div>
+                                <div class="price_item_cost"><h5>Kostenlos<span></span></h5></div>
+                                <div class="price_item_text">Favicon</div>
+                                <div class="price_item_text">-</div>
+                                <div class="price_item_text price_item_text_last">-</div>
+                                {#                                    <div class="price_item_btn"><a href="javascript:void(0);">Purchase!</a></div>#}
+                            </div>
+                        </div>
+                        <div class="price_item">
+                            <div class="price_item_wrapper">
+                                <div class="price_item_title"><h6>Bronze</h6></div>
+                                <div class="price_item_cost"><h5>KOSTENPFLICHTIG<span></span></h5></div>
+                                <div class="price_item_text">Favicon</div>
+                                <div class="price_item_text">Banner</div>
+                                <div class="price_item_text price_item_text_last">-</div>
+                                {#                                    <div class="price_item_btn"><a href="javascript:void(0);">Purchase!</a></div>#}
+                            </div>
+                        </div>
+                        <div class="price_item">
+                            <div class="price_item_wrapper">
+                                <div class="price_item_title"><h6>Silber</h6></div>
+                                <div class="price_item_cost"><h5>KOSTENPFLICHTIG<span></span></h5></div>
+                                <div class="price_item_text">Favicon</div>
+                                <div class="price_item_text">Banner</div>
+                                <div class="price_item_text">Platzierung auf der<br> Startseite</div>
+                                {#                                    <div class="price_item_btn"><a href="javascript:void(0);">Purchase!</a></div>#}
+                            </div>
+                        </div>
+                        <div class="price_item">
+                            <div class="price_item_wrapper">
+                                <div class="price_item_title"><h6>Gold</h6></div>
+                                <div class="price_item_cost"><h5>KOSTENPFLICHTIG<span></span></h5></div>
+                                <div class="price_item_text">Favicon</div>
+                                <div class="price_item_text">Banner</div>
+                                <div class="price_item_text">TOP Platzierung auf der Startseite</div>
+                                {#                                    <div class="price_item_btn"><a href="javascript:void(0);">Purchase!</a></div>#}
+                            </div>
+                        </div>
+                        <div class="price_item">
+                            <div class="price_item_wrapper">
+                                <div class="price_item_title"><h6>LINKTAUSCH</h6></div>
+                                <div class="price_item_cost"><h5>KOSTENLOS<span></span></h5></div>
+                                <div class="price_item_text">Favicon</div>
+                                <div class="price_item_text">Banner</div>
+                                <div class="price_item_text price_item_text_last">-</div>
+{#                                <div class="price_item_btn"><a href="javascript:void(0);">Purchase!</a></div>#}
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </section><!-- //PRICE TABLE -->	
+                <div class="padbot20 module_toggle">
+                    <h2>Beschreibung</h2>
+                    <!-- Toggle -->
+
+                    <div class="shortcode_toggles_shortcode toggles">
+                        <h4 class="shortcode_toggles_item_title expanded_yes" data-count="1">
+                            <span class="ui-icon"></span>BASIC
+                        </h4>
+                        <div class="shortcode_toggles_item_body">
+                            <div class="ip">
+                                Dieser Eintrag ist immer kostenlos und erfordert keinerlei Gegenleistung Ihrerseits. 
+                                Der Großteil aller Einträge ist vom Typ BASIC und besteht aus dem Namen ihres Betriebes, der Adresse und dem Link zu Ihrer Homepage. 
+                                Sofern ein Favicon (Anmerkung: bitte extern verlinken zu http://de.wikipedia.org/wiki/Favicon, Tooltip "Favicon bei Wikipedia") ermittelt werden kann, wird dieses ebenfalls angezeigt. 
+                                Sollten Sie eine andere Benennung wünschen oder sich Fehler in die Adresse eingeschlichen haben, so teilen Sie mir das bitte mit. Ebenso, wenn der Betrieb nicht mehr existiert oder pausiert. 
+                                Alle diese Änderungen sind für Sie kostenfrei. Falls Ihr Betrieb gar ganz fehlt, dann senden Sie mir bitte die relevanten Daten und ich werde Sie kostenfrei aufnehmen 
+                                (nur Betriebe in NRW mit eigener Domain, also keine Unterseiten irgendwelcher Portale und nur, wenn der Betrieb thematisch in eine der vorhandenen Kategorien passt). 
+                                Portalbetreiber dürfen sich natürlich auch melden, bei Portalen wird logischerweise keine Adresse angezeigt. In den ersten drei Tagen nach Aufnahme wird der Eintrag als "neu" 
+                                farblich gekennzeichnet.
+                            </div>
+                        </div>
+                        <h4 class="shortcode_toggles_item_title expanded_yes" data-count="2">
+                            <span class="ui-icon"></span>BRONZE
+                        </h4>
+                        <div class="shortcode_toggles_item_body">
+                            <div class="ip">
+                                Dieser Eintrag ist kostenpflichtig, der Vertrag ist monatlich kündbar. Vor Ihrem Eintrag (Name und Adresse, s.o.) wird ein Werbebanner eingeblendet, in der Größe 468 x 60 Pixel. 
+                                Dies ist eine übliche Größe im Internet. Das Banner kann statisch oder animiert sein und verlinkt zu Ihrer Homepage. 
+                                Der Banner stellen Sie mir zur Verfügung, es wird nur die Größe 468 x 60 Pixel akzeptiert.
+                            </div>
+                        </div>
+                        <h4 class="shortcode_toggles_item_title expanded_yes" data-count="3">
+                            <span class="ui-icon"></span>SILBER
+                        </h4>
+                        <div class="shortcode_toggles_item_body">
+                            <div class="ip">
+                                Wie BRONZE, zusätzlich wird Ihr Eintrag samt Banner auf der unteren Hälfte der Startseite von linkliste.nrw eingeblendet. 
+                                Sollte es für diesen Bereich mehr Werbepartner geben als Werbeplätze zur Verfügung stehen, so werden die Banner abwechselnd (in gleicher Häufigkeit) eingeblendet. 
+                                Maximal 10 Werbeplätze stehen für diesen Bereich zur Verfügung, von denen immer 4 gleichzeitig angezeigt werden.
+                            </div>
+                        </div>
+                        <h4 class="shortcode_toggles_item_title expanded_yes" data-count="4">
+                            <span class="ui-icon"></span>GOLD
+                        </h4>
+                        <div class="shortcode_toggles_item_body">
+                            <div class="ip">
+                                Wie SILBER, Ihr Eintrag samt Banner wird jedoch ständig auf der oberen Hälfte der Startseite von linkliste.nrw eingeblendet. Maximal 4 Werbeplätze stehen für diesen Bereich zur Verfügung.
+                            </div>
+                        </div>
+                        <h4 class="shortcode_toggles_item_title expanded_yes" data-count="5">
+                            <span class="ui-icon"></span>LINKTAUSCH
+                        </h4>
+                        <div class="shortcode_toggles_item_body">
+                            <div class="ip">
+                                Linktausch ist nur für den Typ BRONZE möglich (über Ausnahmen müssten wir sprechen). 
+                                Sie erhalten kostenlos ein Werbebanner vor Ihrem Eintrag und blenden dafür im Gegenzug mein Banner auf Ihrer Homepage ein, aber nicht versteckt auf der x-ten Unterebene,
+                                sondern maximal auf der zweiten Ebene. Solange mein Banner auf Ihrer Homepage existiert (wird automatisch überwacht), solange bleibt Ihr Banner auf meiner Seite eingeblendet.
+                            </div>
+                        </div>
+                    </div><!-- //Toggle -->
+                </div>
+            </div>
+        </div>
+
+        {{ include('pspiessBlogBundle:Elements:footer.html.twig') }}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent()}}
+{% endblock %}

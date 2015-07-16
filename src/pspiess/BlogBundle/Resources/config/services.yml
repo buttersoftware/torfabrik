@@ -1,0 +1,7 @@
+parameters:
+#    pspiess_blog.example.class: pspiess\BlogBundle\Example
+
+services:
+#    pspiess_blog.example:
+#        class: %pspiess_blog.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

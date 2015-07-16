@@ -212,6 +212,13 @@ class Customer {
      * @ORM\Column(type="integer", nullable=true, name="blocked")
      */
     private $blocked;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", nullable=true, name="email")
+     */
+    private $email;
 
     /**
      * Get id
@@ -863,5 +870,28 @@ class Customer {
     public function getBlocked()
     {
         return $this->blocked;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     * @return Customer
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string 
+     */
+    public function getEmail()
+    {
+        return $this->email;
     }
 }

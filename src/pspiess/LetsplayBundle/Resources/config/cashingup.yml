@@ -2,6 +2,10 @@ pspiess_letsplay_cashingup:
     pattern:  /admin/cashingup
     defaults: { _controller: pspiessLetsplayBundle:Cashingup:index }
     
+pspiess_letsplay_cashingup_show:
+    pattern:  /admin/cashingup/show/{id}
+    defaults: { _controller: pspiessLetsplayBundle:Cashingup:show }
+    
 pspiess_letsplay_cashingup_new:
     pattern:  /admin/cashingup/new
     defaults: { _controller: pspiessLetsplayBundle:Cashingup:new }

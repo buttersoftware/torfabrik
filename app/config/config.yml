@@ -66,6 +66,10 @@ doctrine:
         # path:     "%database_path%"
         
     orm:
+        dql:
+            numeric_functions:
+                Rand: pspiess\BlogBundle\DQL\RandFunction
+                
         auto_generate_proxy_classes: "%kernel.debug%"
         auto_mapping: true
                

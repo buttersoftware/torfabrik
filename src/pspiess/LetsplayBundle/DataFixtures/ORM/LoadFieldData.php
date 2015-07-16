@@ -29,10 +29,10 @@ class LoadFieldData implements FixtureInterface {
         $price1->setTimeto(new \DateTime("20:00:00"));
         $price1->setNote('Normalpreis - Nachmittags');
 
-        $manager->persist($price);
-        $manager->persist($price1);
-
-        $manager->flush();
+//        $manager->persist($price);
+//        $manager->persist($price1);
+//
+//        $manager->flush();
 
         $field = new Field();
         $field->setFieldnr(1);
@@ -58,8 +58,8 @@ class LoadFieldData implements FixtureInterface {
         $field1->setActivation(new \DateTime("2014-01-01"));
         $field1->addPrice($price1);
         
-        $manager->persist($field);
-        $manager->persist($field1);
-        $manager->flush();
+//        $manager->persist($field);
+//        $manager->persist($field1);
+//        $manager->flush();
     }
 }

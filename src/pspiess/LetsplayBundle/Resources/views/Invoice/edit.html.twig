@@ -8,7 +8,6 @@
 
 {% block body -%}
     {#    {{ form(form) }}#}
-
     <div class="page-content-area">
         <div class="col-xs-12">
             <!-- PAGE CONTENT BEGINS -->
@@ -46,7 +45,7 @@
                             <div class="col-sm-6">
 
                                 <div class="col-xs-11 label label-lg label-info arrowed-in arrowed-right">
-                                    <b>Torfabrik Krefeld</b>
+                                    <b>TorFabrik Krefeld Sport & Event GmbH</b>
                                 </div>
 
 
@@ -193,12 +192,21 @@
                                     </h4>
                                 </div>
                             </div>
-                            
+
                             <div class="hr hr8 hr-double hr-dotted"></div>
+                            <div class="hr hr-24"></div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-1">
+                                    <a class="btn btn-info" href="{{ path('pspiess_letsplay_booking') }}">zur&uuml;ck</a>
+                                </div>
+                                <div class="col-sm-offset-1 col-sm-1">
+                                    {{ form_widget(form.submit) }}
+                                </div>
+                                {{ form_end(form) }}
+                            </div>
                         </div>
                     </div>
                 </div>
-                {{ form_end(form) }}
                 <!-- /section:pages/invoice -->
             </div>
             <!-- PAGE CONTENT ENDS -->

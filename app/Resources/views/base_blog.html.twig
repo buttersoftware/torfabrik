@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+        <link rel="shortcut icon" href="{{ asset('resources/images/blog/favicon.ico') }}">
+        <title>{% block title %}Linkliste.nrw{% endblock %}</title>
+
+    {% block stylesheets %}{% endblock %}
+</head>
+<body>
+    {#<div id="navbar" class="navbar navbar-default">
+        {% block navigation %}{% endblock %}
+    </div>#}
+    <!-- PRELOADER -->
+    <div id="preloader"><img src="{{ asset('resources/images/blog/images/preloader.gif')}}" alt="" /></div>
+    <!-- //PRELOADER -->
+    <!-- PAGE -->
+    <div id="page">
+        <!-- PRELOADER HIDE -->
+        <div class="preloader_hide">
+        {% block body %}{% endblock %}
+    </div>
+</div>
+{% block footer %}{% endblock %}
+{% block javascripts %}{% endblock %}
+</body>
+</html>

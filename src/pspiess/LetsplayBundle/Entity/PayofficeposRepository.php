@@ -55,18 +55,23 @@ class PayofficeposRepository extends EntityRepository {
      * @return array with Payofficepos entities
      * 
      */
-    public function GetOnePayofficeposByDate() {
+    public function GetOnePayofficeposByDate($sPayment = 'Bar') {
         $rsm = new \Doctrine\ORM\Query\ResultSetMapping();
         $rsm->addEntityResult('pspiessLetsplayBundle:Payofficepos', 'p');
+        $rsm->addEntityResult('pspiessLetsplayBundle:Invoice', 'i');
         $rsm->addScalarResult('daydate', 'date');
         $rsm->addScalarResult('total', 'total');
+        $rsm->addScalarResult('invoiceid', 'invoice_id');
         $data = $this->getEntityManager()
                 ->createNativeQuery(
-                    'SELECT DATE(p.date) as daydate, SUM(p.amount) AS total
+                    "SELECT DATE(p.date) as daydate, SUM(p.amount) AS total, p.invoice_id as invoiceid
                     FROM payofficepos p
+                    INNER JOIN 
+                    invoice i ON (p.invoice_id = i.id)
+                    WHERE i.payment = '$sPayment'
                     GROUP BY DATE(p.date)
                     ORDER BY DATE(p.date) ASC, total ASC 
-                    LIMIT 1', $rsm)
+                    LIMIT 1", $rsm)
                 ->getResult();
         return $data;
     }
