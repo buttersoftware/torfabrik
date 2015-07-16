@@ -92,6 +92,16 @@
                                 {{ form_widget    (form.mobile) }} 
                             </div>
                         </div>
+                        <div class="form-group">
+                            {{ form_label(form.contactPerson, null, {'label_attr': {'class': 'col-sm-2' }}) }}
+                            <div class="col-lg-4">
+                                {{ form_widget (form.contactPerson) }}
+                            </div>
+                            {{ form_label(form.contactPersonPhone, null, {'label_attr': {'class': 'col-sm-2' }}) }}
+                            <div class="col-sm-4">
+                                {{ form_widget(form.contactPersonPhone) }}
+                            </div>
+                        </div>
                         <div class="hr hr-24"></div>
                         <div class="form-group">
                             {{ form_label(form.bankOwner, null, {'label_attr': {'class': 'col-sm-2'}}) }}
