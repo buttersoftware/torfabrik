@@ -221,6 +221,20 @@ class Customer {
     private $email;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=255, nullable=true, name="contact_person")
+     */
+    private $contactPerson;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=255, nullable=true, name="contact_person_phone")
+     */
+    private $contactPersonPhone;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -230,10 +244,8 @@ class Customer {
     }
 
     /**
-     * Set path of a picture
-     *
-     * @param string $path
-     * @return Project
+     * @param $path
+     * @return $this
      */
     public function setPath($path) {
         $this->path = $path;
@@ -251,10 +263,8 @@ class Customer {
     }
 
     /**
-     * Set picture
-     *
-     * @param string $picture
-     * @return Project
+     * @param $picture
+     * @return $this
      */
     public function setPicture($picture) {
         $this->picture = $picture;
@@ -893,5 +903,51 @@ class Customer {
     public function getEmail()
     {
         return $this->email;
+    }
+
+    /**
+     * Set contactPerson
+     *
+     * @param string $contactPerson
+     * @return Customer
+     */
+    public function setContactPerson($contactPerson)
+    {
+        $this->contactPerson = $contactPerson;
+
+        return $this;
+    }
+
+    /**
+     * Get contactPerson
+     *
+     * @return string 
+     */
+    public function getContactPerson()
+    {
+        return $this->contactPerson;
+    }
+
+    /**
+     * Set contactPersonPhone
+     *
+     * @param string $contactPersonPhone
+     * @return Customer
+     */
+    public function setContactPersonPhone($contactPersonPhone)
+    {
+        $this->contactPersonPhone = $contactPersonPhone;
+
+        return $this;
+    }
+
+    /**
+     * Get contactPersonPhone
+     *
+     * @return string 
+     */
+    public function getContactPersonPhone()
+    {
+        return $this->contactPersonPhone;
     }
 }
