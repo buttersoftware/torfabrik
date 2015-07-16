@@ -47,4 +47,5 @@ nbproject/private/*
 
 *.php~
 
-app/config/config_1.yml
+# ignore all backup files
+*~
