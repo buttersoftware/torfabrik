@@ -31,10 +31,10 @@
 /phpunit.xml
 
 # netbeans
-/nbproject
+/nbproject/*
 
 # phpstorm
-/.idea
+/.idea/*
 
 # Build data
 /build/
@@ -43,3 +43,5 @@
 /composer.phar
 
 *.php~
+
+app/config/config_1.yml
