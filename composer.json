@@ -43,7 +43,8 @@
         "friendsofsymfony/jsrouting-bundle": "~1.5",
         "sonata-project/admin-bundle": "~2.3",
         "knplabs/knp-paginator-bundle": "~2.4",
-        "genemu/form-bundle": "2.2.*"
+        "genemu/form-bundle": "2.2.*",
+        "luxifer/doctrine-functions": "dev-master"
     },
     "scripts": {
         "post-install-cmd": [

@@ -21,6 +21,10 @@ pspiess_letsplay_booking_update:
 pspiess_letsplay_booking_delete:
     pattern:  /admin/booking/delete
     defaults: { _controller: pspiessLetsplayBundle:Booking:deleteReservation }
+
+pspiess_letsplay_booking_check_serial:
+        pattern:  /admin/booking/checkserial
+        defaults: { _controller: pspiessLetsplayBundle:Booking:checkBookingSerial }
     
 pspiess_letsplay_booking_cancel:
     pattern:  /admin/booking/cancel

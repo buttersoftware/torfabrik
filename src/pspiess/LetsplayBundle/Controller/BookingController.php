@@ -75,7 +75,7 @@ class BookingController extends Controller {
     }
 
     /**
-     * 
+     *
      * @param type $entBooking
      */
     private function GetStatus($entBooking) {
@@ -113,7 +113,7 @@ class BookingController extends Controller {
 
     /**
      * Update a reservation to the calendar
-     * 
+     *
      */
     public function updateReservationAction() {
         try {
@@ -133,7 +133,7 @@ class BookingController extends Controller {
                 $booking->setCustomer($customer);
                 $booking->setCategory($category);
             }
-            
+
             $em->persist($booking);
             $em->flush();
 
@@ -168,20 +168,70 @@ class BookingController extends Controller {
     }
 
     /**
-     * Delete a Reservation
+     * delete a reservation
      */
     public function deleteReservationAction() {
         $request = $this->get('request');
         $data = $request->request->all();
 
         $em = $this->getDoctrine()->getManager();
+
         $booking = $em->getRepository('pspiessLetsplayBundle:Booking')->find($data["id"]);
 
-        $em->remove($booking);
-        $em->flush();
+        if ((int)$data["serial"] == 1) {
+            $this->deleteSerialBooking($booking);
+        } else {
+            $em->remove($booking);
+            $em->flush();
+        }
 
         $serializedEntity = $this->container->get('serializer')->serialize($booking->getId(), 'json');
         $response = new Response($serializedEntity);
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+    }
+
+    /**
+     * delete serial reservation
+     *
+     * @param Booking $booking
+     */
+    public function deleteSerialBooking(Booking $booking) {
+        $em = $this->getDoctrine()->getManager();
+
+        $bookingsSerial = $em->getRepository('pspiessLetsplayBundle:Booking')->getBookingSerial(
+            $booking->getField()->getId(),
+            $booking->getCustomer()->getId(),
+            $booking->getStart(),
+            $booking->getEnd());
+
+        foreach ($bookingsSerial as $entity) {
+            $em->remove($entity);
+        }
+
+        $em->flush();
+    }
+
+    /**
+     * check if reservation is serial
+     */
+    public function checkBookingSerialAction() {
+        $request = $this->get('request');
+        $data = $request->request->all();
+
+        $em = $this->getDoctrine()->getManager();
+        $records = array('records' => null);
+
+        $booking = $em->getRepository('pspiessLetsplayBundle:Booking')->find($data["id"]);
+        $bookingsSerial = $em->getRepository('pspiessLetsplayBundle:Booking')->getBookingSerial(
+            $booking->getField()->getId(),
+            $booking->getCustomer()->getId(),
+            $booking->getStart(),
+            $booking->getEnd());
+
+        $records['records'] = count($bookingsSerial);
+
+        $response = new Response($this->container->get('serializer')->serialize($records, 'json'));
         $response->headers->set('Content-Type', 'application/json');
         return $response;
     }
@@ -379,11 +429,10 @@ class BookingController extends Controller {
      */
     private function createDeleteForm($id) {
         return $this->createFormBuilder()
-                        ->setAction($this->generateUrl('pspiess_letsplay_booking_delete', array('id' => $id)))
-                        ->setMethod('DELETE')
-                        ->add('submit', 'submit', array('label' => 'Delete'))
-                        ->getForm()
-        ;
+            ->setAction($this->generateUrl('pspiess_letsplay_booking_delete', array('id' => $id)))
+            ->setMethod('DELETE')
+            ->add('submit', 'submit', array('label' => 'Delete'))
+            ->getForm();
     }
 
 }
