@@ -2,12 +2,13 @@
 function CalendarResponse(start, end, fieldid, sCalendar) {
     /*console.log(sCalendar);*/
     var title = $(".title").val(); // gets title value
+    /*console.log(title);*/
     var customerid = $('#customer_id').val();
     var serial = $('#serial').val();
     var serial_date = $('#serial_date').val();
     var categoryid = $('#category_id').val();
     if (title !== "") { // if the title exists run script
-        //console.log({"title": title, "start": start, "end": end, "customerid": customerid, "fieldid": fieldid, "serial": serial, "serial_date": serial_date});
+        /*console.log({"title": title, "start": start, "end": end, "customerid": customerid, "fieldid": fieldid, "serial": serial, "serial_date": serial_date});*/
         $.ajax({
             url: '{{ path('pspiess_letsplay_booking_add') }}',
             data: {
@@ -18,12 +19,13 @@ function CalendarResponse(start, end, fieldid, sCalendar) {
                 "fieldid": fieldid,
                 "serial": serial,
                 "serial_date": serial_date,
-                "categoryid": categoryid,
+                "categoryid": categoryid
             },
             type: 'post',
             success: function (result) {
-                //console.log(result);
+                /*console.log(result);*/
                 $(sCalendar).fullCalendar('refetchEvents');
+                ClearFields();
                 {#$(sCalendar).fullCalendar('renderEvent', {
                     id: result,
                     title: title,
@@ -33,7 +35,7 @@ function CalendarResponse(start, end, fieldid, sCalendar) {
                 $(".title").val(""); // clear title field
             },
             error: function (jqXHR, exception) {
-                //console.log(exception);
+                console.log(exception);
             }
         })
     }
@@ -78,8 +80,6 @@ function createNewCustomer() {
             }]
     });
 }
-
-
 
 function showDialog(start, end, fieldid, sCalendar) {
     var dialog = $("#dialog-message").removeClass('hide').dialog({
@@ -224,5 +224,11 @@ function CancelCalendar(id) {
         success: function (json) {
         }
     });
+}
+
+function ClearFields() {
+    $('#serial').val('0');
+    $('#serial_date').val('');
+    $('#category_id').val('');
 }
 </script>
