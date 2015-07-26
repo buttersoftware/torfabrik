@@ -75,8 +75,8 @@ class BookingController extends Controller {
     }
 
     /**
-     *
-     * @param type $entBooking
+     * @param $entBooking
+     * @return string
      */
     private function GetStatus($entBooking) {
         $DateTimeNow = new \DateTime("now");

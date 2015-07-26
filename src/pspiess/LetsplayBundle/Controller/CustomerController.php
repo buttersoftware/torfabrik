@@ -312,4 +312,34 @@ class CustomerController extends Controller {
         ;
     }
 
+    /**
+     * create customer
+     */
+    public function createCustomerAction() {
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->get('request');
+        $data = $request->request->all();
+
+        $customer = new Customer();
+        $customer->setCustomernr($em->getRepository('pspiessLetsplayBundle:Customer')->getCustomerNumber());
+        $customer->setTitle($data["title"]);
+        $customer->setFirstname($data["firstname"]);
+        $customer->setName($data["name"]);
+        $customer->setEmail($data["email"]);
+        $customer->setStreet($data["street"]);
+        $customer->setLocation($data["location"]);
+        $customer->setZip($data["zip"]);
+        $customer->setPhone($data["phone"]);
+        $customer->setAddon($data["addon"]);
+        $customer->setSex($data["sex"]);
+        $customer->setCountry($data["country"]);
+
+        $em->persist($customer);
+        $em->flush();
+
+        $serializedEntity = $this->container->get('serializer')->serialize($customer->getId(), 'json');
+        $response = new Response($serializedEntity);
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+    }
 }

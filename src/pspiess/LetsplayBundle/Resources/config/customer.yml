@@ -11,7 +11,11 @@ pspiess_letsplay_customer_new:
 pspiess_letsplay_customer_create:
     pattern:  /admin/customer/create
     defaults: { _controller: pspiessLetsplayBundle:Customer:create }
-    
+
+pspiess_letsplay_customer_create_customer:
+        pattern:  /admin/customer/createcustomer
+        defaults: { _controller: pspiessLetsplayBundle:Customer:createCustomer }
+
 pspiess_letsplay_customer_get:
     pattern:  /admin/customer/{keyword}
     defaults: { _controller: pspiessLetsplayBundle:Customer:getCustomer, _format: json }

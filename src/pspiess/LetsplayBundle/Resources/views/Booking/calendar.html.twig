@@ -1,186 +1,228 @@
 <script type="text/javascript">
-    function CalendarResponse(start, end, fieldid, sCalendar) {
-        console.log(sCalendar);
-        var title = $(".title").val(); // gets title value
-        var customerid = $('#customer_id').val();
-        var serial = $('#serial').val();
-        var serial_date = $('#serial_date').val();
-        var categoryid = $('#category_id').val();
-        if (title !== "") { // if the title exists run script
-            //console.log({"title": title, "start": start, "end": end, "customerid": customerid, "fieldid": fieldid, "serial": serial, "serial_date": serial_date});
-            $.ajax({
-                url: '{{ path('pspiess_letsplay_booking_add') }}',
-                data: {
-                    "title": title,
-                    "start": start,
-                    "end": end,
-                    "customerid": customerid,
-                    "fieldid": fieldid,
-                    "serial": serial,
-                    "serial_date": serial_date,
-                    "categoryid": categoryid,
-                },
-                type: 'post',
-                success: function (result) {
-                    console.log(result);
-                    $(sCalendar).fullCalendar('refetchEvents');
-                    {#$(sCalendar).fullCalendar('renderEvent', {
-                        id: result,
-                        title: title,
-                        start: start,
-                        end: end, //alle werte die neu dazugekommen sind auch id !!!
-                    }, true);#}
-                    $(".title").val(""); // clear title field
-                },
-                error: function (jqXHR, exception) {
-                    console.log(exception);
-                },
-            })
-        }
-    }
-    function showDialog(start, end, fieldid, sCalendar) {
-        var dialog = $("#dialog-message").removeClass('hide').dialog({
-            modal: true,
-            title: "Reservierung hinzufügen",
-            title_html: true,
-            width: 500,
-            minHeight: 500,
-            buttons: [
-                {
-                    text: "neuer Kunde",
-                    "class": "btn btn-primary btn-xs",
-                    click: function () {
-                        window.location.href = Routing.generate('pspiess_letsplay_customer_new'),
-                                $(this).dialog("close");
-                    }
-                },
-                {
-                    text: "reservieren",
-                    "class": "btn btn-success btn-xs",
-                    "id": "add_reservation",
-                    click: function () {
-                        CalendarResponse(start, end, fieldid, sCalendar), $(this).dialog("close");
-                    }
-                }
-            ]
-        });
-        $("#add_reservation").attr("disabled", "disabled");
-    }
-
-    function showChangeDialog(start, end, fieldid, calendar, id) {
-        var dialog = $("#dialog-message").removeClass('hide').dialog({
-            modal: true,
-            title: "Reservierung bearbeiten",
-            title_html: true,
-            width: 500,
-            buttons: [
-                {
-                    text: "ändern",
-                    "class": "btn btn-success btn-xs",
-                    "id": "add_reservation",
-                    click: function () {
-                        UpdateCalendar(start, end, fieldid, calendar, id), $(this).dialog("close");
-                    }
-                },
-                {
-                    text: "abrechnen",
-                    "class": "btn btn-primary btn-xs",
-                    click: function () {
-                        window.location.href = Routing.generate('pspiess_letsplay_invoice_new', {id: id})
-                    }
-                },
-                {
-                    text: "stornieren",
-                    "class": "btn btn-warning btn-xs",
-                    click: function () {
-                        CancelCalendar(id),
-                                $(this).dialog("close");
-                    }
-                },
-                {
-                    text: "löschen",
-                    "class": "btn btn-danger btn-xs",
-                    click: function () {
-                        CheckSerialBooking(id, calendar, start, end), $(this).dialog("close");
-                    }
-                }
-            ]
-        });
-        $("#add_reservation").attr("disabled", "disabled");
-    }
-
-    function UpdateCalendar(start, end, fieldid, calendar, id) {
-        var title = $(".title").val(); // gets title value
-        var customerid = $('#customer_id').val();
-        var categoryid = $('#category_id').val();
+function CalendarResponse(start, end, fieldid, sCalendar) {
+    /*console.log(sCalendar);*/
+    var title = $(".title").val(); // gets title value
+    var customerid = $('#customer_id').val();
+    var serial = $('#serial').val();
+    var serial_date = $('#serial_date').val();
+    var categoryid = $('#category_id').val();
+    if (title !== "") { // if the title exists run script
+        //console.log({"title": title, "start": start, "end": end, "customerid": customerid, "fieldid": fieldid, "serial": serial, "serial_date": serial_date});
         $.ajax({
-            url: '{{ path('pspiess_letsplay_booking_update') }}',
+            url: '{{ path('pspiess_letsplay_booking_add') }}',
             data: {
+                "title": title,
                 "start": start,
                 "end": end,
-                "id": id,
                 "customerid": customerid,
-                "title": title,
-                "categoryid": categoryid
+                "fieldid": fieldid,
+                "serial": serial,
+                "serial_date": serial_date,
+                "categoryid": categoryid,
             },
-            type: "POST",
-            success: function (json) {
-                $(calendar).fullCalendar('refetchEvents');
+            type: 'post',
+            success: function (result) {
+                //console.log(result);
+                $(sCalendar).fullCalendar('refetchEvents');
+                {#$(sCalendar).fullCalendar('renderEvent', {
+                    id: result,
+                    title: title,
+                    start: start,
+                    end: end, //alle werte die neu dazugekommen sind auch id !!!
+                }, true);#}
+                $(".title").val(""); // clear title field
+            },
+            error: function (jqXHR, exception) {
+                //console.log(exception);
             }
-        });
+        })
     }
-    function CheckSerialBooking(id, calendar, start, end) {
-        $.ajax({
-            url: '{{ path('pspiess_letsplay_booking_check_serial') }}',
-            data: {"id": id},
-            type: "POST",
-            success: function (json) {
-                if (json.records > 1) {
-                    $('<div></div>').appendTo('body')
-                            .html('<div><h6>Möchten Sie die restlichen ' + json.records + ' Reservierungen auch löschen?</h6></div>')
-                            .dialog({
-                                modal: true, title: 'Dauerreservierung gefunden', zIndex: 10000, autoOpen: true,
-                                width: 'auto', resizable: false,
-                                buttons: {
-                                    Ja: function () {
-                                        DeleteReservation(id, calendar, 1);
-                                        $(this).dialog("close");
-                                    },
-                                    Nein: function () {
-                                        DeleteReservation(id, calendar, 0);
-                                        $(this).dialog("close");
-                                    }
-                                },
-                                close: function (event, ui) {
-                                    $(this).remove();
-                                }
-                            });
-                } else {
-                    DeleteReservation(id, calendar, 0);
+}
+
+function createNewCustomer() {
+    var dialog = $("#dialog_new_customer").removeClass('hide').dialog({
+        modal: true,
+        title: "Neuer Kunde",
+        title_html: true,
+        width: 700,
+        buttons: [{
+                text: "speichern",
+                "class": "btn btn-success btn-xs",
+                "id": "create_customer",
+                click: function () {
+                    $.ajax({
+                        url: '{{ path('pspiess_letsplay_customer_create_customer') }}',
+                        data: {
+                            "title": $("#customer_title").val(),
+                            "firstname": $("#customer_firstname").val(),
+                            "name": $("#customer_name").val(),
+                            "email": $("#customer_email").val(),
+                            "street": $("#customer_street").val(),
+                            "zip": $("#customer_zip").val(),
+                            "location": $("#customer_location").val(),
+                            "phone": $("#customer_phone").val(),
+                            "addon": $("#customer_addon").val(),
+                            "sex": $("#customer_sex").val(),
+                            "country": $("#customer_country").val()
+                        },
+                        type: "POST",
+                        success: function (json) {
+                            alert('Kunde wurde gespeichert!');
+                            $("#dialog_new_customer").dialog('close');
+                        },
+                        error: function (json) {
+                            alert('Es ist ein Fehler aufgetreten!');
+                        }
+                    });
+                }
+            }]
+    });
+}
+
+
+
+function showDialog(start, end, fieldid, sCalendar) {
+    var dialog = $("#dialog-message").removeClass('hide').dialog({
+        modal: true,
+        title: "Reservierung hinzufügen",
+        title_html: true,
+        width: 500,
+        minHeight: 500,
+        buttons: [
+            {
+                text: "neuer Kunde",
+                "class": "btn btn-primary btn-xs",
+                click: function () {
+                    createNewCustomer();
+                }
+            },
+            {
+                text: "reservieren",
+                "class": "btn btn-success btn-xs",
+                "id": "add_reservation",
+                click: function () {
+                    CalendarResponse(start, end, fieldid, sCalendar), $(this).dialog("close");
                 }
             }
-        });
-    }
+        ]
+    });
+    $("#add_reservation").attr("disabled", "disabled");
+}
 
-    function DeleteReservation(id, calendar, serail) {
-        $.ajax({
-            url: '{{ path('pspiess_letsplay_booking_delete') }}',
-            data: {"id": id, "serial": serail},
-            type: "POST",
-            success: function (json) {
-                calendar.fullCalendar('removeEvents', id);
-                calendar.fullCalendar("rerenderEvents");
+function showChangeDialog(start, end, fieldid, calendar, id) {
+    var dialog = $("#dialog-message").removeClass('hide').dialog({
+        modal: true,
+        title: "Reservierung bearbeiten",
+        title_html: true,
+        width: 500,
+        buttons: [
+            {
+                text: "ändern",
+                "class": "btn btn-success btn-xs",
+                "id": "add_reservation",
+                click: function () {
+                    UpdateCalendar(start, end, fieldid, calendar, id), $(this).dialog("close");
+                }
+            },
+            {
+                text: "abrechnen",
+                "class": "btn btn-primary btn-xs",
+                click: function () {
+                    window.location.href = Routing.generate('pspiess_letsplay_invoice_new', {id: id})
+                }
+            },
+            {
+                text: "stornieren",
+                "class": "btn btn-warning btn-xs",
+                click: function () {
+                    CancelCalendar(id),
+                            $(this).dialog("close");
+                }
+            },
+            {
+                text: "löschen",
+                "class": "btn btn-danger btn-xs",
+                click: function () {
+                    CheckSerialBooking(id, calendar, start, end), $(this).dialog("close");
+                }
             }
-        });
-    }
+        ]
+    });
+    $("#add_reservation").attr("disabled", "disabled");
+}
 
-    function CancelCalendar(id) {
-        $.ajax({
-            url: '{{ path('pspiess_letsplay_booking_cancel') }}',
-            data: {"id": id},
-            type: "POST",
-            success: function (json) {
+function UpdateCalendar(start, end, fieldid, calendar, id) {
+    var title = $(".title").val(); // gets title value
+    var customerid = $('#customer_id').val();
+    var categoryid = $('#category_id').val();
+    $.ajax({
+        url: '{{ path('pspiess_letsplay_booking_update') }}',
+        data: {
+            "start": start,
+            "end": end,
+            "id": id,
+            "customerid": customerid,
+            "title": title,
+            "categoryid": categoryid
+        },
+        type: "POST",
+        success: function (json) {
+            $(calendar).fullCalendar('refetchEvents');
+        }
+    });
+}
+function CheckSerialBooking(id, calendar, start, end) {
+    $.ajax({
+        url: '{{ path('pspiess_letsplay_booking_check_serial') }}',
+        data: {"id": id},
+        type: "POST",
+        success: function (json) {
+            if (json.records > 1) {
+                $('<div></div>').appendTo('body')
+                        .html('<div><h6>Möchten Sie die restlichen ' + json.records + ' Reservierungen auch löschen?</h6></div>')
+                        .dialog({
+                            modal: true, title: 'Dauerreservierung gefunden', zIndex: 10000, autoOpen: true,
+                            width: 'auto', resizable: false,
+                            buttons: {
+                                Ja: function () {
+                                    DeleteReservation(id, calendar, 1);
+                                    $(this).dialog("close");
+                                },
+                                Nein: function () {
+                                    DeleteReservation(id, calendar, 0);
+                                    $(this).dialog("close");
+                                }
+                            },
+                            close: function (event, ui) {
+                                $(this).remove();
+                            }
+                        });
+            } else {
+                DeleteReservation(id, calendar, 0);
             }
-        });
-    }
+        }
+    });
+}
+
+function DeleteReservation(id, calendar, serail) {
+    $.ajax({
+        url: '{{ path('pspiess_letsplay_booking_delete') }}',
+        data: {"id": id, "serial": serail},
+        type: "POST",
+        success: function (json) {
+            calendar.fullCalendar('removeEvents', id);
+            calendar.fullCalendar("rerenderEvents");
+        }
+    });
+}
+
+function CancelCalendar(id) {
+    $.ajax({
+        url: '{{ path('pspiess_letsplay_booking_cancel') }}',
+        data: {"id": id},
+        type: "POST",
+        success: function (json) {
+        }
+    });
+}
 </script>
