@@ -18,7 +18,7 @@ class BlogType extends AbstractType {
                     'label' => 'Datum', 'attr' => array('class' => ''), 'required' => True))
                 ->add('blogname', 'text', array('label' => 'Name', 'attr' => array('class' => '')))
                 ->add('street', 'text', array('label' => 'Straße', 'required' => false))
-                ->add('zip', 'integer', array('label' => 'Plz', 'required' => false))
+                ->add('zip', 'integer', array('label' => 'PLZ', 'required' => false))
                 ->add('location', 'text', array('label' => 'Ort', 'required' => false))
                 ->add('state', 'text', array('label' => 'Bundesland', 'required' => false))
                 ->add('country', 'text', array('label' => 'Land', 'attr' => array('class' => '')))

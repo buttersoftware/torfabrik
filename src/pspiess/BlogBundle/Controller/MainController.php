@@ -45,7 +45,7 @@ class MainController extends Controller {
                     'entities' => $entities,
                     'maincategory' => $entMaincategory,
                     'subcategory' => $entSubcategory,
-                    'keyword' => $request->query->get('keyword', 'Bitte hier Suchbergriff eingeben...'),
+                    'keyword' => $request->query->get('keyword', ''),
                     'maincategory_selected' => $request->query->get('maincategory', ''),
                     'subcategory_selected' => $request->query->get('subcategory', '')
                         )

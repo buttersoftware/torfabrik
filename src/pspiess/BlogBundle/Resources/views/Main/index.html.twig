@@ -20,9 +20,7 @@
                     <div class="sorting_options clearfix">
                         <form class="search_form" method="get" action="{{ url('pspiess_blog_homepage') }}">
                             <div class="col-md-4">
-                                <input type="text" name="keyword" value="{{ keyword }}" onFocus="
-                                        if (this.value == 'Bitte hier Suchbegriff eingeben...')
-                                            this.value = '';" onBlur="" />
+                                <input type="text" name="keyword" value="{{ keyword }}" placeholder="Bitte hier Suchbergriff eingeben..." />
                             </div>
                             <div class="col-md-4">
                                 <select name="maincategory" class="form-control form-control-custom" onchange="this.form.submit()">
