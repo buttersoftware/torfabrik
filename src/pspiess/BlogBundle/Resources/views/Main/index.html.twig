@@ -20,19 +20,25 @@
                     <div class="sorting_options clearfix">
                         <form class="search_form" method="get" action="{{ url('pspiess_blog_homepage') }}">
                             <div class="col-md-4">
-                                <input type="text" name="keyword" value="{{ keyword }}" placeholder="Bitte hier Suchbergriff eingeben..." />
+                                <input type="text" name="keyword" value="{{ keyword }}" placeholder="Suchbergriff eingeben..." />
                             </div>
-                            <div class="col-md-4">
+                            <div style="padding-top:10px;" class="col-md-1">
+                                und/oder
+                            </div>
+                            <div class="col-md-3">
                                 <select name="maincategory" class="form-control form-control-custom" onchange="this.form.submit()">
-                                    <option value="">Bitte hier Hauptkategorie auswählen...</option>
+                                    <option value="">Hauptkategorie auswählen...</option>
                                     {% for row in maincategory %}
                                         <option {% if maincategory_selected == row.id %} selected {% endif %} value="{{ row.id }}">{{ row.description }}</option>
                                     {% endfor %}
                                 </select>
                             </div>
-                            <div class="col-md-4">
+                            <div style="padding-top:10px;padding-left:32px;" class="col-md-1">
+                                und
+                            </div>
+                            <div class="col-md-3">
                                 <select name="subcategory" class="form-control form-control-custom" onchange="this.form.submit()">
-                                    <option value="">Bitte hier Unterkategorie auswählen...</option>
+                                    <option value="">Unterkategorie auswählen...</option>
                                     {% for row in subcategory %}
                                         <option {% if subcategory_selected == row.id %} selected {% endif %} value="{{ row.id }}">{{ row.description }}</option>
                                     {% endfor %}
