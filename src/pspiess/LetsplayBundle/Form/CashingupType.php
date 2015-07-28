@@ -16,8 +16,8 @@ class CashingupType extends AbstractType {
         $builder
                 ->add('nominal', 'money', array('label' => 'SOLL BAR', 'attr' => array('class' => '')))
                 ->add('actual', 'money', array('label' => 'Ist BAR', 'attr' => array('class' => '')))
-                ->add('nominalec', 'money', array('label' => 'SOLL EC', 'attr' => array('class' => '')))
-                ->add('actualec', 'money', array('label' => 'Ist EC', 'attr' => array('class' => '')))
+                ->add('nominalec', 'money', array('label' => 'SOLL EC', 'attr' => array('class' => ''), 'required' => false))
+                ->add('actualec', 'money', array('label' => 'Ist EC', 'attr' => array('class' => ''), 'required' => false))
                 ->add('daydate', 'date', array('label' => 'Tagesdatum'))
                 ->add('note', 'textarea', array('label' => 'Bemerkung', 'attr' => array('class' => ''), 'required' => false))
         ;

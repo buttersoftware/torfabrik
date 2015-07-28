@@ -55,14 +55,14 @@ class Cashingup
     /**
      * @var decimal
      *
-     * @ORM\Column(name="nominalec", type="decimal", precision=6, scale=2)
+     * @ORM\Column(name="nominalec", type="decimal", precision=6, scale=2, nullable=true)
      */
     private $nominalec;
 
     /**
      * @var decimal
      *
-     * @ORM\Column(name="actualec", type="decimal", precision=6, scale=2)
+     * @ORM\Column(name="actualec", type="decimal", precision=6, scale=2, nullable=true)
      */
     private $actualec;
 
