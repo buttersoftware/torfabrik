@@ -10,6 +10,18 @@ pspiess_blog_partners:
    path:     /partners
    defaults: { _controller: pspiessBlogBundle:Main:partners }
 
+pspiess_blog_slider:
+    pattern:  /slider
+    defaults: { _controller: pspiessBlogBundle:Main:slider }
+
+pspiess_blog_feedback:
+    pattern:  /feedback
+    defaults: { _controller: pspiessBlogBundle:Main:feedback }
+
+pspiess_blog_feedback_response:
+    pattern:  /feedback_response
+    defaults: { _controller: pspiessBlogBundle:Main:feedback_response }
+
 login:
     pattern:  /login
     defaults: { _controller: pspiessBlogBundle:Security:login }
@@ -78,7 +90,8 @@ pspiess_blog_maincategory_update:
 pspiess_blog_maincategory_delete:
     pattern:  /maincategory/delete/{id}
     defaults: { _controller: pspiessBlogBundle:Maincategory:delete }
-    
+
+
 #Subcategory
 pspiess_blog_subcategory:
     pattern:  /subcategory

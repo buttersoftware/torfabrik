@@ -16,9 +16,19 @@ pspiess_letsplay_customer_create_customer:
         pattern:  /admin/customer/createcustomer
         defaults: { _controller: pspiessLetsplayBundle:Customer:createCustomer }
 
+pspiess_letsplay_customer_edit_customer:
+        pattern:  /admin/customer/editcustomer
+        defaults: { _controller: pspiessLetsplayBundle:Customer:editCustomer }
+
 pspiess_letsplay_customer_get:
     pattern:  /admin/customer/{keyword}
     defaults: { _controller: pspiessLetsplayBundle:Customer:getCustomer, _format: json }
+    options:
+        expose: true
+
+pspiess_letsplay_customer_getbyid:
+    pattern:  /admin/customer/getcustomer/{id}
+    defaults: { _controller: pspiessLetsplayBundle:Customer:getCustomerbyId, _format: json }
     options:
         expose: true
 

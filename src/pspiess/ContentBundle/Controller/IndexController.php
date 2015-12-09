@@ -74,7 +74,7 @@ class IndexController extends Controller {
                             'message' => $form->get('message')->getData()
                                 )
                         ), 'text/html'
-                ) ;
+                );
 
                 $this->get('mailer')->send($message);
 

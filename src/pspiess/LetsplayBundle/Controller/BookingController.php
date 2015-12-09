@@ -43,8 +43,6 @@ class BookingController extends Controller {
      * @Route("/booking/{id}/{date}", name="pspiess_letsplay_booking_calendar", options={"expose"=true})
      */
     public function showCalendarAction($id, $date) {
-        $sCategory = '';
-        $iCategoryId = 0;
         $em = $this->getDoctrine()->getManager();
 
         $entBooking = $em->getRepository('pspiessLetsplayBundle:Booking')->GetBooking($id, $date);
@@ -64,7 +62,8 @@ class BookingController extends Controller {
                 'start' => $obj->getStart()->format('Y-m-d H:i:s'),
                 'end' => $obj->getEnd()->format('Y-m-d H:i:s'),
                 'className' => $this->GetStatus($obj),
-                'categoryid' => $iCategoryId
+                'categoryid' => $iCategoryId,
+                'customer_id' => $obj->getCustomer()->getId()
             );
         }
 
@@ -178,8 +177,8 @@ class BookingController extends Controller {
 
         $booking = $em->getRepository('pspiessLetsplayBundle:Booking')->find($data["id"]);
 
-        if ((int)$data["serial"] == 1) {
-            $this->deleteSerialBooking($booking);
+        if ((int)$data["serial"] != '') {
+            $this->deleteSerialBooking($booking, new \DateTime($data['serial']));
         } else {
             $em->remove($booking);
             $em->flush();
@@ -195,8 +194,9 @@ class BookingController extends Controller {
      * delete serial reservation
      *
      * @param Booking $booking
+     * @param \DateTime $serialDate
      */
-    public function deleteSerialBooking(Booking $booking) {
+    public function deleteSerialBooking(Booking $booking, \DateTime $serialDate) {
         $em = $this->getDoctrine()->getManager();
 
         $bookingsSerial = $em->getRepository('pspiessLetsplayBundle:Booking')->getBookingSerial(
@@ -206,6 +206,9 @@ class BookingController extends Controller {
             $booking->getEnd());
 
         foreach ($bookingsSerial as $entity) {
+            if ($serialDate->format('Y-m-d') < $entity->getEnd()->format('Y-m-d')) {
+                break;
+            }
             $em->remove($entity);
         }
 

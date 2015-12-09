@@ -71,6 +71,13 @@ class Maincategory {
     /**
      * @var string
      *
+     * @ORM\Column(name="description_en", type="string", length=255, nullable=true)
+     */
+    private $description_en;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="note", type="text")
      */
     private $note;
@@ -253,4 +260,27 @@ class Maincategory {
         return $this->description;
     }
 
+
+    /**
+     * Set description_en
+     *
+     * @param string $descriptionEn
+     * @return Maincategory
+     */
+    public function setDescriptionEn($descriptionEn)
+    {
+        $this->description_en = $descriptionEn;
+
+        return $this;
+    }
+
+    /**
+     * Get description_en
+     *
+     * @return string 
+     */
+    public function getDescriptionEn()
+    {
+        return $this->description_en;
+    }
 }

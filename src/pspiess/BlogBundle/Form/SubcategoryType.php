@@ -17,6 +17,7 @@ class SubcategoryType extends AbstractType
         $builder
             ->add('number', 'number', array('label' => 'Nummer', 'required' => True))
             ->add('description', 'text', array('label' => 'Bezeichnung', 'required' => True))
+            ->add('description_en', 'text', array('label' => 'Bezeichnung englisch', 'required' => False))
             ->add('note', 'textarea', array('label' => 'Beschreibung', 'required' => false))
             ->add('maincategory', null, array('label' => 'Hauptkategorie', 'required' => false))
         ;

@@ -16,7 +16,8 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * @Route("/customer")
  */
-class CustomerController extends Controller {
+class CustomerController extends Controller
+{
 
     /**
      * Lists all Customer entities.
@@ -25,7 +26,8 @@ class CustomerController extends Controller {
      * @Method("GET")
      * @Template()
      */
-    public function indexAction(Request $request) {
+    public function indexAction(Request $request)
+    {
         //$em = $this->getDoctrine()->getManager();
         $paginator = $this->get('knp_paginator');
 
@@ -34,7 +36,7 @@ class CustomerController extends Controller {
 
         $entCustomer = $this->getDoctrine()->getRepository('pspiessLetsplayBundle:Customer')->GetCustomerByName($request->query->get('keyword', ''));
         $entities = $paginator->paginate(
-                $entCustomer, $request->query->get('page', 1) /* page number */, 20/* limit per page */
+            $entCustomer, $request->query->get('page', 1) /* page number */, 20/* limit per page */
         );
 
         return array('entities' => $entities);
@@ -42,12 +44,13 @@ class CustomerController extends Controller {
 
     /**
      * Lists all Customer entities.
-     * 
+     *
      * @Route("/", name="customer_customerdelete")
      * @Template("pspiessLetsplayBundle:Customer:delete.html.twig")
      * @Method("GET")
      */
-    public function deleteCustomerAction($id) {
+    public function deleteCustomerAction($id)
+    {
         $deleteForms[$id] = $this->createDeleteForm($id)->createView();
         return array('deleteForms' => $deleteForms, 'id' => $id,);
     }
@@ -59,7 +62,8 @@ class CustomerController extends Controller {
      * @Method("GET")
      * @Template()
      */
-    public function getAllCustomerAction(Request $request) {
+    public function getAllCustomerAction(Request $request)
+    {
         $em = $this->getDoctrine()->getManager();
 
 //        $customer = $em->getRepository('pspiessLetsplayBundle:Customer')->findAll();
@@ -78,7 +82,7 @@ class CustomerController extends Controller {
         $response->headers->set('Content-Type', 'application/json');
         return $response;
     }
-    
+
     /**
      * Lists all customer entities for Calendar.
      *
@@ -86,14 +90,15 @@ class CustomerController extends Controller {
      * @Method("GET")
      * @Template()
      */
-    public function getCustomerAction($keyword) {
+    public function getCustomerAction($keyword)
+    {
         $entCustomer = null;
         if ($keyword != '') {
             $entCustomer = $this->getDoctrine()->getRepository('pspiessLetsplayBundle:Customer')->GetCustomerByName($keyword);
         }
-        
+
         $rows = array();
-        
+
         foreach ($entCustomer as $obj) {
             $rows[] = array('label' => $obj->getName() . ', ' . $obj->getFirstname(), 'value' => $obj->getId());
         }
@@ -111,7 +116,8 @@ class CustomerController extends Controller {
      * @Method("POST")
      * @Template("pspiessLetsplayBundle:Customer:new.html.twig")
      */
-    public function createAction(Request $request) {
+    public function createAction(Request $request)
+    {
         $entity = new Customer();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -140,7 +146,8 @@ class CustomerController extends Controller {
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Customer $entity) {
+    private function createCreateForm(Customer $entity)
+    {
         $form = $this->createForm(new CustomerType(), $entity, array(
             'action' => $this->generateUrl('pspiess_letsplay_customer_create'),
             'method' => 'POST',
@@ -158,7 +165,8 @@ class CustomerController extends Controller {
      * @Method("GET")
      * @Template()
      */
-    public function newAction() {
+    public function newAction()
+    {
         $entity = new Customer();
         $form = $this->createCreateForm($entity);
 
@@ -175,7 +183,8 @@ class CustomerController extends Controller {
      * @Method("GET")
      * @Template()
      */
-    public function showAction($id) {
+    public function showAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('pspiessLetsplayBundle:Customer')->find($id);
@@ -199,7 +208,8 @@ class CustomerController extends Controller {
      * @Method("GET")
      * @Template()
      */
-    public function editAction($id) {
+    public function editAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('pspiessLetsplayBundle:Customer')->find($id);
@@ -225,7 +235,8 @@ class CustomerController extends Controller {
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createEditForm(Customer $entity) {
+    private function createEditForm(Customer $entity)
+    {
         $form = $this->createForm(new CustomerType(), $entity, array(
             'action' => $this->generateUrl('pspiess_letsplay_customer_update', array('id' => $entity->getId())),
             'method' => 'PUT',
@@ -243,7 +254,8 @@ class CustomerController extends Controller {
      * @Method("PUT")
      * @Template("pspiessLetsplayBundle:Customer:edit.html.twig")
      */
-    public function updateAction(Request $request, $id) {
+    public function updateAction(Request $request, $id)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('pspiessLetsplayBundle:Customer')->find($id);
@@ -259,7 +271,7 @@ class CustomerController extends Controller {
         if ($editForm->isValid()) {
             $em->flush();
             return $this->redirect($this->generateUrl('pspiess_letsplay_customer_edit', array('id' => $id)));
-        }else {
+        } else {
             print_r($editForm->getErrorsAsString());
         }
 
@@ -276,7 +288,8 @@ class CustomerController extends Controller {
      * @Route("/{id}", name="customer_delete")
      * @Method("DELETE")
      */
-    public function deleteAction(Request $request, $id) {
+    public function deleteAction(Request $request, $id)
+    {
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
@@ -302,20 +315,90 @@ class CustomerController extends Controller {
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($id) {
+    private function createDeleteForm($id)
+    {
         return $this->createFormBuilder()
-                        ->setAction($this->generateUrl('pspiess_letsplay_customer_delete', array('id' => $id)))
-                        ->setMethod('DELETE')
+            ->setAction($this->generateUrl('pspiess_letsplay_customer_delete', array('id' => $id)))
+            ->setMethod('DELETE')
 //                        ->add('submit', 'submit', array('label' => 'Delete'))
-                        ->add('id', 'hidden')
-                        ->getForm()
-        ;
+            ->add('id', 'hidden')
+            ->getForm();
+    }
+
+    /**
+     * @param $id
+     * @return Response
+     */
+    public function getCustomerbyIdAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $entCustomer = $em->getRepository('pspiessLetsplayBundle:Customer')->find($id);
+
+        $rows = null;
+
+        if ($entCustomer != null) {
+            $rows = array(
+                'id' => $entCustomer->getid(),
+                'title' => $entCustomer->getTitle(),
+                'firstname' => $entCustomer->getFirstname(),
+                'name' => $entCustomer->getName(),
+                'email' => $entCustomer->getEmail(),
+                'street' => $entCustomer->getStreet(),
+                'location' => $entCustomer->getLocation(),
+                'zip' => $entCustomer->getZip(),
+                'phone' => $entCustomer->getPhone(),
+                'addon' => $entCustomer->getAddon(),
+                'sex' => $entCustomer->getSex(),
+                'country' => $entCustomer->getCountry(),
+                'discount' => $entCustomer->getDiscount(),
+            );
+        }
+
+        $serializedEntity = $this->container->get('serializer')->serialize($rows, 'json');
+        $response = new Response($serializedEntity);
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+    }
+
+
+    /**
+     * create customer
+     */
+    public function editCustomerAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->get('request');
+        $data = $request->request->all();
+
+        $customer = $em->getRepository('pspiessLetsplayBundle:Customer')->find($data["id"]);
+        $customer->setTitle($data["title"]);
+        $customer->setFirstname($data["firstname"]);
+        $customer->setName($data["name"]);
+        $customer->setEmail($data["email"]);
+        $customer->setStreet($data["street"]);
+        $customer->setLocation($data["location"]);
+        $customer->setZip($data["zip"]);
+        $customer->setPhone($data["phone"]);
+        $customer->setAddon($data["addon"]);
+        $customer->setSex($data["sex"]);
+        $customer->setCountry($data["country"]);
+        $customer->setDiscount($data["discount"]);
+
+
+        $em->persist($customer);
+        $em->flush();
+
+        $serializedEntity = $this->container->get('serializer')->serialize($customer->getId(), 'json');
+        $response = new Response($serializedEntity);
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
     }
 
     /**
      * create customer
      */
-    public function createCustomerAction() {
+    public function createCustomerAction()
+    {
         $em = $this->getDoctrine()->getManager();
         $request = $this->get('request');
         $data = $request->request->all();
@@ -333,11 +416,21 @@ class CustomerController extends Controller {
         $customer->setAddon($data["addon"]);
         $customer->setSex($data["sex"]);
         $customer->setCountry($data["country"]);
+        $customer->setDiscount($data["discount"]);
 
         $em->persist($customer);
         $em->flush();
 
-        $serializedEntity = $this->container->get('serializer')->serialize($customer->getId(), 'json');
+        $rows = null;
+
+        if ($customer != null) {
+            $rows = array(
+                'customer_id' => $customer->getid(),
+                'customer_name' => $customer->getName() . ', ' . $customer->getFirstname()
+            );
+        }
+
+        $serializedEntity = $this->container->get('serializer')->serialize($rows, 'json');
         $response = new Response($serializedEntity);
         $response->headers->set('Content-Type', 'application/json');
         return $response;

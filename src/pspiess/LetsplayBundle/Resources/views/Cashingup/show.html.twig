@@ -51,12 +51,29 @@
                                         <td class="success"><span class="red">{{ entity.actual|number_format(2, ',', '.') }} &euro;</span></td>
                                     </tr>
                                     <tr>
+                                        {#TODO am besten auf Datenbank umstellen so viel zu statisch#}
+                                        <td class="success">Mehrwertsteuer Bar Ist: </td>
+                                        <td class="success"><span class="red">{{ (entity.actual-entity.actual/1.19)|number_format(2, ',', '.') }} &euro;</span></td>
+                                    </tr>
+                                    <tr>
                                         <td class="info">Umsatz EC Karte SOLL: </td>
                                         <td class="info"><span class="red">{{ entity.nominalec|number_format(2, ',', '.') }} &euro;</span></td>
                                     </tr>
                                     <tr>
-                                        <td class="info">Umsatz EC Karte IST: </td>
+                                        <td class="info">Umsatz EC Karte Ist: </td>
                                         <td class="info"><span class="red">{{ entity.actualec|number_format(2, ',', '.') }} &euro;</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="info">Mehrwertsteuer EC Karte Ist: </td>
+                                        <td class="info"><span class="red">{{ (entity.actualec-entity.actualec/1.19)|number_format(2, ',', '.') }} &euro;</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="warning">Gesamtumsatz: </td>
+                                        <td class="warning"><span class="red">{{ (entity.actual+entity.actualec)|number_format(2, ',', '.') }} &euro;</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="warning">Gesamtumsatz Mehrwertssteuer: </td>
+                                        <td class="warning"><span class="red">{{ ((entity.actual+entity.actualec)-(entity.actual+entity.actualec) / 1.19)|number_format(2, ',', '.') }} &euro;</span></td>
                                     </tr>
                                 </tbody>
                                 <tfoot>

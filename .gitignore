@@ -50,3 +50,5 @@ nbproject/private/*
 # ignore all backup files
 *~
 *.php~
+*.php~
+vendor.zip

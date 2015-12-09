@@ -1,0 +1,114 @@
+{% extends 'pspiessBlogBundle::layout.html.twig' %}
+
+{% block title %}Linkliste.NRW - Werbemöglichkeiten{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {#    <link href="{{ asset('resources/css/jquery-ui.min.css')}}" rel="stylesheet">
+        <link href="{{ asset('resources/css/jquery-ui.custom.min.css')}}" rel="stylesheet">#}
+
+    <link href="{{ asset('resources/plugin/slides/css/jquery.slides.css-ui.min.css') }}" rel="stylesheet">
+
+{% endblock %}
+
+{% block body -%}
+    <div class="page_block">
+        {{ include('pspiessBlogBundle:Elements:header.html.twig') }}
+
+        <div class="container">
+            <div id="slides_container">
+                <div id="slides_inner_container">
+                    <div id="slides">
+                        <div class="slides_container">
+                            <div class="slide">
+                                <a href="http://weg.de" title="http://weg.de" target="_blank"><img
+                                            src="https://thumber.de/image/?size=SXL&url=http://weg.de" width="400"
+                                            height="300"></a>
+
+                                <div class="caption">Weg.de</div>
+                            </div>
+                            <div class="slide">
+                                <a href="http://spiegel.de" title="http://spiegel.de" target="_blank"><img
+                                            src="https://thumber.de/image/?size=SXL&url=http://spiegel.de" width="400"
+                                            height="300"></a>
+
+                                <div class="caption">Spiegel.de</div>
+                            </div>
+                            <div class="slide">
+                                <a href="http://thumber.de" title="http://thumber.de" target="_blank"><img
+                                            src="https://thumber.de/image/?size=SXL&url=http://thumber.de" width="400"
+                                            height="300"></a>
+
+                                <div class="caption">Thumber.de</div>
+                            </div>
+                            <div class="slide">
+                                <a href="http://heise.de" title="http://heise.de" target="_blank"><img
+                                            src="https://thumber.de/image/?size=SXL&url=http://heise.de" width="400"
+                                            height="300"></a>
+
+                                <div class="caption">Heise.de</div>
+                            </div>
+                            <div class="slide">
+                                <a href="http://hannover96.de" title="http://hannover96.de" target="_blank"><img
+                                            src="https://thumber.de/image/?size=SXL&url=http://hannover96.de"
+                                            width="400" height="300"></a>
+
+                                <div class="caption">Hannover96.de</div>
+                            </div>
+                        </div>
+                        <a href="#" class="prev"><img src="img/arrow-prev.png" width="24" height="43" alt="Weiter"></a>
+                        <a href="#" class="next"><img src="img/arrow-next.png" width="24" height="43" alt="Zurück"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        {{ include('pspiessBlogBundle:Elements:footer.html.twig') }}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript" src="{{ asset('resources/plugin/slides/js/jquery.slides.js') }}"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(function () {
+                $('#slides').slides({
+                    preload: false,
+                    preloadImage: 'img/loading.gif',
+                    play: 2500,
+                    pause: 2500,
+                    hoverPause: true,
+                    animationStart: function (current) {
+                        $('.caption').animate({
+                            bottom: -35
+                        }, 100);
+                        if (window.console && console.log) {
+                            // example return of current slide number
+                            console.log('animationStart on slide: ', current);
+                        }
+                        ;
+                    },
+                    animationComplete: function (current) {
+                        $('.caption').animate({
+                            bottom: 0
+                        }, 200);
+                        if (window.console && console.log) {
+                            // example return of current slide number
+                            console.log('animationComplete on slide: ', current);
+                        }
+                        ;
+                    },
+                    slidesLoaded: function () {
+                        $('.caption').animate({
+                            bottom: 0
+                        }, 200);
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}

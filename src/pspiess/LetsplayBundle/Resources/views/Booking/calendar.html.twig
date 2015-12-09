@@ -48,40 +48,178 @@ function createNewCustomer() {
         title_html: true,
         width: 700,
         buttons: [{
-                text: "speichern",
-                "class": "btn btn-success btn-xs",
-                "id": "create_customer",
-                click: function () {
-                    $.ajax({
-                        url: '{{ path('pspiess_letsplay_customer_create_customer') }}',
-                        data: {
-                            "title": $("#customer_title").val(),
-                            "firstname": $("#customer_firstname").val(),
-                            "name": $("#customer_name").val(),
-                            "email": $("#customer_email").val(),
-                            "street": $("#customer_street").val(),
-                            "zip": $("#customer_zip").val(),
-                            "location": $("#customer_location").val(),
-                            "phone": $("#customer_phone").val(),
-                            "addon": $("#customer_addon").val(),
-                            "sex": $("#customer_sex").val(),
-                            "country": $("#customer_country").val()
-                        },
-                        type: "POST",
-                        success: function (json) {
-                            alert('Kunde wurde gespeichert!');
-                            $("#dialog_new_customer").dialog('close');
-                        },
-                        error: function (json) {
-                            alert('Es ist ein Fehler aufgetreten!');
-                        }
-                    });
-                }
-            }]
+            text: "speichern",
+            "class": "btn btn-success btn-xs",
+            "id": "create_customer",
+            click: function () {
+                $.ajax({
+                    url: '{{ path('pspiess_letsplay_customer_create_customer') }}',
+                    data: {
+                        "title": $("#customer_title").val(),
+                        "firstname": $("#customer_firstname").val(),
+                        "name": $("#customer_name").val(),
+                        "email": $("#customer_email").val(),
+                        "street": $("#customer_street").val(),
+                        "zip": $("#customer_zip").val(),
+                        "location": $("#customer_location").val(),
+                        "phone": $("#customer_phone").val(),
+                        "addon": $("#customer_addon").val(),
+                        "sex": $("#customer_sex").val(),
+                        "country": $("#customer_country").val(),
+                        "discount": $("#customer_discount").val()
+                    },
+                    type: "POST",
+                    success: function (json) {
+                        noty({
+                            text: 'Kunde wurde gespeichert!',
+                            type: 'success',
+                            timeout: 2000
+                        });
+                        ClearCustomer();
+                        $("#dialog_new_customer").dialog('close');
+                    },
+                    error: function (json) {
+                        noty({
+                            text: 'Es ist ein Fehler aufgetreten!',
+                            type: 'error',
+                            timeout: 2000
+                        });
+                    }
+                });
+            }
+        },
+        {
+            text: "speichern und reservieren",
+            "class": "btn btn-info btn-xs",
+            "id": "create_customer",
+            click: function () {
+                $.ajax({
+                    url: '{{ path('pspiess_letsplay_customer_create_customer') }}',
+                    data: {
+                        "title": $("#customer_title").val(),
+                        "firstname": $("#customer_firstname").val(),
+                        "name": $("#customer_name").val(),
+                        "email": $("#customer_email").val(),
+                        "street": $("#customer_street").val(),
+                        "zip": $("#customer_zip").val(),
+                        "location": $("#customer_location").val(),
+                        "phone": $("#customer_phone").val(),
+                        "addon": $("#customer_addon").val(),
+                        "sex": $("#customer_sex").val(),
+                        "country": $("#customer_country").val(),
+                        "discount": $("#customer_discount").val()
+                    },
+                    type: "POST",
+                    success: function (response) {
+                        noty({
+                            text: 'Kunde wurde gespeichert!',
+                            type: 'success',
+                            timeout: 2000
+                        });
+                        $("#dialog_new_customer").dialog('close');
+                        $("#customer").val(response.customer_name);
+                        $("#customer_id").val(response.customer_id);
+                        ClearCustomer();
+                        $("#add_reservation").click();
+                    },
+                    error: function (json) {
+                        noty({
+                            text: 'Es ist ein Fehler aufgetreten!',
+                            type: 'error',
+                            timeout: 2000
+                        });
+                    }
+                });
+            }
+        }
+        ]
+    });
+}
+
+
+function setCustomer(id) {
+    $.ajax({
+        url: Routing.generate('pspiess_letsplay_customer_getbyid', {id: id}),
+        type: 'POST',
+        success: function (data) {
+            $("#customer_title").val(data.title)
+            $("#customer_firstname").val(data.firstname)
+            $("#customer_name").val(data.name)
+            $("#customer_email").val(data.email)
+            $("#customer_street").val(data.street)
+            $("#customer_zip").val(data.zip)
+            $("#customer_location").val(data.location)
+            $("#customer_phone").val(data.phone)
+            $("#customer_addon").val(data.addon)
+            if (data.sex == 1) {
+                $("#customer_sex").val('Mann')
+            } else {
+                $("#customer_sex").val('Frau')
+            }
+
+            $("#customer_country").val(data.country)
+            $("#customer_discount").val(data.discount)
+        },
+        error: function (data) {
+            console.log(data + 'error');
+        }
+    });
+}
+
+function editCustomer() {
+    setCustomer($("#customer_id").val());
+    var dialog = $("#dialog_new_customer").removeClass('hide').dialog({
+        modal: true,
+        title: "Kunde bearbeiten",
+        title_html: true,
+        width: 700,
+        buttons: [{
+            text: "ändern",
+            "class": "btn btn-success btn-xs",
+            "id": "edit_customer",
+            click: function () {
+                $.ajax({
+                    url: '{{ path('pspiess_letsplay_customer_edit_customer') }}',
+                    data: {
+                        "id": $("#customer_id").val(),
+                        "title": $("#customer_title").val(),
+                        "firstname": $("#customer_firstname").val(),
+                        "name": $("#customer_name").val(),
+                        "email": $("#customer_email").val(),
+                        "street": $("#customer_street").val(),
+                        "zip": $("#customer_zip").val(),
+                        "location": $("#customer_location").val(),
+                        "phone": $("#customer_phone").val(),
+                        "addon": $("#customer_addon").val(),
+                        "sex": $("#customer_sex").val(),
+                        "country": $("#customer_country").val(),
+                        "discount": $("#customer_discount").val()
+                    },
+                    type: "POST",
+                    success: function (json) {
+                        noty({
+                            text: 'Der Kunde wurde geändert!',
+                            type: 'success',
+                            timeout: 2000
+                        });
+                        ClearCustomer();
+                        $("#dialog_new_customer").dialog('close');
+                    },
+                    error: function (json) {
+                        noty({
+                            text: 'Es ist ein Fehler aufgetreten!',
+                            type: 'error',
+                            timeout: 2000
+                        });
+                    }
+                });
+            }
+        }]
     });
 }
 
 function showDialog(start, end, fieldid, sCalendar) {
+    ClearFields();
     var dialog = $("#dialog-message").removeClass('hide').dialog({
         modal: true,
         title: "Reservierung hinzufügen",
@@ -89,6 +227,14 @@ function showDialog(start, end, fieldid, sCalendar) {
         width: 500,
         minHeight: 500,
         buttons: [
+            {
+                text: "Kunde bearbeiten",
+                id: "edit_customer",
+                "class": "btn btn-warning btn-xs",
+                click: function () {
+                    editCustomer();
+                }
+            },
             {
                 text: "neuer Kunde",
                 "class": "btn btn-primary btn-xs",
@@ -107,15 +253,32 @@ function showDialog(start, end, fieldid, sCalendar) {
         ]
     });
     $("#add_reservation").attr("disabled", "disabled");
+    $("#edit_customer").attr("disabled", "disabled");
 }
 
-function showChangeDialog(start, end, fieldid, calendar, id) {
+function getReservation(id) {
+
+}
+
+function showChangeDialog(start, end, fieldid, calendar, id, customer_id) {
+    ClearFields();
+    $("#customer_id").val(customer_id);
+
     var dialog = $("#dialog-message").removeClass('hide').dialog({
         modal: true,
         title: "Reservierung bearbeiten",
         title_html: true,
         width: 500,
+        minHeight: 500,
         buttons: [
+            {
+                text: "Kunde bearbeiten",
+                id: "edit_customer",
+                "class": "btn btn-warning btn-xs btn-lg btn-md",
+                click: function () {
+                    editCustomer();
+                }
+            },
             {
                 text: "ändern",
                 "class": "btn btn-success btn-xs",
@@ -179,17 +342,23 @@ function CheckSerialBooking(id, calendar, start, end) {
         success: function (json) {
             if (json.records > 1) {
                 $('<div></div>').appendTo('body')
-                        .html('<div><h6>Möchten Sie die restlichen ' + json.records + ' Reservierungen auch löschen?</h6></div>')
+                        .html('<div class="col-md-12"> ' +
+                            '<label for="customer">Möchten Sie die restlichen ' + json.records + ' Reservierungen auch löschen?</label>' +
+                            '<div class="input-group"> ' +
+                                '<input class="form-control date-picker" id="delete_date" name="delete_date" type="text" data-date-format="dd.mm.yyyy"/> ' +
+                                '<span class="input-group-addon"> <i class="fa fa-calendar bigger-110"></i></span>' +
+                            '</div>' +
+                        '</div>')
                         .dialog({
                             modal: true, title: 'Dauerreservierung gefunden', zIndex: 10000, autoOpen: true,
-                            width: 'auto', resizable: false,
+                            width: '600px', resizable: false,
                             buttons: {
                                 Ja: function () {
-                                    DeleteReservation(id, calendar, 1);
+                                    DeleteReservation(id, calendar,  $('#delete_date').val());
                                     $(this).dialog("close");
                                 },
                                 Nein: function () {
-                                    DeleteReservation(id, calendar, 0);
+                                    DeleteReservation(id, calendar, $('#delete_date').val());
                                     $(this).dialog("close");
                                 }
                             },
@@ -198,13 +367,22 @@ function CheckSerialBooking(id, calendar, start, end) {
                             }
                         });
             } else {
-                DeleteReservation(id, calendar, 0);
+                DeleteReservation(id, calendar, '');
             }
+            $('#delete_date').datepicker({
+                autoclose: true,
+                todayHighlight: true,
+                format: 'dd.mm.yyyy',
+                todayBtn: 'linked'
+            });
+            $('#delete_date').datepicker('show');
+
         }
     });
 }
 
 function DeleteReservation(id, calendar, serail) {
+    console.log(serail);
     $.ajax({
         url: '{{ path('pspiess_letsplay_booking_delete') }}',
         data: {"id": id, "serial": serail},
@@ -230,5 +408,25 @@ function ClearFields() {
     $('#serial').val('0');
     $('#serial_date').val('');
     $('#category_id').val('');
+    $('#category_id').val('');
+    $('#customer').val('');
+    $('#customer').val('');
+    $('#category_id').val();
+    $('#serial').val('0');
+}
+
+function ClearCustomer() {
+    $("#customer_title").val('Herr')
+    $("#customer_firstname").val('')
+    $("#customer_name").val('')
+    $("#customer_email").val('')
+    $("#customer_street").val('')
+    $("#customer_zip").val('')
+    $("#customer_location").val('')
+    $("#customer_phone").val('')
+    $("#customer_addon").val('')
+    $("#customer_sex").val('Mann')
+    $("#customer_country").val('')
+    $("#customer_discount").val('')
 }
 </script>

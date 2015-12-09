@@ -65,9 +65,10 @@ class Blog {
     /**
      * @var string
      *
-     * @ORM\Column(name="blogname", type="string", length=255)
+     * @ORM\Column(name="blogname", type="string", length=255, nullable=true)
      */
     private $blogname;
+
 
     /**
      * @var string
@@ -153,6 +154,13 @@ class Blog {
      * @ORM\Column(name="active", type="integer")
      */
     private $active;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="rank", type="integer", nullable=true)
+     */
+    private $rank;
 
     /**
      * @var integer
@@ -755,5 +763,28 @@ class Blog {
     public function getThumbnail()
     {
         return $this->thumbnail;
+    }
+
+    /**
+     * Set rank
+     *
+     * @param integer $rank
+     * @return Blog
+     */
+    public function setRank($rank)
+    {
+        $this->rank = $rank;
+
+        return $this;
+    }
+
+    /**
+     * Get rank
+     *
+     * @return integer 
+     */
+    public function getRank()
+    {
+        return $this->rank;
     }
 }

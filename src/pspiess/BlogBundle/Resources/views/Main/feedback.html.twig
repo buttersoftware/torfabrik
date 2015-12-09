@@ -1,0 +1,29 @@
+{% extends 'pspiessBlogBundle::layout.html.twig' %}
+
+{% block title %}Linkliste.NRW - Feedback{% endblock %}
+
+{% block stylesheets %}
+    {{ parent()}}
+    {#    <link href="{{ asset('resources/css/jquery-ui.min.css')}}" rel="stylesheet">
+        <link href="{{ asset('resources/css/jquery-ui.custom.min.css')}}" rel="stylesheet">#}
+{% endblock %}
+{% block body -%}
+    <div class="page_block">
+        {{ include('pspiessBlogBundle:Elements:header.html.twig') }}
+
+
+        <div class="container">
+            <div class="row">
+                <h2 class="text-lowercase">Ihre Meinung ist mir wichtig!</h2>
+                {{ form(form) }}
+                <br>
+            </div>
+        </div>
+
+        {{ include('pspiessBlogBundle:Elements:footer.html.twig') }}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent()}}
+{% endblock %}

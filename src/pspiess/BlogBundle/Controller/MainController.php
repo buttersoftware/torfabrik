@@ -4,6 +4,9 @@ namespace pspiess\BlogBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use pspiess\BlogBundle\Form\FeedbackType;
+use pspiess\BlogBundle\Form\ReportType;
+
 
 class MainController extends Controller {
 
@@ -13,7 +16,7 @@ class MainController extends Controller {
      * @return type Blog Entity
      */
     public function indexAction(Request $request) {
-
+        $form = $this->createForm(new ReportType());
         $paginator = $this->get('knp_paginator');
 
         $entStaticBlog = null;
@@ -40,6 +43,7 @@ class MainController extends Controller {
         );
 
         return $this->render('pspiessBlogBundle:Main:index.html.twig', array(
+                    'report_form' => $form->createView(),
                     'staticentities' => $entStaticBlog,
                     'randomentities' => $entRandomBlog,
                     'entities' => $entities,
@@ -53,24 +57,79 @@ class MainController extends Controller {
     }
 
     /**
-     * Go to impressum site
+     * Go to impressum page
      */
     public function impressumAction() {
         return $this->render('pspiessBlogBundle:Main:impressum.html.twig', array('entities' => null));
     }
 
     /**
-     * Go to impressum site
+     * Go to impressum page
      */
     public function partnersAction() {
         return $this->render('pspiessBlogBundle:Main:partners.html.twig', array('entities' => null));
     }
 
     /**
-     * Go to advertise site
+     * Go to advertise page
      */
     public function advertiseAction() {
         return $this->render('pspiessBlogBundle:Main:advertise.html.twig', array('entities' => null));
     }
 
+    /**
+     * Go to slider page
+     */
+    public function sliderAction() {
+        return $this->render('pspiessBlogBundle:Main:slider.html.twig', array('entities' => null));
+    }
+
+    /**
+ * Go to feedback page and save
+ * @param Request $request
+ * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
+ */
+    public function feedbackAction(Request $request) {
+        $form = $this->createForm(new FeedbackType());
+
+        if ($request->isMethod('POST')) {
+            $form->bind($request);
+            //\Doctrine\Common\Util\Debug::dump($request);
+            if ($form->isValid()) {
+                $message = \Swift_Message::newInstance()
+                    ->setSubject($form->get('subject')->getData())
+                    ->setFrom($form->get('email')->getData())
+                    ->setTo('info@pspiess.de')
+                    ->setBody(
+                        $this->renderView(
+                            'pspiessBlogBundle:Elements:mail.html.twig', array(
+                                'ip' => $request->getClientIp(),
+                                'name' => $form->get('name')->getData(),
+                                'email' => $form->get('email')->getData(),
+                                'subject' => $form->get('subject')->getData(),
+                                'message' => $form->get('message')->getData()
+                            )
+                        ), 'text/html'
+                    ) ;
+
+                $this->get('mailer')->send($message);
+
+                $request->getSession()->getFlashBag()->add('success', 'Deine Email wurde versenden! Danke!');
+
+                return $this->redirect($this->generateUrl('pspiess_blog_feedback_response'));
+            }
+        }
+
+        return $this->render('pspiessBlogBundle:Main:feedback.html.twig', array(
+            'form' => $form->createView()
+        ));
+    }
+
+    /**
+     * Go to feedback response page and save
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function feedback_responseAction() {
+        return $this->render('pspiessBlogBundle:Main:feedback_response.html.twig', array('entities' => null));
+    }
 }

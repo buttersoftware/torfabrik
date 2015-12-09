@@ -104,11 +104,13 @@ class CashingupController extends Controller {
         $entCachingup = new Cashingup();
         
         $arrPayofficeposBar = $em->getRepository('pspiessLetsplayBundle:Payofficepos')->GetOnePayofficeposByDate();
+        $entCachingup->setNominal(0);
         foreach ($arrPayofficeposBar as $row) {
             $entCachingup->setNominal($row['total']);
         }
         
         $arrPayofficeposEc = $em->getRepository('pspiessLetsplayBundle:Payofficepos')->GetOnePayofficeposByDate('EC Karte');
+        $entCachingup->setNominalec(0);
         foreach ($arrPayofficeposEc as $row) {
             $entCachingup->setNominalec($row['total']);
         }
@@ -137,11 +139,8 @@ class CashingupController extends Controller {
             throw $this->createNotFoundException('Unable to find Cashingup entity.');
         }
 
-//        $deleteForm = $this->createDeleteForm($id);
-
         return array(
             'entity' => $entity,
-//            'delete_form' => $deleteForm->createView(),
         );
     }
 

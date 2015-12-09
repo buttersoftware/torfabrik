@@ -14,29 +14,30 @@ class CustomerRepository extends EntityRepository {
 
     /**
      * @param string search for
-     * 
+     *
      * @return array with Customer entities
-     * 
+     *
      */
     public function GetCustomerByName($sKeyword = '') {
         $query = $this->createQueryBuilder('c')
                 ->where($this->createQueryBuilder('c')->expr()->like('c.firstname', ':name'))
                 ->orWhere($this->createQueryBuilder('c')->expr()->like('c.name', ':name'))
                 ->setParameter('name', '%' . $sKeyword . '%')
+                ->setMaxResults(100)
                 ->getQuery();
 
         return $query->getResult();
     }
 
     /**
-     * 
+     *
      * @return int max customer number
      */
     public function getCustomerNumber() {
         $arrCustomer = $this->getEntityManager()
                 ->createQuery('SELECT MAX(c.customernr)  + 1 AS NEXTCUSTOMERNUMBER FROM pspiessLetsplayBundle:Customer c')
                 ->getResult();
-        
+
         if ($arrCustomer[0]['NEXTCUSTOMERNUMBER'] == null) {
             return 1;
         } else {

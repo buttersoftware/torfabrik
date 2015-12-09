@@ -32,7 +32,7 @@ class CustomerType extends AbstractType {
                 ->add('contactPerson', 'text', array('label' => 'Ansprechpartner', 'attr' => array('class' => ''),  'required' => false))
                 ->add('contactPersonPhone', 'text', array('label' => 'Telefon', 'attr' => array('class' => ''), 'required' => false))
                 ->add('note', 'text', array('label' => 'Bemerkung', 'attr' => array('class' => ''), 'required' => false))
-                ->add('discount', 'text', array('label' => 'Rabatt', 'attr' => array('class' => ''), 'required' => false))
+                ->add('discount', 'money', array('label' => 'Rabatt', 'attr' => array('class' => ''), 'required' => false))
                 ->add('birthday', 'date', array('years' => range(1950, 2005), 'empty_value' => array('year' => 'Jahr', 'month' => 'Monat', 'day' => 'Tag'), 
                     'label' => 'Geburtstag', 'attr' => array('class' => ''), 'required' => false))
                 ->add('sex', 'choice', array('label' => 'Geschlecht', 'attr' => array('class' => ''),
