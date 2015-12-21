@@ -1,0 +1,22 @@
+<div class="alert alert-danger">
+    <strong>Kunde hat nicht bezahlt</strong>
+</div>
+<table class="table table-striped table-bordered table-hover no-margin-bottom no-border-top" id="customer_history">
+    <thead>
+    <tr>
+        <th>Platznummer</th>
+        <th>Gespielt von</th>
+        <th>bis</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    {% for entity in entities %}
+        <tr class="{% if entity.invoiceid == null %} danger {% endif %}">
+            <td>{{  entity.field.fieldnr }}</td>
+            <td>{% if entity.start %}{{ entity.start|date('d.m.Y - H:i') }}{% endif %}</td>
+            <td>{% if entity.end %}{{ entity.end|date('d.m.Y - H:i') }}{% endif %}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

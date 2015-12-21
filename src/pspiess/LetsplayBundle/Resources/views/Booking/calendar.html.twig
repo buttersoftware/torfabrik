@@ -224,9 +224,17 @@ function showDialog(start, end, fieldid, sCalendar) {
         modal: true,
         title: "Reservierung hinzufügen",
         title_html: true,
-        width: 500,
-        minHeight: 500,
+        width: 700,
+        minHeight: 300,
         buttons: [
+            {
+                text: "Kunden Konto",
+                id: "account_customer",
+                "class": "btn btn-warning btn-xs",
+                click: function () {
+                    showCustomerAccount();
+                }
+            },
             {
                 text: "Kunde bearbeiten",
                 id: "edit_customer",
@@ -254,6 +262,7 @@ function showDialog(start, end, fieldid, sCalendar) {
     });
     $("#add_reservation").attr("disabled", "disabled");
     $("#edit_customer").attr("disabled", "disabled");
+    $("#account_customer").attr("disabled", "disabled");
 }
 
 function getReservation(id) {
@@ -268,9 +277,17 @@ function showChangeDialog(start, end, fieldid, calendar, id, customer_id) {
         modal: true,
         title: "Reservierung bearbeiten",
         title_html: true,
-        width: 500,
-        minHeight: 500,
+        width: 800,
+        minHeight: 300,
         buttons: [
+            {
+                text: "Kunden Konto",
+                id: "account_customer",
+                "class": "btn btn-warning btn-xs",
+                click: function () {
+                    showCustomerAccount();
+                }
+            },
             {
                 text: "Kunde bearbeiten",
                 id: "edit_customer",
@@ -381,6 +398,47 @@ function CheckSerialBooking(id, calendar, start, end) {
     });
 }
 
+function showCustomerAccount() {
+    $("#customer_loader").show();
+    $("#customer_account_table").html('');
+
+    $.ajax({
+        url: '{{ path('pspiess_letsplay_customer_history') }}',
+        data: {"id": $('#customer_id').val()},
+        type: "POST",
+        success: function (response) {
+            $('#customer_account_table').html(response);
+            $('#customer_history').dataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.10/i18n/German.json"
+                }
+            } );
+            $("#customer_loader").hide();
+        },
+        error: function (response) {
+            $('#customer_account_table').html(response.responseText);
+            $("#customer_loader").hide();
+        }
+    });
+
+    $("#customer_account").removeClass('hide').dialog({
+        modal: true,
+        title: "Kunden Konto",
+        title_html: true,
+        width: 1000,
+        minHeight: 700,
+        buttons: [
+            {
+                text: "schließen",
+                "class": "btn btn-primary btn-xs",
+                click: function () {
+                    $(this).dialog("close");
+                }
+            }
+        ]
+    });
+    $("#add_reservation").attr("disabled", "disabled");
+}
 function DeleteReservation(id, calendar, serail) {
     console.log(serail);
     $.ajax({

@@ -44,5 +44,4 @@ class CustomerRepository extends EntityRepository {
             return $arrCustomer[0]['NEXTCUSTOMERNUMBER'];
         }
     }
-
 }

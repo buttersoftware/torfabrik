@@ -15,41 +15,45 @@
                 </div>
                 <div class="widget-body">
                     <div class="widget-main">
-                        {{ form_start(form, {attr: {class: 'form-horizontal'}}) }}
+                        {{ form_start(form, {attr: {class: 'form-horizontal' }}) }}
                         <div class="form-group">
-                            {{ form_label(form.daydate, null, {'label_attr': {'class': 'col-sm-2'}}) }}
+                            {{ form_label(form.daydate, null, {'label_attr': {'class': 'col-sm-2' }}) }}
                             <div class="col-sm-9">
-                                {{ form_widget    (form.daydate) }} 
+                                {{ form_widget    (form.daydate) }}
                             </div>
                         </div>
                         <div class="form-group">
-                            {{ form_label(form.nominal, null, {'label_attr': {'class': 'col-sm-2'}}) }}
-                            <div class="col-sm-2">
-                                {{ form_widget    (form.nominal) }} 
+                            {{ form_label(form.nominal, null, {'label_attr': {'class': 'col-sm-2' }}) }}
+                            <div class="col-sm-3">
+                                {{ form_widget    (form.nominal) }}
                             </div>
                             <div class="form-group">
-                                {{ form_label(form.actual, null, {'label_attr': {'class': 'col-sm-2'}}) }}
-                                <div class="col-sm-2">
+                                {{ form_label(form.actual, null, {'label_attr': {'class': 'col-sm-2' }}) }}
+                                <div class="col-sm-3">
                                     {{ form_widget (form.actual) }}
                                 </div>
-                            </div> <!-- /nested form-group acting like row -->
-                        </div><!-- /form-group -->
+                            </div>
+                            <!-- /nested form-group acting like row -->
+                        </div>
+                        <!-- /form-group -->
                         <div class="form-group">
-                            {{ form_label(form.nominalec, null, {'label_attr': {'class': 'col-sm-2'}}) }}
-                            <div class="col-sm-2">
-                                {{ form_widget    (form.nominalec) }} 
+                            {{ form_label(form.nominalec, null, {'label_attr': {'class': 'col-sm-2' }}) }}
+                            <div class="col-sm-3">
+                                {{ form_widget    (form.nominalec) }}
                             </div>
                             <div class="form-group">
-                                {{ form_label(form.actualec, null, {'label_attr': {'class': 'col-sm-2'}}) }}
-                                <div class="col-sm-2">
+                                {{ form_label(form.actualec, null, {'label_attr': {'class': 'col-sm-2' }}) }}
+                                <div class="col-sm-3">
                                     {{ form_widget (form.actualec) }}
                                 </div>
-                            </div> <!-- /nested form-group acting like row -->
-                        </div><!-- /form-group -->
+                            </div>
+                            <!-- /nested form-group acting like row -->
+                        </div>
+                        <!-- /form-group -->
                         <div class="form-group">
-                            {{ form_label(form.note, null, {'label_attr': {'class': 'col-sm-2'}}) }}
+                            {{ form_label(form.note, null, {'label_attr': {'class': 'col-sm-2' }}) }}
                             <div class="col-sm-9">
-                                {{ form_widget    (form.note) }} 
+                                {{ form_widget    (form.note) }}
                             </div>
                         </div>
                         <div class="hr hr-24"></div>
@@ -65,7 +69,35 @@
                         </div>
                     </div>
                 </div>
-            </div><!-- /.span -->
-        </div><!-- /.row -->    
+            </div>
+            <!-- /.span -->
+        </div>
+        <!-- /.row -->
     </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-noty/2.3.7/packaged/jquery.noty.packaged.min.js"></script>
+    <script type="text/javascript">
+        $("#pspiess_letsplaybundle_cashingup_submit").click(function () {
+            if ($('#pspiess_letsplaybundle_cashingup_nominal').val() != $('#pspiess_letsplaybundle_cashingup_actual').val()) {
+                noty({
+                    text: 'Achtung der Bar Betrag stimmt nicht überein!',
+                    type: 'error',
+                    layout: 'center',
+                    timeout: 10000
+                });
+                return false;
+            }
+            if ($('#pspiess_letsplaybundle_cashingup_nominalec').val() != $('#pspiess_letsplaybundle_cashingup_actualec').val()) {
+                noty({
+                    text: 'Achtung der EC Betrag stimmt nicht überein!',
+                    type: 'error',
+                    layout: 'center',
+                    timeout: 10000
+                });
+                return false;
+            }
+        });
+    </script>
 {% endblock %}

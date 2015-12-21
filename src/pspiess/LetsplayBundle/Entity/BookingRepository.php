@@ -3,6 +3,7 @@
 namespace pspiess\LetsplayBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
  * BookingRepository
@@ -68,6 +69,42 @@ class BookingRepository extends EntityRepository {
             ->getQuery();
 
         return $query->getResult();
+    }
+
+
+    /**
+     * Find outstanding bookings
+     * @param $iCustomer
+     * @return array
+     */
+    public function getBookingOutstanding($iCustomer) {
+        $dStart = new \DateTime();
+
+        return $this->createQueryBuilder('b')
+            ->select('count(b.id)')
+            ->andWhere('b.customer = :customerid')
+            ->andWhere('b.start <= :startdate')
+            ->andWhere('b.InvoiceId is NULL')
+            ->setParameter('customerid', $iCustomer)
+            ->setParameter('startdate', $dStart)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    /**
+     * get booking history of given customer
+     * @param $iCustomer
+     * @return array
+     */
+    public function getBookingCustomer($iCustomer) {
+        return $this->createQueryBuilder('b')
+            ->innerJoin('pspiessLetsplayBundle:Customer', 'c', 'WITH', 'c.id = b.customer')
+            ->innerJoin('pspiessLetsplayBundle:Field', 'f', 'WITH', 'f.id = b.field')
+            //->leftJoin('pspiessLetsplayBundle:Invoice', 'i', 'WITH', 'i.id = b.invoiceid')
+            ->andWhere('b.customer = :customerid')
+            ->setParameter('customerid', $iCustomer)
+            ->getQuery()
+            ->getResult();
     }
 
 }

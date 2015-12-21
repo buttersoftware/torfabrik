@@ -10,6 +10,8 @@
     <link href="{{ asset('resources/css/jquery-ui.custom.min.css') }}" rel="stylesheet">
     <link href="{{ asset('resources/css/datepicker.css') }}" rel="stylesheet">
     <link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.4.0/fullcalendar.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.10.10/css/dataTables.bootstrap.min.css" rel="stylesheet">
+
     {#<link href="{{ asset('resources/css/fullcalendar.css') }}" rel="stylesheet">#}
 {% endblock %}
 
@@ -57,7 +59,7 @@
 
                 <div class="space"></div>
                 <div id="load1" style="position:fixed; z-index: 2000; padding-top: 10%; padding-left: 10%;"
-                     class="ajax-loading-overlay">
+                                           class="ajax-loading-overlay">
                     <i class="ajax-loading-icon fa fa-spin fa-spinner fa-5x orange"></i>
                 </div>
                 <div id="calendar1" class="calendar" style="height: 500px"></div>
@@ -102,10 +104,9 @@
     <div id="dialog-message" class="hide">
         <form>
             <div class="col-md-12">
+                <label for="customer">Kunde</label>
                 <div class="form-group">
-                    <label for="customer">Kunde</label>
-                    <input id="customer" class="title input-xxlarge" type="text" class="form-control"
-                           autocomplete="On"/>
+                    <input id="customer" class="title form-control" type="text" class="form-control" autocomplete="On"/>
                     <input type="hidden" name="customer_id" id="customer_id"/>
                 </div>
             </div>
@@ -136,6 +137,12 @@
                 </div>
             </div>
         </form>
+    </div>
+    <div id="customer_account" class="hide">
+        <div id="customer_loader" style="position:fixed; z-index: 2000; padding-top: 15%; padding-left: 25%;" class="ajax-loading-overlay">
+            <i class="ajax-loading-icon fa fa-spin fa-spinner fa-5x orange"></i>
+        </div>
+        <div id="customer_account_table"></div>
     </div>
     {% include "pspiessLetsplayBundle:Customer:newprompt.html.twig" %}
 {% endblock %}
@@ -168,9 +175,13 @@
     <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
     <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-noty/2.3.7/packaged/jquery.noty.packaged.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.10/js/dataTables.bootstrap.min.js"></script>
+    <script type="text/javascript" src="//cdn.datatables.net/plug-ins/1.10.10/i18n/German.json"></script>
 
     {{ include('pspiessLetsplayBundle:Booking:calendar.html.twig') }}
     <script type="text/javascript">
+
     jQuery(function ($) {
         //DateTime
         $('.date-picker').datepicker({
@@ -180,9 +191,10 @@
             todayHighlight: true,
             todayBtn: 'linked',
             weekStart: 1
-        }).on('changeDate', function(e) {
+        }).on('changeDate', function (e) {
             var d = new Date($.now());
-            var arrDate = new Array();;
+            var arrDate = new Array();
+            ;
             arrDate[0] = d.getDate();
             arrDate[1] = d.getMonth() + 1;
             arrDate[2] = d.getFullYear();
@@ -234,7 +246,6 @@
                             mapping[data[i].label] = data[i].value;
                         }
                         response(arrSource);
-                        //response(arrSource.slice(0, 10));
                     },
                     error: function (data) {
                         console.log(keyword + 'error');
@@ -246,15 +257,19 @@
                 $('#customer_id').val(mapping[ui.item.value]);
                 $("#add_reservation").removeAttr("disabled");
                 $("#edit_customer").removeAttr("disabled");
+                $("#account_customer").removeAttr("disabled");
+                checkOutstandingBooking();
             },
             change: function (event, ui) {
                 if (!ui.item) {
                     $("#add_reservation").attr("disabled", "disabled");
                     $("#edit_customer").attr("disabled", "disabled");
+                    $("#account_customer").attr("disabled", "disabled");
                     $(this).val('');
                 } else {
                     $("#add_reservation").removeAttr("disabled");
                     $("#edit_customer").removeAttr("disabled");
+                    $("#account_customer").removeAttr("disabled");
                 }
             },
             minLength: 3
@@ -334,7 +349,6 @@
                 showChangeDialog(calEvent.start.format("YYYY-MM-DD HH:mm:ss"), calEvent.end.format("YYYY-MM-DD HH:mm:ss"), 30, calendar, calEvent.id, calEvent.customer_id);
             }
         });
-
         var calendar1 = $('#calendar2').fullCalendar({
             defaultView: 'agendaDay',
             lang: 'de',
@@ -409,7 +423,6 @@
                 showChangeDialog(calEvent.start.format("YYYY-MM-DD HH:mm:ss"), calEvent.end.format("YYYY-MM-DD HH:mm:ss"), 31, calendar1, calEvent.id, calEvent.customer_id);
             }
         });
-
         var calendar2 = $('#calendar3').fullCalendar({
             defaultView: 'agendaDay',
             lang: 'de',
@@ -559,6 +572,32 @@
                 showChangeDialog(calEvent.start.format("YYYY-MM-DD HH:mm:ss"), calEvent.end.format("YYYY-MM-DD HH:mm:ss"), 29, calendar3, calEvent.id, calEvent.customer_id);
             }
         });
+
+        function checkOutstandingBooking() {
+            $.ajax({
+                url: Routing.generate('pspiess_letsplay_customer_check_paid', {id: $('#customer_id').val()}),
+                type: 'POST',
+                success: function (count) {
+                    if (count > 0) {
+                        noty({
+                            text: 'Achtung der Kunde hat noch ' + count + ' offene Rechnungen!',
+                            type: 'error',
+                            layout: 'center',
+                            timeout: 10000
+                        });
+                    }
+                },
+                error: function (data) {
+                    noty({
+                        text: 'Es ist ein Fehler aufgetreten',
+                        type: 'error',
+                        layout: 'center',
+                        timeout: 5000
+                    });
+                }
+
+            });
+        }
     })
     </script>
 {% endblock %}

@@ -435,4 +435,34 @@ class CustomerController extends Controller
         $response->headers->set('Content-Type', 'application/json');
         return $response;
     }
+
+    /**
+     * check if customer had open position
+     */
+    public function checkCustomerPaidAction($id)
+    {
+        $iCountBooking = 0;
+        if ($id != '') {
+            $iCountBooking = $this->getDoctrine()->getRepository('pspiessLetsplayBundle:Booking')->getBookingOutstanding($id);
+        }
+
+        $serializedEntity = $this->container->get('serializer')->serialize($iCountBooking, 'json');
+        $response = new Response($serializedEntity);
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+    }
+
+    /**
+     * get and render customer history
+     *
+     * @param Request $request
+     * @return Response
+     */
+    public function getCustomerHistoryAction(Request $request)
+    {
+        $data = $request->request->all();
+        $entities = $this->getDoctrine()->getRepository('pspiessLetsplayBundle:Booking')->getBookingCustomer($data['id']);
+
+        return $this->render('pspiessLetsplayBundle:Customer:history.html.twig', array('entities' => $entities));
+    }
 }

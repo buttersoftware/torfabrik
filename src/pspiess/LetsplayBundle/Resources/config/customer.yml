@@ -26,6 +26,18 @@ pspiess_letsplay_customer_get:
     options:
         expose: true
 
+pspiess_letsplay_customer_check_paid:
+    pattern:  /admin/customer/paid/{id}
+    defaults: { _controller: pspiessLetsplayBundle:Customer:checkCustomerPaid, _format: json }
+    options:
+        expose: true
+
+pspiess_letsplay_customer_history:
+    pattern:  /admin/customer/history/
+    defaults: { _controller: pspiessLetsplayBundle:Customer:getCustomerHistory }
+    options:
+        expose: true
+
 pspiess_letsplay_customer_getbyid:
     pattern:  /admin/customer/getcustomer/{id}
     defaults: { _controller: pspiessLetsplayBundle:Customer:getCustomerbyId, _format: json }
